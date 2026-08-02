@@ -3,6 +3,7 @@ import { createBrowserRouter , RouterProvider } from "react-router-dom"
 import AppLayout from "./layout/appLayout"
 import Home from "./pages/home"
 import MoviesDetails from "./pages/movieDetails"
+import ShowDetails from "./pages/showDetails"
 
 
 
@@ -18,6 +19,11 @@ const Router = createBrowserRouter ([
       {
         path : '/movies' ,
         element : <MoviesDetails/>,
+      },
+
+      {
+        path : '/shows',
+        element : <ShowDetails/>
       }
     ]
   }

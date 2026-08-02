@@ -31,7 +31,7 @@
   color: var(--text-primary);
 }
 
-.footer-brand .accent { color: var(--accent-gold); }
+.footer-brand .accent { color: var(--accent-glow); }
 
 .footer-brand p {
   color: var(--text-secondary);
@@ -68,7 +68,7 @@
 }
 
 .footer-col a:hover {
-  color: var(--accent-gold);
+  color: var(--accent-glow);
   opacity: 1;
 }
 
@@ -79,6 +79,25 @@
   font-size: 0.8rem;
   color: var(--text-secondary);
   font-family: var(--font-mono);
+}
+
+.made-with {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.8rem;
+  color: var(--text-secondary, #9C9A96);
+}
+
+.heart-icon {
+  color: var(--accent-red, #C1443C);
+  animation: heartbeat 1.6s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
 }
 
 @media (max-width: 640px) {

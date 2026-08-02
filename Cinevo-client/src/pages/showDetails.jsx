@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react"
-import { getToprated, getPopular , getUpcoming } from "../services/apiClient"
+import { useEffect , useState } from "react"
+import { getTopratedShows, getPopularShows , getCurrentShows } from "../services/apiClient"
 import { PosterSlider } from '../components/posterSlider';
-import './MoviesDetails.css';
 
-const MovieDetails = () => {
+const ShowDetails = () => {
     const [toprated, setToprated] = useState([]);
     const [popular, setPopular] = useState([]);
     const [upcoming, setUpcoming] = useState([]);
@@ -11,9 +10,9 @@ const MovieDetails = () => {
 
     useEffect(() => {
         async function getApiResponse() {
-            const response = await getToprated();
-            const popularresponse = await getPopular();
-            const upcomingresponse = await getUpcoming();
+            const response = await getTopratedShows();
+            const popularresponse = await getPopularShows();
+            const upcomingresponse = await getCurrentShows();
 
             setToprated(response.results);
             setPopular(popularresponse.results);
@@ -24,7 +23,7 @@ const MovieDetails = () => {
     }, []);
 
     if (loading) {
-        return <div className="loading-state">Loading movies…</div>
+        return <div className="loading-state">Loading shows.....</div>
     }
 
     return (
@@ -36,4 +35,4 @@ const MovieDetails = () => {
     )
 }
 
-export default MovieDetails;
+export default ShowDetails;

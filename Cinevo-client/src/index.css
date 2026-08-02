@@ -1,12 +1,11 @@
-/* variables.css — import this once in your main entry (e.g. index.css or App.jsx) */
 :root {
   --bg: #14151A;
   --surface: #1D1F27;
   --surface-2: #22242E;
   --text-primary: #F2EEE6;
   --text-secondary: #9C9A96;
-  --accent-gold: #E8A33D;
-  --accent-gold-soft: rgba(232, 163, 61, 0.15);
+  --accent-glow: #9ef0ff;
+  --accent-glow-soft: rgba(158, 240, 255, 0.15);
   --accent-red: #C1443C;
   --border: rgba(242, 238, 230, 0.08);
 

@@ -1,5 +1,5 @@
 // Home.jsx
-import { getPopular } from '../services/apiClient';
+import { getTrending } from '../services/apiClient';
 import { useEffect, useState } from 'react';
 import './home.css';
 
@@ -10,7 +10,7 @@ const Home = () => {
   useEffect(() => {
     async function getData() {
       try {
-        const response = await getPopular();
+        const response = await getTrending();
         setPopularMovies(response.results);
       } finally {
         setLoading(false);
@@ -58,13 +58,12 @@ const Home = () => {
       </section>
 
       {/* POPULAR GRID */}
-      <section className="popular">
+      <section className="popular-section">
         <div className="section-header">
           <h2>Popular this week</h2>
           <p>What the community is watching right now</p>
         </div>
-
-        <div className="movie-grid">
+        <div className="movie-shelf">
           {loading &&
             Array.from({ length: 10 }).map((_, i) => (
               <div key={i} className="movie-card skeleton" />

@@ -24,6 +24,15 @@ const Header = () => {
           >
             Movies
           </NavLink>
+
+          <NavLink
+            to="/shows"
+            className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+          >
+            Shows
+          </NavLink>
+
+
           <NavLink
             to="/watchlist"
             className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}

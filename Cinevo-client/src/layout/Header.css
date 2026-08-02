@@ -26,7 +26,7 @@
   text-decoration: none;
 }
 
-.logo .accent { color: var(--accent-gold); }
+.logo .accent { color: var(--accent-glow); }
 
 .nav-links {
   display: flex;
@@ -56,7 +56,7 @@
   right: 0;
   bottom: -2px;
   height: 2px;
-  background: var(--accent-gold);
+  background: var(--accent-glow);
   border-radius: 2px;
 }
 
@@ -81,8 +81,8 @@
 }
 
 .icon-btn:hover {
-  border-color: var(--accent-gold);
-  color: var(--accent-gold);
+  border-color: var(--accent-glow);
+  color: var(--accent-glow);
 }
 
 .btn-signin {
@@ -91,7 +91,7 @@
   font-size: 0.88rem;
   padding: 8px 18px;
   border-radius: 7px;
-  background: var(--accent-gold);
+  background: var(--accent-glow);
   color: #1A1408;
   border: none;
   cursor: pointer;
