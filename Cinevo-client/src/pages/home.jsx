@@ -1,6 +1,7 @@
 // Home.jsx
 import { getTrending } from '../services/apiClient';
 import { useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom';
 import './home.css';
 
 const Home = () => {
@@ -18,6 +19,8 @@ const Home = () => {
     }
     getData();
   }, []);
+
+
 
   // Use a handful of posters to build the hero mosaic backdrop
   const heroPosters = popularMovies.slice(0, 8);
@@ -49,8 +52,7 @@ const Home = () => {
             and ask real people whether a movie is actually worth your time.
           </p>
           <div className="hero-actions">
-            <button className="btn btn-primary">Start your watchlist</button>
-            <button className="btn btn-ghost">Browse popular films</button>
+            <NavLink to="/movies" className="btn btn-primary" >Start your watchlist</NavLink>
           </div>
         </div>
 

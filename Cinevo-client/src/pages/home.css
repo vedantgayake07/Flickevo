@@ -107,15 +107,9 @@ body {
 }
 .btn:hover { transform: translateY(-1px); }
 
-.btn-primary { background: var(--accent-glow, #9ef0ff); color: #0A2A30; }
+.btn-primary { background: var(--accent-glow, #9ef0ff); color: #0A2A30; text-decoration: none; }
 .btn-primary:hover { box-shadow: 0 8px 24px rgba(158,240,255,0.28); }
 
-.btn-ghost {
-  background: transparent;
-  color: var(--text-primary, #F2EEE6);
-  border-color: var(--border, rgba(242,238,230,0.08));
-}
-.btn-ghost:hover { border-color: var(--accent-glow, #9ef0ff); color: var(--accent-glow, #9ef0ff); }
 
 .sprocket-strip {
   position: absolute;

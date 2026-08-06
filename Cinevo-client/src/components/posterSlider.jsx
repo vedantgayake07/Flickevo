@@ -2,7 +2,7 @@
 import { useRef } from 'react';
 import './PosterSlider.css';
 
-export const PosterSlider = ({ title, movies }) => {
+export const PosterSlider = ({ title, movies , handleSuggestion}) => {
   const trackRef = useRef(null);
 
   const scroll = (direction) => {
@@ -30,7 +30,7 @@ export const PosterSlider = ({ title, movies }) => {
 
         <div className="slider-track" ref={trackRef}>
           {movies.map((movie) => (
-            <div key={movie.id} className="poster-card">
+            <div key={movie.id} className="poster-card" onClick={() => handleSuggestion(movie.id)}>
               <img
                 src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                 alt={movie.title}

@@ -1,5 +1,8 @@
+import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from "react"
-import { getToprated, getPopular , getUpcoming } from "../services/apiClient"
+import { useParams } from "react-router-dom";
+import { MovieCard } from '../components/MovieCard'
+import { getToprated, getPopular, getUpcoming, searchById } from "../services/apiClient"
 import { PosterSlider } from '../components/posterSlider';
 import './MoviesDetails.css';
 
@@ -8,20 +11,49 @@ const MovieDetails = () => {
     const [popular, setPopular] = useState([]);
     const [upcoming, setUpcoming] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [searchedmovie, setSearchedMovie] = useState({});
+    const { id } = useParams();
+
+    const navigate = useNavigate();
+
+    const handleSuggestion = async (id) => {
+        navigate(`/movies/${id}`);
+    }
 
     useEffect(() => {
-        async function getApiResponse() {
-            const response = await getToprated();
-            const popularresponse = await getPopular();
-            const upcomingresponse = await getUpcoming();
 
-            setToprated(response.results);
-            setPopular(popularresponse.results);
-            setUpcoming(upcomingresponse.results);
+        if (!id) return;
+
+        async function getMovie() {
+            const movie = await searchById(id);
+
+            if (movie) {
+                setSearchedMovie(movie.data);
+            }
+        }
+
+        getMovie();
+
+    }, [id]);
+
+    useEffect(() => {
+        async function getLists() {
+            const [top, pop, up] = await Promise.all([
+                getToprated(),
+                getPopular(),
+                getUpcoming(),
+            ]);
+
+            setToprated(top.results);
+            setPopular(pop.results);
+            setUpcoming(up.results);
+
             setLoading(false);
         }
-        getApiResponse();
+
+        getLists();
     }, []);
+
 
     if (loading) {
         return <div className="loading-state">Loading movies…</div>
@@ -29,9 +61,12 @@ const MovieDetails = () => {
 
     return (
         <div className="details-page">
-            <PosterSlider title="Popular content" movies={popular} />
-            <PosterSlider title="Top rated content" movies={toprated} />
-            <PosterSlider title="Explore" movies={upcoming} />
+            {searchedmovie.id && (
+                <MovieCard movie={searchedmovie} />
+            )}
+            <PosterSlider title="Popular content" movies={popular} handleSuggestion={handleSuggestion} />
+            <PosterSlider title="Top rated content" movies={toprated} handleSuggestion={handleSuggestion} />
+            <PosterSlider title="Explore" movies={upcoming} handleSuggestion={handleSuggestion} />
         </div>
     )
 }

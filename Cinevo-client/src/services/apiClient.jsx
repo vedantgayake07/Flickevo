@@ -9,7 +9,7 @@ const fetchApi = async (endpoint)=>
   try
   {
     const response = await axios.get(
-      `${api}/${endpoint}`,
+      `${api}${endpoint}`,
       {
         headers: {
           Authorization: header,
@@ -27,17 +27,17 @@ const fetchApi = async (endpoint)=>
 
 
 export const getTrending = async () => {
-    const response = await fetchApi("/movie/upcoming?language=en-IN&region=IN");
+    const response = await fetchApi("/trending/all/day");
     return response.data;
 };
 
 export const getToprated = async () => {
-    const response = await fetchApi("/movie/now_playing?language=en-IN&region=IN");
+    const response = await fetchApi("/movie/top_rated?language=en-IN&region=IN");
     return response.data;
 };
 
 export const getPopular = async () => {
-    const response = await fetchApi("/movie/top_rated?language=en-IN&region=IN");
+    const response = await fetchApi("/movie/now_playing?language=en-IN&region=IN");
     return response.data;
 };
 
@@ -66,7 +66,25 @@ export const getTopratedShows = async () => {
 
 export const getPopularShows = async () => {
     const response = await fetchApi(
-      "/discover/tv?language=en-IN&with_origin_country=IN&sort_by=popularity.asc"
+      "/tv/popular?language=en-IN&with_origin_country=IN&"
     );
     return response.data;
 };
+
+export const searchMovie = async (movie)=>
+{
+  const response = await fetchApi( `/search/movie?query=${movie}`)
+  return response; 
+}
+
+export const searchById = async (id)=>
+{
+  const response = await fetchApi( `/movie/${id}`)
+  return response; 
+}
+
+export const searchShowById = async (id)=>
+{
+  const response = await fetchApi( `/tv/${id}`)
+  return response; 
+}
