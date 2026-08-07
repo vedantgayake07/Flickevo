@@ -2,11 +2,20 @@
 import { getTrending } from '../services/apiClient';
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
+import getDetailsPath from '../helpers/getDetailsPath'
 import './home.css';
 
 const Home = () => {
   const [popularMovies, setPopularMovies] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const navigate = useNavigate();
+  const handleOnClick = (movie)=>
+  {
+    navigate(getDetailsPath(movie));
+    
+  }
 
   useEffect(() => {
     async function getData() {
@@ -73,7 +82,7 @@ const Home = () => {
 
           {!loading &&
             popularMovies.map((movie) => (
-              <div key={movie.id} className="movie-card">
+              <div key={movie.id} className="movie-card" onClick={()=>{handleOnClick(movie)}}>
                 <img
                   src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                   alt={movie.title}

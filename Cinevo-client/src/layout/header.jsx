@@ -40,6 +40,7 @@ const Header = () => {
 
   const handleSuggestion = async (movie) => {
     navigate(getDetailsPath(movie));
+    
     setsearch("")
   }
 
