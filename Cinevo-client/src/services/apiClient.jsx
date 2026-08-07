@@ -71,11 +71,9 @@ export const getPopularShows = async () => {
     return response.data;
 };
 
-export const searchMovie = async (movie)=>
-{
-  const response = await fetchApi( `/search/movie?query=${movie}`)
-  return response; 
-}
+export const searchMovie = async (query) => {
+  return await fetchApi(`/search/multi?query=${query}`);
+};
 
 export const searchById = async (id)=>
 {
@@ -86,5 +84,6 @@ export const searchById = async (id)=>
 export const searchShowById = async (id)=>
 {
   const response = await fetchApi( `/tv/${id}`)
+  console.log(response.data)
   return response; 
 }

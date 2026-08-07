@@ -4,6 +4,7 @@ import AppLayout from "./layout/appLayout"
 import Home from "./pages/home"
 import MoviesDetails from "./pages/movieDetails"
 import ShowDetails from "./pages/showDetails"
+import Watchlist from './pages/watchList'
 
 
 
@@ -34,6 +35,11 @@ const Router = createBrowserRouter ([
       {
         path : '/shows/:id',
         element : <ShowDetails/>
+      },
+
+      {
+        path : '/watchlist',
+        element : <Watchlist/>
       }
     ]
   }

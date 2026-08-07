@@ -1,8 +1,9 @@
 /* eslint-disable react-hooks/set-state-in-effect */
-// Header.jsx
+
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react'
 import { searchMovie } from '../services/apiClient'
+import getDetailsPath from '../helpers/getDetailsPath';
 import './Header.css';
 
 
@@ -37,8 +38,8 @@ const Header = () => {
     searchmovie();
   }, [search]);
 
-  const handleSuggestion = async (id) => {
-    navigate(`/movies/${id}`);
+  const handleSuggestion = async (movie) => {
+    navigate(getDetailsPath(movie));
     setsearch("")
   }
 
@@ -92,7 +93,7 @@ const Header = () => {
             {searchoptions.length > 0 && (
               <div className="search-suggestions">
                 {searchoptions.map((movie) => (
-                  <div key={movie.id} className="suggestion" onClick={() => handleSuggestion(movie.id)}>
+                  <div key={movie.id} className="suggestion" onClick={() => handleSuggestion(movie)}>
                     <img
                       src={
                         movie.poster_path

@@ -1,7 +1,7 @@
 import { useEffect , useState } from "react"
 import { useNavigate } from 'react-router-dom';
 import { useParams } from "react-router-dom";
-import {MovieCard} from '../components/MovieCard'
+import {ShowCard} from '../components/showCard'
 import { getTopratedShows, getPopularShows , getCurrentShows , searchShowById } from "../services/apiClient"
 import { PosterSlider } from '../components/posterSlider';
 
@@ -59,7 +59,7 @@ const ShowDetails = () => {
     return (
         <div className="details-page">
              {searchedmovie.id && (
-                <MovieCard movie={searchedmovie} />
+                <ShowCard show={searchedmovie} />
             )}
 
             <PosterSlider title="Top rated content" movies={toprated} handleSuggestion={handleSuggestion}/>
