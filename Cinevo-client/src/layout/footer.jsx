@@ -8,7 +8,7 @@ const Footer = () => {
       <div className="footer-sprocket" aria-hidden="true" />
       <div className="footer-inner">
         <div className="footer-brand">
-          <span className="logo">Cin<span className="accent">evo</span></span>
+          <span className="logo">Flick<span className="accent">evo</span></span>
           <p>Find out what's worth watching, together.</p>
           <span className="made-with">
             Made with{' '}
@@ -43,7 +43,7 @@ const Footer = () => {
       </div>
 
       <div className="footer-bottom">
-        <span>© {new Date().getFullYear()} Cinevo. Built for movie people.</span>
+        <span>© {new Date().getFullYear()} Flickevo. Built for movie people.</span>
       </div>
     </footer>
   );

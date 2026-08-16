@@ -49,7 +49,7 @@ const Header = () => {
     <header className="site-header">
       <div className="header-inner">
         <NavLink to="/" className="logo">
-          Cin<span className="accent">evo</span>
+          Flick<span className="accent">evo</span>
         </NavLink>
 
         <nav className="nav-links">
