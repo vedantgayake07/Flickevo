@@ -66,7 +66,7 @@ export const getTopratedShows = async () => {
 
 export const getPopularShows = async () => {
     const response = await fetchApi(
-      "/tv/popular?language=en-IN&with_origin_country=IN&"
+      "/tv/popular?language=en-IN&with_origin_country=IN"
     );
     return response.data;
 };

@@ -10,7 +10,7 @@ const ShowDetails = () => {
     const [popular, setPopular] = useState([]);
     const [upcoming, setUpcoming] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [searchedmovie, setSearchedMovie] = useState({});
+    const [searchedShow, setsearchedShow] = useState({});
     const { id } = useParams();
 
     const navigate = useNavigate();
@@ -37,15 +37,15 @@ const ShowDetails = () => {
 
         if (!id) return;
 
-        async function getMovie() {
+        async function getShow() {
             const show = await searchShowById(id);
 
             if (show) {
-                setSearchedMovie(show.data);
+                setsearchedShow(show.data);
             }
         }
 
-        getMovie();
+        getShow();
 
     }, [id]);
 
@@ -58,13 +58,13 @@ const ShowDetails = () => {
 
     return (
         <div className="details-page">
-             {searchedmovie.id && (
-                <ShowCard show={searchedmovie} />
+             {searchedShow.id && (
+                <ShowCard show={searchedShow} />
             )}
 
             <PosterSlider title="Top rated content" movies={toprated} handleSuggestion={handleSuggestion}/>
-            <PosterSlider title="Popular content" movies={popular} />
-            <PosterSlider title="Explore" movies={upcoming} />
+            <PosterSlider title="Popular content" movies={popular} handleSuggestion={handleSuggestion}/>
+            <PosterSlider title="Explore" movies={upcoming} handleSuggestion={handleSuggestion}/>
         </div>
     )
 }

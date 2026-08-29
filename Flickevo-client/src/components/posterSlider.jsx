@@ -2,7 +2,7 @@
 import { useRef } from 'react';
 import './PosterSlider.css';
 
-export const PosterSlider = ({ title, movies , handleSuggestion}) => {
+export const PosterSlider = ({ title, movies, handleSuggestion }) => {
   const trackRef = useRef(null);
 
   const scroll = (direction) => {
@@ -39,8 +39,10 @@ export const PosterSlider = ({ title, movies , handleSuggestion}) => {
               />
               <div className="poster-overlay">
                 <span className="poster-score">★ {movie.vote_average?.toFixed(1)}</span>
-                <h3 className="poster-title">{movie.title}</h3>
-                <span className="poster-year">{movie.release_date?.slice(0, 4)}</span>
+                <h3 className="poster-title">{movie.title || movie.name}</h3>
+                <span className="poster-year">
+                  {(movie.release_date || movie.first_air_date)?.slice(0, 4)}
+                </span>
               </div>
             </div>
           ))}
@@ -59,4 +61,4 @@ export const PosterSlider = ({ title, movies , handleSuggestion}) => {
       </div>
     </section>
   );
-};
+};  
