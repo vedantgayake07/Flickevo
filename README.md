@@ -80,8 +80,7 @@ src/
 │   ├── MovieCard.jsx         # Detailed movie hero layout
 │   ├── showCard.jsx          # Detailed TV show hero layout
 │   ├── posterSlider.jsx      # Multi-item horizontal carousel
-│   ├── scrollToTop.jsx       # Route change scroll reset utility
-│   └── topRated.jsx          # Media card element component
+│   └── scrollToTop.jsx       # Route change scroll reset utility
 ├── helpers/
 │   └── getDetailsPath.jsx    # Media route builder helper
 ├── layout/
