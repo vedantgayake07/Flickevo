@@ -75,15 +75,11 @@ export const searchMovie = async (query) => {
   return await fetchApi(`/search/multi?query=${query}`);
 };
 
-export const searchById = async (id)=>
-{
-  const response = await fetchApi( `/movie/${id}`)
-  return response; 
-}
+export const getContentById = async (id, type) => {
+  const response = await fetchApi(
+    `/${type}/${id}?append_to_response=credits,watch/providers,videos`
+  );
 
-export const searchShowById = async (id)=>
-{
-  const response = await fetchApi( `/tv/${id}`)
-  console.log(response.data)
-  return response; 
-}
+  return response?.data;
+};
+

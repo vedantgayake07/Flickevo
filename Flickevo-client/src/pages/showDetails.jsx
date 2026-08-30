@@ -1,17 +1,14 @@
-import { useEffect , useState } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate } from 'react-router-dom';
-import { useParams } from "react-router-dom";
-import {ShowCard} from '../components/showCard'
-import { getTopratedShows, getPopularShows , getCurrentShows , searchShowById } from "../services/apiClient"
-import { PosterSlider } from '../components/posterSlider';
+import { getTopratedShows, getPopularShows, getCurrentShows } from "../services/apiClient"
+import { PosterSlider } from '../components/PosterSlider';
+import { getMediaType } from '../helpers/mediaType'
 
 const ShowDetails = () => {
     const [toprated, setToprated] = useState([]);
     const [popular, setPopular] = useState([]);
     const [upcoming, setUpcoming] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [searchedShow, setsearchedShow] = useState({});
-    const { id } = useParams();
 
     const navigate = useNavigate();
 
@@ -29,27 +26,10 @@ const ShowDetails = () => {
         getApiResponse();
     }, []);
 
-      const handleSuggestion = async (id) => {
-        navigate(`/shows/${id}`);
-    }
-
-    useEffect(() => {
-
-        if (!id) return;
-
-        async function getShow() {
-            const show = await searchShowById(id);
-
-            if (show) {
-                setsearchedShow(show.data);
-            }
-        }
-
-        getShow();
-
-    }, [id]);
-
-    
+    const handleSuggestion = (movie) => {
+        const type = getMediaType(movie); // returns 'movie' or 'tv'
+        navigate(`/content/${movie.id}/${type}`);
+    };
 
 
     if (loading) {
@@ -58,13 +38,10 @@ const ShowDetails = () => {
 
     return (
         <div className="details-page">
-             {searchedShow.id && (
-                <ShowCard show={searchedShow} />
-            )}
 
-            <PosterSlider title="Top rated content" movies={toprated} handleSuggestion={handleSuggestion}/>
-            <PosterSlider title="Popular content" movies={popular} handleSuggestion={handleSuggestion}/>
-            <PosterSlider title="Explore" movies={upcoming} handleSuggestion={handleSuggestion}/>
+            <PosterSlider title="Top rated content" movies={toprated} handleSuggestion={handleSuggestion} />
+            <PosterSlider title="Popular content" movies={popular} handleSuggestion={handleSuggestion} />
+            <PosterSlider title="Explore" movies={upcoming} handleSuggestion={handleSuggestion} />
         </div>
     )
 }

@@ -1,9 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom";
-import { MovieCard } from '../components/MovieCard'
-import { getToprated, getPopular, getUpcoming, searchById } from "../services/apiClient"
-import { PosterSlider } from '../components/posterSlider';
+import { getToprated, getPopular, getUpcoming } from "../services/apiClient"
+import { PosterSlider } from '../components/PosterSlider';
+import { getMediaType } from '../helpers/mediaType'
 import './MoviesDetails.css';
 
 const MovieDetails = () => {
@@ -11,30 +10,14 @@ const MovieDetails = () => {
     const [popular, setPopular] = useState([]);
     const [upcoming, setUpcoming] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [searchedmovie, setSearchedMovie] = useState({});
-    const { id } = useParams();
 
     const navigate = useNavigate();
 
-    const handleSuggestion = async (id) => {
-        navigate(`/movies/${id}`);
-    }
+    const handleSuggestion = (movie) => {
+        const type = getMediaType(movie); // returns 'movie' or 'tv'
+        navigate(`/content/${movie.id}/${type}`);
+    };
 
-    useEffect(() => {
-
-        if (!id) return;
-
-        async function getMovie() {
-            const movie = await searchById(id);
-
-            if (movie) {
-                setSearchedMovie(movie.data);
-            }
-        }
-
-        getMovie();
-
-    }, [id]);
 
     useEffect(() => {
         async function getLists() {
@@ -61,9 +44,6 @@ const MovieDetails = () => {
 
     return (
         <div className="details-page">
-            {searchedmovie.id && (
-                <MovieCard movie={searchedmovie} />
-            )}
             <PosterSlider title="Popular content" movies={popular} handleSuggestion={handleSuggestion} />
             <PosterSlider title="Top rated content" movies={toprated} handleSuggestion={handleSuggestion} />
             <PosterSlider title="Explore" movies={upcoming} handleSuggestion={handleSuggestion} />

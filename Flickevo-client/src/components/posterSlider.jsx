@@ -30,7 +30,7 @@ export const PosterSlider = ({ title, movies, handleSuggestion }) => {
 
         <div className="slider-track" ref={trackRef}>
           {movies.map((movie) => (
-            <div key={movie.id} className="poster-card" onClick={() => handleSuggestion(movie.id)}>
+            <div key={movie.id} className="poster-card" onClick={() => {console.log(movie) ; handleSuggestion(movie)}}>
               <img
                 src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                 alt={movie.title}

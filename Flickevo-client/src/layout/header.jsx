@@ -1,9 +1,8 @@
 /* eslint-disable react-hooks/set-state-in-effect */
-
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react'
 import { searchMovie } from '../services/apiClient'
-import getDetailsPath from '../helpers/getDetailsPath';
+import { getMediaType } from '../helpers/mediaType'
 import './Header.css';
 
 
@@ -38,11 +37,12 @@ const Header = () => {
     searchmovie();
   }, [search]);
 
-  const handleSuggestion = async (movie) => {
-    navigate(getDetailsPath(movie));
-    
-    setsearch("")
-  }
+  const handleSuggestion = (movie) => {
+        const type = getMediaType(movie); // returns 'movie' or 'tv'
+        navigate(`/content/${movie.id}/${type}`);
+
+        setsearch("")
+    };
 
 
   return (

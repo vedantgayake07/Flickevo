@@ -3,7 +3,7 @@ import { getTrending } from '../services/apiClient';
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useNavigate} from 'react-router-dom';
-import getDetailsPath from '../helpers/getDetailsPath'
+import { getMediaType } from '../helpers/mediaType'
 import './home.css';
 
 const Home = () => {
@@ -11,11 +11,11 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
-  const handleOnClick = (movie)=>
-  {
-    navigate(getDetailsPath(movie));
-    
-  }
+
+  const handleOnClick = (movie) => {
+        const type = getMediaType(movie); // returns 'movie' or 'tv'
+        navigate(`/content/${movie.id}/${type}`);
+    };
 
   useEffect(() => {
     async function getData() {
