@@ -3,7 +3,7 @@ import AppLayout from "./layout/appLayout"
 import Home from "./pages/Home"
 import MoviesDetails from "./pages/MovieDetails"
 import ShowDetails from "./pages/ShowDetails"
-import WatchList from './pages/watchList'
+import WatchList from "./pages/WatchList";
 import ContentPage from "./pages/ContentPage"
 
 
