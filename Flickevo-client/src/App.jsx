@@ -1,10 +1,10 @@
 import { createBrowserRouter , RouterProvider } from "react-router-dom"
 import AppLayout from "./layout/appLayout"
 import Home from "./pages/Home"
-import MoviesDetails from "./pages/movieDetails"
+import MoviesDetails from "./pages/MovieDetails"
 import ShowDetails from "./pages/ShowDetails"
-import Watchlist from './pages/watchList'
-import {ContentPage} from "./pages/ContentPage"
+import WatchList from './pages/watchList'
+import ContentPage from "./pages/ContentPage"
 
 
 
@@ -34,7 +34,7 @@ const Router = createBrowserRouter ([
 
       {
         path : '/watchlist',
-        element : <Watchlist/>
+        element : <WatchList/>
       }
     ]
   }

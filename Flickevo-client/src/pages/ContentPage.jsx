@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { getContentById } from "../services/apiClient";
 import './ContentPage.css';
 
-export const ContentPage = () => {
+const ContentPage = () => {
   const [movie, setMovie] = useState(null);
   const [trailerOpen, setTrailerOpen] = useState(false);
   const { id, type } = useParams();
@@ -257,3 +257,5 @@ export const ContentPage = () => {
     </div>
   );
 };
+
+export default ContentPage;
