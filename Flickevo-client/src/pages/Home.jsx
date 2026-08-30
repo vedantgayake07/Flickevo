@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useNavigate} from 'react-router-dom';
 import { getMediaType } from '../helpers/mediaType'
-import './home.css';
+import './Home.css';
 
 const Home = () => {
   const [popularMovies, setPopularMovies] = useState([]);
