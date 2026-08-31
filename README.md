@@ -1,138 +1,226 @@
-# FlickEvo
+# 🎬 Flickevo
 
-**FlickEvo** is a modern, responsive web application for discovering movies and TV shows, powered by the TMDB (The Movie Database) API. Built with a dark-mode cinematic aesthetic, it allows users to explore trending content, view detailed statistics about movies and TV series, and discover top-rated media.
+> A modern movie and TV series discovery platform built with React and the TMDB API.
 
----
+Flickevo is a responsive movie and web-series discovery application that allows users to explore trending and popular content, search for movies and shows, and view detailed information about them.
 
-## Features Built So Far
-
-* **Dynamic Home & Hero Banner:**
-* Interactive mosaic hero background generated from real-time trending media posters.
-
-
-* Modern design layout highlighting featured titles and community-driven discovery.
-
-
-
-
-* **Comprehensive Movie & TV Show Discovery:**
-* Browse trending daily content, top-rated movies/shows, popular items, and upcoming releases.
-
-
-* Horizontal scrolling poster carousels (`PosterSlider`) with smooth navigation controls and subtle edge fades.
-
-
-
-
-* **Detailed Media Pages (`MovieDetails` & `ShowDetails`):**
-* **Movie Views:** Visual hero section featuring poster artwork, rating averages, vote counts, runtime, release date, revenue, budget, genres, and official website links.
-
-
-* **TV Show Views:** Specialized metadata section displaying season counts, episode metrics, original networks, creators, show status, and type.
-
-
-
-
-* **UX & Navigation Enhancements:**
-* Clean route switching managed via React Router DOM.
-
-
-* Automatic page scroll reset on route changes (`ScrollToTop`).
-
-
-* Reusable routing utility (`getDetailsPath`) for unified navigation across movies and TV series.
-
-
-
-
-* **Placeholder Watchlist Module:**
-* Initial scaffolding for a user watchlist page ready for upcoming state/backend integration.
-
-
-
-
+The project focuses on building a clean, responsive frontend while working with a real-world REST API.
 
 ---
 
-## Tech Stack
+## ✨ Features
 
-* **Frontend Framework:** React (Vite)
-
-
-* **Routing:** `react-router-dom`
-
-* **HTTP Client:** `axios`
-
-* **Styling:** Vanilla CSS with custom properties/variables, CSS Grid, Flexbox, and custom animations
-
-
-* **Data Source:** TMDB API (The Movie Database)
-
-
+* 🎥 Browse trending movies and TV shows
+* 🔥 Explore popular content
+* 🔎 Search for movies and web series
+* 📄 View detailed information about titles
+* 🖼️ Display movie/show posters and backdrops
+* 📱 Responsive UI for different screen sizes
+* ⚡ Fast development and build using Vite
+* 🧭 Client-side routing with React Router
+* 🌐 REST API integration using Axios
 
 ---
 
-## Project Structure
+## 🛠️ Tech Stack
+
+### Frontend
+
+* **React**
+* **Vite**
+* **JavaScript**
+* **HTML5**
+* **CSS3**
+
+### Libraries
+
+* **React Router** — Application routing
+* **Axios** — API requests
+* **React Icons / Font Awesome** — Icons
+
+### API
+
+* **TMDB API** — Movie and TV show data
+
+### Deployment
+
+* **Vercel**
+
+---
+
+## 📂 Project Structure
 
 ```text
-src/
-├── components/
-│   ├── MovieCard.jsx         # Detailed movie hero layout
-│   ├── showCard.jsx          # Detailed TV show hero layout
-│   ├── posterSlider.jsx      # Multi-item horizontal carousel
-│   └── scrollToTop.jsx       # Route change scroll reset utility
-├── helpers/
-│   └── getDetailsPath.jsx    # Media route builder helper
-├── layout/
-│   ├── appLayout.jsx         # Main layout wrapper (Header, Outlet, Footer)
-│   ├── header.jsx            # Application header navigation
-│   └── footer.jsx            # Application footer component
-├── pages/
-│   ├── home.jsx              # Landing page with hero mosaic & shelves
-│   ├── movieDetails.jsx      # Movie details container page
-│   ├── showDetails.jsx       # TV show details container page
-│   └── watchList.jsx         # Watchlist placeholder view
-└── services/
-    └── apiClient.jsx         # TMDB API service layer
-
+Flickevo-client/
+│
+├── public/
+│
+├── src/
+│   ├── components/
+│   │   └── Reusable UI components
+│   │
+│   ├── helpers/
+│   │   └── Utility/helper functions
+│   │
+│   ├── layout/
+│   │   └── Layout components
+│   │
+│   ├── pages/
+│   │   └── Application pages
+│   │
+│   ├── services/
+│   │   └── API and external service logic
+│   │
+│   ├── App.jsx
+│   ├── index.css
+│   └── main.jsx
+│
+├── .gitignore
+├── package.json
+├── vercel.json
+├── vite.config.js
+└── README.md
 ```
 
 ---
 
-## Setup & Installation
+## 🚀 Getting Started
 
-1. **Clone the repository:**
+### 1. Clone the repository
+
 ```bash
-git clone https://github.com/your-username/flickevo.git
-cd flickevo
-
+git clone https://github.com/vedantgayake07/Flickevo.git
 ```
 
+### 2. Navigate to the frontend
 
-2. **Install dependencies:**
+```bash
+cd Flickevo/Flickevo-client
+```
+
+### 3. Install dependencies
+
 ```bash
 npm install
-
 ```
 
+### 4. Configure environment variables
 
-3. **Configure Environment Variables:**
-Create a `.env` file in the root directory and add your TMDB credentials:
-
+Create a `.env` file inside the `Flickevo-client` directory:
 
 ```env
-VITE_TMDB_API=https://api.themoviedb.org/3
-VITE_HEADER=Bearer YOUR_TMDB_READ_ACCESS_TOKEN
-
+VITE_TMDB_API=your_tmdb_api_url
+VITE_HEADER=your_tmdb_bearer_token
 ```
 
+> **Important:** Never commit your `.env` file or expose private API credentials in the repository.
 
-4. **Run the development server:**
+### 5. Start the development server
+
 ```bash
 npm run dev
-
 ```
 
+The application will be available at the local development URL shown in your terminal.
+
+---
+
+## 🔑 Environment Variables
+
+| Variable        | Description                                       |
+| --------------- | ------------------------------------------------- |
+| `VITE_TMDB_API` | TMDB API base URL                                 |
+| `VITE_HEADER`   | Authorization header/token used for TMDB requests |
+
+For deployment, configure these variables through your hosting provider's environment-variable settings.
+
+---
+
+## 🔄 How It Works
+
+Flickevo follows a simple frontend architecture:
+
+```text
+User
+  ↓
+React UI
+  ↓
+React Router
+  ↓
+Page Components
+  ↓
+Reusable Components
+  ↓
+API Service Layer
+  ↓
+Axios
+  ↓
+TMDB API
+  ↓
+Movie / TV Data
+  ↓
+React UI
+```
+
+The API-related logic is kept inside the `services` directory instead of placing API calls directly throughout the UI components.
 
 
-* [ ] Implement user ratings and review submission forms.
+---
+
+## 🌐 Live Demo
+
+**Live Website:** https://flickevo.vercel.app/
+
+---
+
+## 🔮 Future Improvements
+
+Some features planned for future versions:
+
+* [ ] Advanced movie and TV filters
+* [ ] Genre-based browsing
+* [ ] Movie trailers
+* [ ] Cast and crew information
+* [ ] User authentication
+* [ ] Watchlist functionality
+* [ ] Favorites
+* [ ] User ratings and reviews
+* [ ] Personalized recommendations
+* [ ] Improved loading states and skeleton screens
+* [ ] Dark/light theme support
+
+---
+
+## 🧠 What I Learned
+
+Building Flickevo helped me practice:
+
+* React component architecture
+* React Hooks and state management
+* React Router
+* REST API integration
+* Axios
+* Working with external APIs
+* Environment variables
+* Responsive frontend development
+* Error handling and loading states
+* Deploying a React application with Vercel
+
+---
+
+## 👨‍💻 Author
+
+**Vedant Gayake**
+
+GitHub:
+https://github.com/vedantgayake07
+
+---
+
+## 📄 License
+
+This project is created for learning and portfolio purposes.
+
+Movie and TV show data is provided by **TMDB**.
+
+Flickevo is not affiliated with or endorsed by TMDB.
