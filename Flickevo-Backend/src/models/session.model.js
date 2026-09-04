@@ -19,12 +19,12 @@ const sessionSchema = new mongoose.Schema({
 
     userAgent : {
         type : String ,
-        required : [true , "user agent is required"]
+        required : [true , "user agent is required"] //browser  
     },
 
     revoked : {
         type : Boolean ,
-        default : false
+        default : false //if true the refresh token becomes invalid we cant use it again to create access token
     }
 } , {timestamps : true})
 
