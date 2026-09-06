@@ -11,7 +11,6 @@ async function authMiddleware(req, res, next) {
 
     try {
         const decoded = jwt.verify(accessToken, process.env.JWT_ACCESS_SECRET)
-        console.log("decoded" ,decoded)
 
         const { id, sessionId } = decoded;
 
