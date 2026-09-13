@@ -1,31 +1,28 @@
-const { Router } = require("express")
-const tmdbController = require("../controllers/tmdb.controller")
+const express = require("express")
 
-const router = Router()
+const router = express.Router()
 
-
-// Trending
-router.get("/trending", tmdbController.getTrending)
-
-
-// Movies
-router.get("/movies", tmdbController.getMovies)
-
-
-// TV Shows
-router.get("/tv", tmdbController.getShows)
+const {
+    getTrending,
+    getMovies,
+    getTvShows,
+    searchContent,
+    getContent,
+    getGenres
+} = require("../controllers/tmdb.controller")
 
 
-// Search
-router.get("/search", tmdbController.searchContent)
+router.get("/trending", getTrending)
 
+router.get("/movies", getMovies)
 
-// Movie / TV Details
-router.get("/:type/:id", tmdbController.getContentById)
+router.get("/tv", getTvShows)
 
+router.get("/search", searchContent)
 
-// Genres
-router.get("/genres/:type", tmdbController.getGenres)
+router.get("/genres/:type", getGenres)
+
+router.get("/:type/:id", getContent)
 
 
 module.exports = router

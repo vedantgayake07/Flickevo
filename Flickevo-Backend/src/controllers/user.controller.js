@@ -1,0 +1,97 @@
+const userModel = require("../models/user.model")
+
+
+async function getProfile(req, res) {
+
+    try {
+
+        const userId = req.user.id
+
+        const user =
+            await userModel
+                .findById(userId)
+                .select("-password")
+
+        if(!user) {
+
+            return res.status(404).json({
+                message: "user not found"
+            })
+        }
+
+        res.status(200).json({
+            user
+        })
+
+    } catch(error) {
+
+        res.status(500).json({
+            message: "failed to get profile"
+        })
+    }
+}
+
+
+async function updateProfile(req, res) {
+
+    try {
+
+        const userId = req.user.id
+
+        const {
+            username,
+            email,
+            profilePicture
+        } = req.body
+
+        const user =
+            await userModel.findById(userId)
+
+        if(!user) {
+
+            return res.status(404).json({
+                message: "user not found"
+            })
+        }
+
+        if(username) {
+            user.username = username
+        }
+
+        if(email) {
+            user.email = email
+        }
+
+        if(profilePicture !== undefined) {
+            user.profilePicture =
+                profilePicture
+        }
+
+        await user.save()
+
+        res.status(200).json({
+            message: "profile updated",
+            user
+        })
+
+    } catch(error) {
+
+        if(error.code === 11000) {
+
+            return res.status(409).json({
+                message:
+                    "username or email already exists"
+            })
+        }
+
+        res.status(500).json({
+            message: "failed to update profile"
+        })
+    }
+}
+
+
+module.exports = {
+    getProfile,
+    updateProfile
+}

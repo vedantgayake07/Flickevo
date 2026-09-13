@@ -1,29 +1,30 @@
 const express = require("express")
 const cors = require("cors")
+const cookieParser = require("cookie-parser")
+
 const authRoutes = require("./routers/auth.routes")
-const tmdbroutes = require("./routers/tmdb.routes")
+const tmdbRoutes = require("./routers/tmdb.routes")
 const watchlistRoutes = require("./routers/watchlist.routes")
 const discussionRoutes = require("./routers/discussion.routes")
-const commentRouter = require("./routers/comments.routes")
-const cookieparser = require("cookie-parser")
+const commentRoutes = require("./routers/comments.routes")
+const userRoutes = require("./routers/user.routes")
 
 const app = express()
 
 app.use(express.json())
-app.use(cookieparser())
 
-const corsOptions = {
+app.use(cors({
     origin: "http://localhost:5173",
-    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
-}
+}))
 
-app.use(cors(corsOptions))
+app.use(cookieParser())
 
 app.use("/api/auth", authRoutes)
-app.use("/api/tmdb" ,  tmdbroutes)
-app.use("/api/watchlist" , watchlistRoutes)
-app.use("/api/discussion" , discussionRoutes)
-app.use("/api/comment" , commentRouter)
+app.use("/api/tmdb", tmdbRoutes)
+app.use("/api/watchlist", watchlistRoutes)
+app.use("/api/discussions", discussionRoutes)
+app.use("/api/comments", commentRoutes)
+app.use("/api/users", userRoutes)
 
 module.exports = app

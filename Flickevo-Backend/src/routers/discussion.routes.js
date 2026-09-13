@@ -1,20 +1,59 @@
-const {Router} = require("express")
-const AuthMiddleware = require("../middlewares/auth.middleware")
-const DiscussionController = require("../controllers/discussion.controller")
-const CommentsController = require("../controllers/comments.controller")
+const express = require("express")
 
-const discussionRoutes = Router()
+const router = express.Router()
 
-discussionRoutes.post("/",AuthMiddleware.authMiddleware , DiscussionController.createDiscussion)
+const {
+    createDiscussion,
+    getDiscussions,
+    getDiscussion,
+    deleteDiscussion
+} = require("../controllers/discussion.controller")
 
-discussionRoutes.get("/" , DiscussionController.getAllDiscussion )
+const {
+    createComment,
+    getComments
+} = require("../controllers/comments.controller")
 
-discussionRoutes.get("/:id" , DiscussionController.getDiscussion )
-
-discussionRoutes.post("/:id/comment" , AuthMiddleware.authMiddleware , CommentsController.createComment)
-
-discussionRoutes.get("/:id/comments" , CommentsController.getAllComments)
+const {
+    authMiddleware
+} = require("../middlewares/auth.middleware")
 
 
+router.get(
+    "/",
+    getDiscussions
+)
 
-module.exports = discussionRoutes
+router.get(
+    "/:id",
+    getDiscussion
+)
+
+router.post(
+    "/",
+    authMiddleware,
+    createDiscussion
+)
+
+router.delete(
+    "/:id",
+    authMiddleware,
+    deleteDiscussion
+)
+
+
+// comments belonging to a discussion
+
+router.post(
+    "/:id/comments",
+    authMiddleware,
+    createComment
+)
+
+router.get(
+    "/:id/comments",
+    getComments
+)
+
+
+module.exports = router

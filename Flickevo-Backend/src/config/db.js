@@ -1,17 +1,17 @@
 const mongoose = require("mongoose")
+const dns = require("dns")
 
-require("dns").setServers(["0.0.0.0", "8.8.8.8"])
+dns.setServers(["8.8.8.8"])
 
-const connectDb = async () => {
+async function connectDB() {
     try {
         await mongoose.connect(process.env.MONGODB_URI)
 
-        console.log("Your Flickevo db is connected")
+        console.log("MongoDB connected")
     } catch (error) {
-        console.log("MongoDB connection failed:", error)
-
+        console.log("MongoDB connection failed", error)
         throw error
     }
 }
 
-module.exports = connectDb
+module.exports = connectDB

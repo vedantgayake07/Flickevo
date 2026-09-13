@@ -1,79 +1,154 @@
-const discussionModel = require("../models/discussion.model")
+const discussionModel =
+    require("../models/discussion.model")
 
-async function createDiscussion(req , res) {
-    const userId = req.user.id
 
-    const { mediaId , mediaType , title , content } = req.body
+async function createDiscussion(req, res) {
 
-    if(!mediaId || !mediaType || !title ||!content)
-    {
-        return res.status(400).json({
-            message : "mediaId , mediaType , title , content missing"
+    try {
+
+        const userId = req.user.id
+
+        const {
+            mediaId,
+            mediaType,
+            title,
+            content
+        } = req.body
+
+        if (
+            !mediaId ||
+            !mediaType ||
+            !title ||
+            !content
+        ) {
+
+            return res.status(400).json({
+                message:
+                    "mediaId, mediaType, title and content are required"
+            })
+        }
+
+        const discussion =
+            await discussionModel.create({
+                author: userId,
+                mediaId,
+                mediaType,
+                title,
+                content
+            })
+
+        res.status(201).json({
+            message: "discussion created",
+            discussion
+        })
+
+    } catch (error) {
+        console.log("CREATE DISCUSSION ERROR:", error)
+
+        return res.status(500).json({
+            message: "failed to create discussion",
+            error: error.message
         })
     }
-
-    const discussion = await discussionModel.create({
-        author : userId,
-        mediaId ,
-        mediaType ,
-        title ,
-        content
-    })
-
-    res.status(201).json({
-        message : "discussion created",
-        discussion
-    })
-    
 }
 
-async function getAllDiscussion(req , res) {
 
-    const discussions = await discussionModel.find().populate("author" , "username")
+async function getDiscussions(req, res) {
 
-    res.status(200).json({
-        message : "discussion received",
-        discussions
-    })
-}
+    try {
 
-async function getDiscussion(req , res) {
-    const id = req.params.id
+        const discussions =
+            await discussionModel
+                .find()
+                .populate("author", "username")
+                .sort({
+                    createdAt: -1
+                })
 
-    const discussion = await discussionModel.findOne({_id:id}).populate("author" , "username")
+        res.status(200).json({
+            discussions
+        })
 
-    if(!discussion)
-    {
-        return res.status(400).json({
-            message : "Discussion Not Found"
+    } catch (error) {
+
+        res.status(500).json({
+            message: "failed to get discussions"
         })
     }
-
-    res.status(200).json({
-        message : "found discussion",
-        discussion
-    })
 }
 
-async function deleteDiscussion(req , res) {
 
-    const userId = req.user.id
-    const discussionId = req.params.id
+async function getDiscussion(req, res) {
 
-    const discussion = await discussionModel.
-    findOneAndDelete({
-        _id : discussionId})
+    try {
 
-    if(!discussion)
-    {
-        return res.status(400).json({
-            message : "discussion not found"
+        const discussionId = req.params.id
+
+        const discussion =
+            await discussionModel
+                .findById(discussionId)
+                .populate("author", "username")
+
+        if (!discussion) {
+
+            return res.status(404).json({
+                message: "discussion not found"
+            })
+        }
+
+        res.status(200).json({
+            discussion
+        })
+
+    } catch (error) {
+
+        res.status(500).json({
+            message: "failed to get discussion"
         })
     }
-
-    res.status(200).json({
-        message : "discussion delete successfully"
-    })
-    
 }
-module.exports = {createDiscussion , getAllDiscussion , getDiscussion}
+
+
+async function deleteDiscussion(req, res) {
+
+    try {
+
+        const discussionId = req.params.id
+        const userId = req.user.id
+
+        const discussion =
+            await discussionModel
+                .findOneAndDelete({
+                    _id: discussionId,
+                    author: userId
+                })
+
+        if (!discussion) {
+
+            return res.status(404).json({
+                message:
+                    "Discussion not found or you are not the author"
+            })
+        }
+
+        res.status(200).json({
+            message:
+                "Discussion deleted successfully"
+        })
+
+    } catch (error) {
+
+        res.status(500).json({
+            message:
+                "failed to delete discussion"
+        })
+    }
+}
+
+
+module.exports = {
+    createDiscussion,
+    getDiscussions,
+    getDiscussion,
+    deleteDiscussion
+}

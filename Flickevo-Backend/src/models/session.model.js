@@ -1,33 +1,36 @@
 const mongoose = require("mongoose")
 
 const sessionSchema = new mongoose.Schema({
-    user : {
-        type : mongoose.Schema.Types.ObjectId ,
-        ref : "user",
-        required : [true , "user is required"]
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user",
+        required: true
     },
 
-    refreshTokenHash : {
-        type : String ,
-        required : [true , "refresh token is required"]
+    refreshTokenHash: {
+        type: String,
+        required: true
     },
 
-    ip : {
-        type : String ,
-        required : [true , "ip is required"]
+    ip: {
+        type: String
     },
 
-    userAgent : {
-        type : String ,
-        required : [true , "user agent is required"] //browser  
+    userAgent: {
+        type: String
     },
 
-    revoked : {
-        type : Boolean ,
-        default : false //if true the refresh token becomes invalid we cant use it again to create access token
+    revoked: {
+        type: Boolean,
+        default: false
     }
-} , {timestamps : true})
+}, {
+    timestamps: true
+})
 
-const sessionModel = mongoose.model("session" , sessionSchema)
+const sessionModel = mongoose.model(
+    "session",
+    sessionSchema
+)
 
-module.exports = sessionModel;
+module.exports = sessionModel

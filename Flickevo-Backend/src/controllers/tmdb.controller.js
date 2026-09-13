@@ -1,151 +1,179 @@
-const tmdb = require("../services/tmdb.service")
+const tmdbService = require("../services/tmdb.service")
 
-// ==================== TRENDING ====================
 
-const getTrending = async (req, res) => {
-    const data = await tmdb.getTrending()
+async function getTrending(req, res) {
 
-    res.status(200).json(data)
+    try {
+
+        const data = await tmdbService.getTrending()
+
+        res.status(200).json(data)
+
+    } catch(error) {
+
+        res.status(500).json({
+            message: "failed to fetch trending content"
+        })
+    }
 }
 
 
-// ==================== MOVIES ====================
+async function getMovies(req, res) {
 
-const getMovies = async (req, res) => {
+    try {
 
-    const { type } = req.query
+        const type = req.query.type
 
-    let data
+        let data
 
-    if (type === "top-rated") {
-        data = await tmdb.getTopRatedMovies()
-    }
+        if(type === "top-rated") {
+            data = await tmdbService.getTopRatedMovies()
+        }
 
-    else if (type === "popular") {
-        data = await tmdb.getPopularMovies()
-    }
+        else if(type === "upcoming") {
+            data = await tmdbService.getUpcomingMovies()
+        }
 
-    else if (type === "upcoming") {
-        data = await tmdb.getUpcomingMovies()
-    }
+        else {
+            data = await tmdbService.getPopularMovies()
+        }
 
-    else {
-        return res.status(400).json({
-            message: "Invalid movie type"
+        res.status(200).json(data)
+
+    } catch(error) {
+
+        res.status(500).json({
+            message: "failed to fetch movies"
         })
     }
-
-    res.status(200).json(data)
 }
 
 
-// ==================== TV SHOWS ====================
+async function getTvShows(req, res) {
 
-const getShows = async (req, res) => {
+    try {
 
-    const { type } = req.query
+        const type = req.query.type
 
-    let data
+        let data
 
-    if (type === "current") {
-        data = await tmdb.getCurrentShows()
-    }
+        if(type === "current") {
+            data = await tmdbService.getCurrentShows()
+        }
 
-    else if (type === "trending") {
-        data = await tmdb.getTrendingShows()
-    }
+        else if(type === "trending") {
+            data = await tmdbService.getTrendingShows()
+        }
 
-    else if (type === "top-rated") {
-        data = await tmdb.getTopRatedShows()
-    }
+        else if(type === "top-rated") {
+            data = await tmdbService.getTopRatedShows()
+        }
 
-    else if (type === "popular") {
-        data = await tmdb.getPopularShows()
-    }
+        else {
+            data = await tmdbService.getPopularShows()
+        }
 
-    else {
-        return res.status(400).json({
-            message: "Invalid TV show type"
+        res.status(200).json(data)
+
+    } catch(error) {
+
+        res.status(500).json({
+            message: "failed to fetch tv shows"
         })
     }
-
-    res.status(200).json(data)
 }
 
 
-// ==================== SEARCH ====================
+async function searchContent(req, res) {
 
-const searchContent = async (req, res) => {
+    try {
 
-    const { query } = req.query
+        const query = req.query.query
 
-    if (!query) {
-        return res.status(400).json({
-            message: "Search query is required"
+        if(!query) {
+            return res.status(400).json({
+                message: "search query is required"
+            })
+        }
+
+        const data =
+            await tmdbService.searchContent(query)
+
+        res.status(200).json(data)
+
+    } catch(error) {
+
+        res.status(500).json({
+            message: "search failed"
         })
     }
-
-    const data = await tmdb.searchContent(query)
-
-    res.status(200).json(data)
 }
 
 
-// ==================== CONTENT DETAILS ====================
+async function getContent(req, res) {
 
-const getContentById = async (req, res) => {
+    try {
 
-    const { id, type } = req.params
+        const { type, id } = req.params
 
-    if (!id || !type) {
-        return res.status(400).json({
-            message: "Content id and type are required"
+        if(type !== "movie" && type !== "tv") {
+            return res.status(400).json({
+                message: "invalid content type"
+            })
+        }
+
+        const data =
+            await tmdbService.getContentById(type, id)
+
+        res.status(200).json(data)
+
+    } catch(error) {
+
+        res.status(500).json({
+            message: "failed to fetch content"
         })
     }
-
-    if (type !== "movie" && type !== "tv") {
-        return res.status(400).json({
-            message: "Invalid content type"
-        })
-    }
-
-    const data = await tmdb.getContentById(id, type)
-
-    res.status(200).json(data)
 }
 
 
-// ==================== GENRES ====================
+async function getGenres(req, res) {
 
-const getGenres = async (req, res) => {
+    try {
 
-    const { type } = req.params
+        const type = req.params.type
 
-    let data
+        let data
 
-    if (type === "movie") {
-        data = await tmdb.getMovieGenres()
-    }
+        if(type === "movie") {
+            data = await tmdbService.getMovieGenres()
+        }
 
-    else if (type === "tv") {
-        data = await tmdb.getTvGenres()
-    }
+        else if(type === "tv") {
+            data = await tmdbService.getTvGenres()
+        }
 
-    else {
-        return res.status(400).json({
-            message: "Invalid genre type"
+        else {
+            return res.status(400).json({
+                message: "invalid genre type"
+            })
+        }
+
+        res.status(200).json(data)
+
+    } catch(error) {
+
+        res.status(500).json({
+            message: "failed to fetch genres"
         })
     }
-
-    res.status(200).json(data)
 }
 
 
 module.exports = {
     getTrending,
     getMovies,
-    getShows,
+    getTvShows,
     searchContent,
-    getContentById,
+    getContent,
     getGenres
 }

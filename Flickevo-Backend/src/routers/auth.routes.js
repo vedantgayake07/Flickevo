@@ -1,22 +1,39 @@
-const {Router} = require("express")
-const authController = require("../controllers/auth.controller")
-const AuthMiddleware = require("../middlewares/auth.middleware")
+const express = require("express")
 
-const router = Router()
+const router = express.Router()
 
-router.post("/register" , authController.userRegisterController)
+const {
+    userRegisterController,
+    userLoginController,
+    refreshToken,
+    userLogoutController
+} = require("../controllers/auth.controller")
 
-router.post("/login" , authController.userLoginController)
-
-router.post("/refresh-token" , authController.refreshToken)
-
-router.post("/logout" , authController.userLogoutController)
+const {
+    authMiddleware
+} = require("../middlewares/auth.middleware")
 
 
-router.get("/me", AuthMiddleware.authMiddleware, (req, res) => {
-    res.status(200).json({
-        user: req.user
-    })
-})
+router.post(
+    "/register",
+    userRegisterController
+)
 
-module.exports = router;
+router.post(
+    "/login",
+    userLoginController
+)
+
+router.post(
+    "/refresh",
+    refreshToken
+)
+
+router.post(
+    "/logout",
+    authMiddleware,
+    userLogoutController
+)
+
+
+module.exports = router

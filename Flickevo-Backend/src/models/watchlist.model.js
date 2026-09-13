@@ -1,30 +1,26 @@
 const mongoose = require("mongoose")
 
-const watchlistSchema = new mongoose.Schema(
-    {
-        user: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "user",
-            required: true
-        },
-
-        mediaId: {
-            type: Number,
-            required: [true, "media id is needed"]
-        },
-
-        mediaType: {
-            type: String,
-            required: [true, "media type is needed"],
-            enum: ["movie", "tv"]
-        }
+const watchlistSchema = new mongoose.Schema({
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user",
+        required: true
     },
-    {
-        timestamps: true
-    }
-)
 
-// Prevent duplicate movie/show entries for the same user
+    mediaId: {
+        type: Number,
+        required: [true, "media id is needed"]
+    },
+
+    mediaType: {
+        type: String,
+        required: [true, "media type is needed"],
+        enum: ["movie", "tv"]
+    }
+}, {
+    timestamps: true
+})
+
 watchlistSchema.index(
     {
         user: 1,
@@ -36,6 +32,9 @@ watchlistSchema.index(
     }
 )
 
-const watchlistModel = mongoose.model("watchlist", watchlistSchema)
+const watchlistModel = mongoose.model(
+    "watchlist",
+    watchlistSchema
+)
 
 module.exports = watchlistModel

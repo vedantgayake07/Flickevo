@@ -3,18 +3,25 @@ const express = require("express")
 const router = express.Router()
 
 const {
-    deleteComment
-} = require("../controllers/comments.controller")
+    getProfile,
+    updateProfile
+} = require("../controllers/user.controller")
 
 const {
     authMiddleware
 } = require("../middlewares/auth.middleware")
 
 
-router.delete(
-    "/:id",
+router.get(
+    "/me",
     authMiddleware,
-    deleteComment
+    getProfile
+)
+
+router.put(
+    "/me",
+    authMiddleware,
+    updateProfile
 )
 
 

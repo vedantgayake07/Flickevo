@@ -1,13 +1,18 @@
 const axios = require("axios")
 
 const fetchTmdb = async (endpoint) => {
+
     const response = await axios.get(
         `${process.env.TMDB_API}${endpoint}`,
         {
             headers: {
                 Authorization: process.env.TMDB_HEADER,
                 accept: "application/json"
-            }
+            },
+
+            timeout: 15000,
+
+            family: 4
         }
     )
 
@@ -15,103 +20,83 @@ const fetchTmdb = async (endpoint) => {
 }
 
 
-// ==================== MOVIES ====================
-
 const getTrending = async () => {
-    return await fetchTmdb("/trending/all/day")
+    return await fetchTmdb("/trending/all/week")
 }
 
-const getTopRatedMovies = async () => {
-    return await fetchTmdb(
-        "/movie/top_rated?language=en-IN&region=IN"
-    )
-}
 
 const getPopularMovies = async () => {
-    return await fetchTmdb(
-        "/movie/now_playing?language=en-IN&region=IN"
-    )
+    return await fetchTmdb("/movie/popular")
 }
+
+
+const getTopRatedMovies = async () => {
+    return await fetchTmdb("/movie/top_rated")
+}
+
 
 const getUpcomingMovies = async () => {
-    return await fetchTmdb(
-        "/discover/movie?language=en-IN&with_origin_country=IN&sort_by=popularity.desc"
-    )
+    return await fetchTmdb("/movie/upcoming")
 }
 
-
-// ==================== TV SHOWS ====================
 
 const getCurrentShows = async () => {
-    return await fetchTmdb("/tv/airing_today")
+    return await fetchTmdb("/tv/on_the_air")
 }
+
 
 const getTrendingShows = async () => {
-    return await fetchTmdb(
-        "/trending/tv/day?language=en-US"
-    )
+    return await fetchTmdb("/trending/tv/week")
 }
 
-const getTopRatedShows = async () => {
-    return await fetchTmdb(
-        "/tv/top_rated?language=en-IN&page=1"
-    )
-}
 
 const getPopularShows = async () => {
-    return await fetchTmdb(
-        "/tv/popular?language=en-IN&with_origin_country=IN"
-    )
+    return await fetchTmdb("/tv/popular")
 }
 
 
-// ==================== SEARCH ====================
+const getTopRatedShows = async () => {
+    return await fetchTmdb("/tv/top_rated")
+}
+
 
 const searchContent = async (query) => {
+
     return await fetchTmdb(
         `/search/multi?query=${encodeURIComponent(query)}`
     )
 }
 
 
-// ==================== DETAILS ====================
+const getContentById = async (type, id) => {
 
-const getContentById = async (id, type) => {
     return await fetchTmdb(
-        `/${type}/${id}?append_to_response=credits,watch/providers,videos`
+        `/${type}/${id}?append_to_response=credits,videos,watch/providers`
     )
 }
 
-
-// ==================== GENRES ====================
 
 const getMovieGenres = async () => {
-    return await fetchTmdb(
-        "/genre/movie/list?language=en"
-    )
+    return await fetchTmdb("/genre/movie/list")
 }
 
+
 const getTvGenres = async () => {
-    return await fetchTmdb(
-        "/genre/tv/list?language=en"
-    )
+    return await fetchTmdb("/genre/tv/list")
 }
 
 
 module.exports = {
     getTrending,
-    getTopRatedMovies,
     getPopularMovies,
+    getTopRatedMovies,
     getUpcomingMovies,
-
     getCurrentShows,
     getTrendingShows,
-    getTopRatedShows,
     getPopularShows,
-
+    getTopRatedShows,
     searchContent,
     getContentById,
-
     getMovieGenres,
     getTvGenres
 }
