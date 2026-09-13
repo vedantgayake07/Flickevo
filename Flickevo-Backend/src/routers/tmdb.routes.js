@@ -8,7 +8,8 @@ const {
     getTvShows,
     searchContent,
     getContent,
-    getGenres
+    getGenres,
+    discoverByGenre
 } = require("../controllers/tmdb.controller")
 
 
@@ -22,7 +23,9 @@ router.get("/search", searchContent)
 
 router.get("/genres/:type", getGenres)
 
-router.get("/:type/:id", getContent)
+router.get("/discover/:type", discoverByGenre)   
+
+router.get("/:type/:id", getContent)             
 
 
 module.exports = router

@@ -1,0 +1,195 @@
+.wl-page {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 40px 24px 100px;
+}
+
+.wl-heading {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.9rem;
+  color: var(--text-primary);
+  margin: 0 0 28px;
+  position: relative;
+  padding-left: 16px;
+}
+
+.wl-heading::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 6px;
+  bottom: 6px;
+  width: 3px;
+  border-radius: 2px;
+  background: var(--accent-glow);
+  box-shadow: 0 0 12px var(--accent-glow);
+}
+
+.wl-loading {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.05em;
+}
+
+.wl-placeholder {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 24px;
+}
+
+.wl-placeholder__icon {
+  font-size: 2.5rem;
+  margin-bottom: 16px;
+}
+
+.wl-placeholder__title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.8rem;
+  color: var(--text-primary);
+  margin: 0 0 10px;
+}
+
+.wl-placeholder__text {
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  margin: 0 0 20px;
+}
+
+.wl-signin-btn {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #1a1408;
+  background: var(--accent-glow);
+  border: none;
+  border-radius: 8px;
+  padding: 10px 22px;
+  cursor: pointer;
+}
+
+.wl-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 20px;
+}
+
+.wl-card {
+  position: relative;
+  aspect-ratio: 2 / 3;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.wl-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(158,240,255,0.45);
+}
+
+.wl-poster {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.wl-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 14px;
+  background: linear-gradient(180deg, transparent 40%, rgba(20,21,26,0.95) 100%);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.wl-card:hover .wl-overlay {
+  opacity: 1;
+}
+
+.wl-score {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--accent-glow);
+  margin-bottom: 6px;
+}
+
+.wl-title {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin: 0 0 4px;
+  line-height: 1.25;
+  color: var(--text-primary);
+}
+
+.wl-year {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-right: 8px;
+}
+
+.wl-type {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+}
+
+.wl-remove {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: rgba(20,21,26,0.85);
+  color: var(--text-primary);
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  z-index: 2;
+}
+
+.wl-card:hover .wl-remove {
+  opacity: 1;
+}
+
+.wl-remove:hover {
+  border-color: var(--accent-glow);
+  color: var(--accent-glow);
+}
+
+@media (max-width: 640px) {
+  .wl-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 14px;
+  }
+}

@@ -1,12 +1,18 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getContentById } from "../services/apiClient";
+import { useAuth } from "../context/AuthContext";
+import { useWatchlist } from "../context/WatchlistContext";
 import './ContentPage.css';
 
 const ContentPage = () => {
   const [movie, setMovie] = useState(null);
   const [trailerOpen, setTrailerOpen] = useState(false);
+  const [wlBusy, setWlBusy] = useState(false);
   const { id, type } = useParams();
+  const navigate = useNavigate();
+  const { user } = useAuth();
+  const { isInWatchlist, toggleWatchlist } = useWatchlist();
 
   useEffect(() => {
     async function getMovieOrShow() {
@@ -26,6 +32,8 @@ const ContentPage = () => {
   const releaseDate = movie.release_date || movie.first_air_date;
   const runtime = movie.runtime || movie.episode_run_time?.[0];
   const watchProviders = movie["watch/providers"]?.results?.IN?.flatrate;
+  const mediaType = isShow ? "tv" : "movie";
+  const saved = isInWatchlist(movie.id, mediaType);
 
   const trailer =
     movie.videos?.results?.find(
@@ -34,6 +42,21 @@ const ContentPage = () => {
     movie.videos?.results?.find(
       (v) => v.type === "Trailer" && v.site === "YouTube"
     );
+
+  const handleWatchlistClick = async () => {
+    if (!user) {
+      navigate("/login");
+      return;
+    }
+    setWlBusy(true);
+    try {
+      await toggleWatchlist(movie.id, mediaType);
+    } finally {
+      setWlBusy(false);
+    }
+  };
+
+  // ...rest of your JSX stays exactly the same
 
   return (
     <div className="cp-page">
@@ -93,6 +116,15 @@ const ContentPage = () => {
                   ▶ Watch Trailer
                 </button>
               )}
+
+              <button
+                type="button"
+                className={`cp-btn ${saved ? "cp-btn--saved" : "cp-btn--ghost"}`}
+                onClick={handleWatchlistClick}
+                disabled={wlBusy}
+              >
+                {saved ? "✓ In Watchlist" : "+ Add to Watchlist"}
+              </button>
 
               {watchProviders?.length > 0 ? (
                 <div className="cp-providers">

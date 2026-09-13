@@ -1,0 +1,30 @@
+.genre-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 32px;
+}
+
+.genre-bar__pill {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  color: var(--text-primary);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 7px 16px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+
+.genre-bar__pill:hover {
+  border-color: var(--accent-glow);
+  color: var(--accent-glow);
+  background: rgba(255,255,255,0.06);
+}
+
+@media (max-width: 640px) {
+  .genre-bar { gap: 8px; margin-bottom: 24px; }
+  .genre-bar__pill { font-size: 11px; padding: 6px 12px; }
+}

@@ -14,6 +14,16 @@
   letter-spacing: 0.05em;
 }
 
+.cp-btn--saved {
+  background: transparent;
+  border: 1px solid var(--accent-glow);
+  color: var(--accent-glow);
+}
+
+.cp-btn--saved:hover {
+  opacity: 0.8;
+}
+
 /* ---------- Backdrop hero ---------- */
 .cp-backdrop {
   position: relative;

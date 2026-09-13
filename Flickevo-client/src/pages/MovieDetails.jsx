@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { getToprated, getPopular, getUpcoming } from "../services/apiClient"
 import { PosterSlider } from '../components/PosterSlider';
 import { getMediaType } from '../helpers/mediaType'
+import { GenreBar } from '../components/GenreBar';
 import './MoviesDetails.css';
 
 const MovieDetails = () => {
@@ -44,6 +45,7 @@ const MovieDetails = () => {
 
     return (
         <div className="details-page">
+            <GenreBar type="movie" />
             <PosterSlider title="Popular content" movies={popular} handleSuggestion={handleSuggestion} />
             <PosterSlider title="Top rated content" movies={toprated} handleSuggestion={handleSuggestion} />
             <PosterSlider title="Explore" movies={upcoming} handleSuggestion={handleSuggestion} />

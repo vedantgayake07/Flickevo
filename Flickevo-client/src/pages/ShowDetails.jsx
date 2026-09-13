@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { useNavigate } from 'react-router-dom';
 import { getTopratedShows, getPopularShows, getCurrentShows } from "../services/apiClient"
 import { PosterSlider } from '../components/PosterSlider';
+import GenreBar from '../components/GenreBar';
 import { getMediaType } from '../helpers/mediaType'
 
 const ShowDetails = () => {
@@ -38,7 +39,7 @@ const ShowDetails = () => {
 
     return (
         <div className="details-page">
-
+            <GenreBar type="tv" />
             <PosterSlider title="Top rated content" movies={toprated} handleSuggestion={handleSuggestion} />
             <PosterSlider title="Popular content" movies={popular} handleSuggestion={handleSuggestion} />
             <PosterSlider title="Explore" movies={upcoming} handleSuggestion={handleSuggestion} />

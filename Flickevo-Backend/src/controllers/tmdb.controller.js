@@ -9,7 +9,7 @@ async function getTrending(req, res) {
 
         res.status(200).json(data)
 
-    } catch(error) {
+    } catch (error) {
 
         res.status(500).json({
             message: "failed to fetch trending content"
@@ -26,11 +26,11 @@ async function getMovies(req, res) {
 
         let data
 
-        if(type === "top-rated") {
+        if (type === "top-rated") {
             data = await tmdbService.getTopRatedMovies()
         }
 
-        else if(type === "upcoming") {
+        else if (type === "upcoming") {
             data = await tmdbService.getUpcomingMovies()
         }
 
@@ -40,7 +40,7 @@ async function getMovies(req, res) {
 
         res.status(200).json(data)
 
-    } catch(error) {
+    } catch (error) {
 
         res.status(500).json({
             message: "failed to fetch movies"
@@ -57,15 +57,15 @@ async function getTvShows(req, res) {
 
         let data
 
-        if(type === "current") {
+        if (type === "current") {
             data = await tmdbService.getCurrentShows()
         }
 
-        else if(type === "trending") {
+        else if (type === "trending") {
             data = await tmdbService.getTrendingShows()
         }
 
-        else if(type === "top-rated") {
+        else if (type === "top-rated") {
             data = await tmdbService.getTopRatedShows()
         }
 
@@ -75,7 +75,7 @@ async function getTvShows(req, res) {
 
         res.status(200).json(data)
 
-    } catch(error) {
+    } catch (error) {
 
         res.status(500).json({
             message: "failed to fetch tv shows"
@@ -89,19 +89,20 @@ async function searchContent(req, res) {
     try {
 
         const query = req.query.query
+        const page = req.query.page || 1
 
-        if(!query) {
+        if (!query) {
             return res.status(400).json({
                 message: "search query is required"
             })
         }
 
         const data =
-            await tmdbService.searchContent(query)
+            await tmdbService.searchContent(query, page)
 
         res.status(200).json(data)
 
-    } catch(error) {
+    } catch (error) {
 
         res.status(500).json({
             message: "search failed"
@@ -116,7 +117,7 @@ async function getContent(req, res) {
 
         const { type, id } = req.params
 
-        if(type !== "movie" && type !== "tv") {
+        if (type !== "movie" && type !== "tv") {
             return res.status(400).json({
                 message: "invalid content type"
             })
@@ -127,7 +128,7 @@ async function getContent(req, res) {
 
         res.status(200).json(data)
 
-    } catch(error) {
+    } catch (error) {
 
         res.status(500).json({
             message: "failed to fetch content"
@@ -144,11 +145,11 @@ async function getGenres(req, res) {
 
         let data
 
-        if(type === "movie") {
+        if (type === "movie") {
             data = await tmdbService.getMovieGenres()
         }
 
-        else if(type === "tv") {
+        else if (type === "tv") {
             data = await tmdbService.getTvGenres()
         }
 
@@ -160,10 +161,41 @@ async function getGenres(req, res) {
 
         res.status(200).json(data)
 
-    } catch(error) {
+    } catch (error) {
 
         res.status(500).json({
             message: "failed to fetch genres"
+        })
+    }
+}
+
+async function discoverByGenre(req, res) {
+
+    try {
+
+        const { type } = req.params
+        const { genreId, page } = req.query
+
+        if(type !== "movie" && type !== "tv") {
+            return res.status(400).json({
+                message: "invalid content type"
+            })
+        }
+
+        if(!genreId) {
+            return res.status(400).json({
+                message: "genreId is required"
+            })
+        }
+
+        const data = await tmdbService.discoverByGenre(type, genreId, page || 1)
+
+        res.status(200).json(data)
+
+    } catch(error) {
+
+        res.status(500).json({
+            message: "failed to discover content"
         })
     }
 }
@@ -175,5 +207,6 @@ module.exports = {
     getTvShows,
     searchContent,
     getContent,
-    getGenres
+    getGenres ,
+    discoverByGenre
 }

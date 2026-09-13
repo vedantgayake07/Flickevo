@@ -60,11 +60,10 @@ const getTopRatedShows = async () => {
 }
 
 
-const searchContent = async (query) => {
-
-    return await fetchTmdb(
-        `/search/multi?query=${encodeURIComponent(query)}`
-    )
+const searchContent = async (query, page = 1) => {
+  return await fetchTmdb(
+    `/search/multi?query=${encodeURIComponent(query)}&page=${page}`
+  )
 }
 
 
@@ -85,6 +84,11 @@ const getTvGenres = async () => {
     return await fetchTmdb("/genre/tv/list")
 }
 
+const discoverByGenre = async (type, genreId, page = 1) => {
+    return await fetchTmdb(
+        `/discover/${type}?with_genres=${genreId}&sort_by=popularity.desc&page=${page}`
+    )
+}
 
 module.exports = {
     getTrending,
@@ -98,5 +102,6 @@ module.exports = {
     searchContent,
     getContentById,
     getMovieGenres,
-    getTvGenres
+    getTvGenres,
+    discoverByGenre
 }

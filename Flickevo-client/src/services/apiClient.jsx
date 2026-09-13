@@ -1,21 +1,10 @@
 import axios from "axios";
 
-const api = import.meta.env.VITE_TMDB_API;
-const header = import.meta.env.VITE_HEADER;
-
+const api = import.meta.env.VITE_BACKEND_URL;
 
 const fetchApi = async (endpoint) => {
   try {
-    const response = await axios.get(
-      `${api}${endpoint}`,
-      {
-        headers: {
-          Authorization: header,
-          accept: "application/json",
-        },
-      }
-    );
-
+    const response = await axios.get(`${api}/tmdb${endpoint}`);
     return response;
   } catch (error) {
     console.log("API Error:", error);
@@ -24,75 +13,80 @@ const fetchApi = async (endpoint) => {
 };
 
 
+// ================= MOVIES =================
+
 export const getTrending = async () => {
-  const response = await fetchApi("/trending/all/day");
+  const response = await fetchApi("/trending");
   return response.data;
 };
 
 export const getToprated = async () => {
-  const response = await fetchApi("/movie/top_rated?language=en-IN&region=IN");
+  const response = await fetchApi("/movies?type=top-rated");
   return response.data;
 };
 
 export const getPopular = async () => {
-  const response = await fetchApi("/movie/now_playing?language=en-IN&region=IN");
+  const response = await fetchApi("/movies?type=popular");
   return response.data;
 };
 
 export const getUpcoming = async () => {
-  const response = await fetchApi(
-    "/discover/movie?language=en-IN&with_origin_country=IN&sort_by=popularity.desc"
-  );
+  const response = await fetchApi("/movies?type=upcoming");
   return response.data;
 };
 
-//shows
+
+// ================= TV SHOWS =================
+
 export const getCurrentShows = async () => {
-  const response = await fetchApi("/tv/airing_today");
+  const response = await fetchApi("/tv?type=current");
   return response.data;
 };
 
 export const getTrendingShows = async () => {
-  const response = await fetchApi("/trending/tv/day?language=en-US");
+  const response = await fetchApi("/tv?type=trending");
   return response.data;
 };
 
 export const getTopratedShows = async () => {
-  const response = await fetchApi("/tv/top_rated?language=en-IN&page=1");
+  const response = await fetchApi("/tv?type=top-rated");
   return response.data;
 };
 
 export const getPopularShows = async () => {
-  const response = await fetchApi(
-    "/tv/popular?language=en-IN&with_origin_country=IN"
-  );
+  const response = await fetchApi("/tv?type=popular");
   return response.data;
 };
 
-export const searchMovie = async (query) => {
-  return await fetchApi(`/search/multi?query=${query}`);
+
+// ================= SEARCH =================
+
+export const searchMovie = async (query, page = 1) => {
+  return await fetchApi(`/search?query=${encodeURIComponent(query)}&page=${page}`);
 };
+
+
+// ================= DETAILS =================
 
 export const getContentById = async (id, type) => {
-  const response = await fetchApi(
-    `/${type}/${id}?append_to_response=credits,watch/providers,videos`
-  );
-
-  return response?.data;
+  const response = await fetchApi(`/${type}/${id}`);
+  return response.data;
 };
 
-export const getMovieGenres = async () => {
-  const response = await fetchApi(
-    "/genre/movie/list?language=en"
-  );
 
-  return response.data;
+// ================= GENRES =================
+
+export const getMovieGenres = async () => {
+  const response = await fetchApi("/genres/movie");
+  return response.data; // { genres: [{ id, name }, ...] }
 };
 
 export const getTvGenres = async () => {
-  const response = await fetchApi(
-    "/genre/tv/list?language=en"
-  );
+  const response = await fetchApi("/genres/tv");
+  return response.data;
+};
 
+export const discoverByGenre = async (type, genreId, page = 1) => {
+  const response = await fetchApi(`/discover/${type}?genreId=${genreId}&page=${page}`);
   return response.data;
 };
