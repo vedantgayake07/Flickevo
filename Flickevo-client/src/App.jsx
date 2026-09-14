@@ -11,6 +11,13 @@ import Login from "./pages/Login"
 import Register from "./pages/Register"
 import { AuthProvider } from "./context/AuthContext"
 import GenreResults from "./pages/GenreResults"
+import Genres from "./pages/Genres"
+import PersonDetails from "./pages/PersonDetails"
+import Profile from "./pages/Profile"
+import EditProfile from "./pages/EditProfile"
+import Discussions from "./pages/Discussions"
+import DiscussionDetails from "./pages/DiscussionDetails"
+import CreateDiscussion from "./pages/CreateDiscussion"
 import { WatchlistProvider } from "./context/WatchlistContext"
 
 const Router = createBrowserRouter([
@@ -20,13 +27,44 @@ const Router = createBrowserRouter([
     children: [
       { path: '/', element: <Home /> },
       { path: '/movies', element: <MoviesDetails /> },
-      { path: '/content/:id/:type', element: <ContentPage /> },
       { path: '/shows', element: <ShowDetails /> },
+      { path: '/content/:id/:type', element: <ContentPage /> },
+      { path: '/genres', element: <Genres /> },
       { path: '/genre/:type/:id', element: <GenreResults /> },
+      { path: '/person/:id', element: <PersonDetails /> },
       {
-        path: '/watchlist', element: <ProtectedRoute>
-          <WatchList />
-        </ProtectedRoute>
+        path: '/watchlist',
+        element: (
+          <ProtectedRoute>
+            <WatchList />
+          </ProtectedRoute>
+        ),
+      },
+      { path: '/discussions', element: <Discussions /> },
+      { path: '/discussions/:id', element: <DiscussionDetails /> },
+      {
+        path: '/discussions/create',
+        element: (
+          <ProtectedRoute>
+            <CreateDiscussion />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/profile',
+        element: (
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/profile/edit',
+        element: (
+          <ProtectedRoute>
+            <EditProfile />
+          </ProtectedRoute>
+        ),
       },
       { path: '/login', element: <Login /> },
       { path: '/register', element: <Register /> },

@@ -31,13 +31,13 @@ const Footer = () => {
             <h4>Explore</h4>
             <NavLink to="/">Home</NavLink>
             <NavLink to="/movies">Movies</NavLink>
-            <NavLink to="/shows">Movies</NavLink>
+            <NavLink to="/shows">TV Shows</NavLink>
+            <NavLink to="/genres">Genres</NavLink>
             <NavLink to="/watchlist">Watchlist</NavLink>
           </div>
           <div className="footer-col">
             <h4>Community</h4>
             <NavLink to="/discussions">Discussions</NavLink>
-            <NavLink to="/about">About</NavLink>
           </div>
         </div>
       </div>

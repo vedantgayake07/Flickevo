@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getContentById } from "../services/apiClient";
 import { useAuth } from "../context/AuthContext";
@@ -126,6 +126,13 @@ const ContentPage = () => {
                 {saved ? "✓ In Watchlist" : "+ Add to Watchlist"}
               </button>
 
+              <Link
+                to={`/discussions/create?mediaId=${movie.id}&mediaType=${type}&title=${encodeURIComponent(title || "")}`}
+                className="cp-btn cp-btn--ghost"
+              >
+                💬 Discuss
+              </Link>
+
               {watchProviders?.length > 0 ? (
                 <div className="cp-providers">
                   {watchProviders.slice(0, 4).map((p) => (
@@ -171,7 +178,12 @@ const ContentPage = () => {
             <h2 className="cp-section__title">Cast</h2>
             <div className="cp-cast-row">
               {cast.slice(0, 20).map((actor) => (
-                <div key={actor.credit_id || actor.id} className="cp-cast-item">
+                <Link
+                  to={`/person/${actor.id}`}
+                  key={actor.credit_id || actor.id}
+                  className="cp-cast-item"
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
                   <div className="cp-cast-avatar">
                     {actor.profile_path ? (
                       <img
@@ -192,7 +204,7 @@ const ContentPage = () => {
                   {actor.character && (
                     <span className="cp-cast-character">{actor.character}</span>
                   )}
-                </div>
+                </Link>
               ))}
             </div>
           </section>

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import { getToprated, getPopular, getUpcoming } from "../services/apiClient"
 import { PosterSlider } from '../components/PosterSlider';
 import { getMediaType } from '../helpers/mediaType'
-import { GenreBar } from '../components/GenreBar';
+import GenreBar from '../components/GenreBar';
 import './MoviesDetails.css';
 
 const MovieDetails = () => {

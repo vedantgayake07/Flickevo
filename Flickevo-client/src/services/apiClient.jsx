@@ -90,3 +90,11 @@ export const discoverByGenre = async (type, genreId, page = 1) => {
   const response = await fetchApi(`/discover/${type}?genreId=${genreId}&page=${page}`);
   return response.data;
 };
+
+
+// ================= PERSON =================
+
+export const getPersonById = async (id) => {
+  const response = await fetchApi(`/person/${id}`);
+  return response.data;
+};

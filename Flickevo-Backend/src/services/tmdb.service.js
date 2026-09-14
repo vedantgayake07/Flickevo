@@ -90,6 +90,10 @@ const discoverByGenre = async (type, genreId, page = 1) => {
     )
 }
 
+const getPersonById = async (id) => {
+    return await fetchTmdb(`/person/${id}?append_to_response=combined_credits`)
+}
+
 module.exports = {
     getTrending,
     getPopularMovies,
@@ -103,5 +107,6 @@ module.exports = {
     getContentById,
     getMovieGenres,
     getTvGenres,
-    discoverByGenre
-}
+    discoverByGenre,
+    getPersonById
+}

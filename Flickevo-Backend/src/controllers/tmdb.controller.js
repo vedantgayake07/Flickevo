@@ -200,6 +200,18 @@ async function discoverByGenre(req, res) {
     }
 }
 
+async function getPerson(req, res) {
+    try {
+        const { id } = req.params
+        const data = await tmdbService.getPersonById(id)
+        res.status(200).json(data)
+    } catch (error) {
+        res.status(500).json({
+            message: "failed to fetch person details"
+        })
+    }
+}
+
 
 module.exports = {
     getTrending,
@@ -207,6 +219,7 @@ module.exports = {
     getTvShows,
     searchContent,
     getContent,
-    getGenres ,
-    discoverByGenre
-}
+    getGenres,
+    discoverByGenre,
+    getPerson
+}

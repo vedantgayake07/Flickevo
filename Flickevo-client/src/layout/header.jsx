@@ -100,6 +100,19 @@ const Header = () => {
             Shows
           </NavLink>
 
+          <NavLink
+            to="/genres"
+            className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+          >
+            Genres
+          </NavLink>
+
+          <NavLink
+            to="/discussions"
+            className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+          >
+            Discussions
+          </NavLink>
 
           <NavLink
             to="/watchlist"
@@ -185,7 +198,16 @@ const Header = () => {
           </button>
           {user ? (
             <div className="header-user">
-              <span className="header-username">{user.username}</span>
+              <NavLink to="/profile" className="header-profile-link" title="View Profile">
+                {user.profilePicture ? (
+                  <img src={user.profilePicture} alt={user.username} className="header-avatar" />
+                ) : (
+                  <div className="header-avatar-fallback">
+                    {user.username?.slice(0, 2).toUpperCase()}
+                  </div>
+                )}
+                <span className="header-username">{user.username}</span>
+              </NavLink>
               <button className="btn-signin" onClick={handleLogout}>Sign out</button>
             </div>
           ) : (

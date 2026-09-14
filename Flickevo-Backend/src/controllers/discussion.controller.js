@@ -60,7 +60,7 @@ async function getDiscussions(req, res) {
         const discussions =
             await discussionModel
                 .find()
-                .populate("author", "username")
+                .populate("author", "username profilePicture")
                 .sort({
                     createdAt: -1
                 })
@@ -87,7 +87,8 @@ async function getDiscussion(req, res) {
         const discussion =
             await discussionModel
                 .findById(discussionId)
-                .populate("author", "username")
+                .populate("author", "username profilePicture")
+
 
         if (!discussion) {
 

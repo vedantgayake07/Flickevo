@@ -23,8 +23,14 @@ const userSchema = new mongoose.Schema({
         required: [true, "password is required"],
         minLength: [8, "password must be at least 8 characters long"],
         select: false//while accessing user document password will not be given
+    },
+
+    profilePicture: {
+        type: String,
+        default: ""
     }
 }, {
+
     timestamps: true
 })
 

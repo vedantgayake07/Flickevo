@@ -45,12 +45,27 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const updateUser = (updatedData) => {
+    setUser((prev) => ({ ...prev, ...updatedData }));
+  };
+
+  const refreshUser = async () => {
+    try {
+      const profile = await getProfile();
+      setUser(profile);
+      return profile;
+    } catch {
+      return null;
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ user, checkingAuth, login, register, logout }}>
+    <AuthContext.Provider value={{ user, checkingAuth, login, register, logout, updateUser, refreshUser }}>
       {children}
     </AuthContext.Provider>
   );
 };
+
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = () => useContext(AuthContext);

@@ -4,7 +4,8 @@ const router = express.Router()
 
 const {
     getProfile,
-    updateProfile
+    updateProfile,
+    getImageKitAuth
 } = require("../controllers/user.controller")
 
 const {
@@ -24,5 +25,11 @@ router.put(
     updateProfile
 )
 
+router.get(
+    "/imagekit-auth",
+    authMiddleware,
+    getImageKitAuth
+)
 
-module.exports = router
+
+module.exports = router
