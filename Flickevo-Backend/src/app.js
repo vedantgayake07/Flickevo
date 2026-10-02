@@ -13,9 +13,32 @@ const app = express()
 
 app.use(express.json())
 
+const allowedOrigins = [
+    "http://localhost:5173",
+    "http://localhost:3000",
+    "https://flickevo.vercel.app",
+    process.env.FRONTEND_URL,
+    process.env.CLIENT_URL
+].filter(Boolean)
+
 app.use(cors({
-    origin: "http://localhost:5173",
-    credentials: true
+    origin: (origin, callback) => {
+        // Allow requests with no origin (like mobile apps, curl, server-to-server)
+        if (!origin) return callback(null, true)
+
+        const isAllowed =
+            allowedOrigins.includes(origin) ||
+            origin.endsWith(".vercel.app")
+
+        if (isAllowed) {
+            return callback(null, true)
+        }
+
+        return callback(null, false)
+    },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"]
 }))
 
 app.use(cookieParser())
