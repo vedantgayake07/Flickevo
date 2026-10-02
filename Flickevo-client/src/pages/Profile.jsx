@@ -6,6 +6,7 @@ import { useAuth } from "../context/AuthContext";
 import { useWatchlist } from "../context/WatchlistContext";
 import { getProfile } from "../services/userApi";
 import { getDiscussions } from "../services/discussionApi";
+import { FaEdit, FaPlus, FaSignOutAlt, FaTv, FaFilm, FaRegComment, FaHeart, FaArrowRight } from "react-icons/fa";
 import "../styles/Profile.css";
 
 const Profile = () => {
@@ -92,13 +93,13 @@ const Profile = () => {
           <div className="profile-stat-box" onClick={() => navigate("/watchlist")}>
             <span className="profile-stat-num">{items?.length || 0}</span>
             <span className="profile-stat-label">Saved in Watchlist</span>
-            <span className="profile-stat-link">View Watchlist →</span>
+            <span className="profile-stat-link flex items-center justify-center gap-1">View Watchlist <FaArrowRight className="text-xs" /></span>
           </div>
 
           <div className="profile-stat-box" onClick={() => navigate("/discussions")}>
             <span className="profile-stat-num">{myDiscussions.length}</span>
             <span className="profile-stat-label">Discussions Started</span>
-            <span className="profile-stat-link">Community Feed →</span>
+            <span className="profile-stat-link flex items-center justify-center gap-1">Community Feed <FaArrowRight className="text-xs" /></span>
           </div>
 
           <div className="profile-stat-box">
@@ -109,18 +110,18 @@ const Profile = () => {
         </div>
 
         <div className="profile-actions">
-          <Link to="/profile/edit" className="profile-btn profile-btn--primary">
-            ✏️ Edit Profile
+          <Link to="/profile/edit" className="profile-btn profile-btn--primary flex items-center justify-center gap-1.5">
+            <FaEdit className="text-xs" /> Edit Profile
           </Link>
-          <Link to="/discussions/create" className="profile-btn profile-btn--secondary">
-            + Start Discussion
+          <Link to="/discussions/create" className="profile-btn profile-btn--secondary flex items-center justify-center gap-1.5">
+            <FaPlus className="text-xs" /> Start Discussion
           </Link>
           <button
             type="button"
-            className="profile-btn profile-btn--danger"
+            className="profile-btn profile-btn--danger flex items-center justify-center gap-1.5"
             onClick={handleLogout}
           >
-            Sign Out
+            <FaSignOutAlt className="text-xs" /> Sign Out
           </button>
         </div>
 
@@ -131,8 +132,8 @@ const Profile = () => {
           {myDiscussions.length === 0 ? (
             <div className="profile-discussions-empty">
               <p>You haven't started any discussions yet.</p>
-              <Link to="/discussions/create" className="profile-btn profile-btn--secondary">
-                Share your first movie theory or review
+              <Link to="/discussions/create" className="profile-btn profile-btn--secondary inline-flex items-center gap-1.5">
+                <FaPlus className="text-xs" /> Share your first movie theory or review
               </Link>
             </div>
           ) : (
@@ -140,15 +141,32 @@ const Profile = () => {
               {myDiscussions.map((d) => (
                 <Link key={d._id} to={`/discussions/${d._id}`} className="profile-disc-item">
                   <div className="profile-disc-item-info">
-                    <span className="profile-disc-badge">
-                      {d.mediaType === "tv" ? "📺 TV Show" : "🎬 Movie"} • {d.mediaTitle || `Title #${d.mediaId}`}
+                    <span className="profile-disc-badge flex items-center gap-1">
+                      {d.mediaType === "tv" ? (
+                        <>
+                          <FaTv className="text-xs text-flickCyan" /> TV Show
+                        </>
+                      ) : (
+                        <>
+                          <FaFilm className="text-xs text-flickCyan" /> Movie
+                        </>
+                      )}{" "}
+                      • {d.mediaTitle || `Title #${d.mediaId}`}
                     </span>
                     <h4 className="profile-disc-title">{d.title}</h4>
-                    <span className="profile-disc-date">
-                      {new Date(d.createdAt).toLocaleDateString()} • 💬 {d.commentsCount || 0} comments • ❤️ {d.likesCount || 0} likes
+                    <span className="profile-disc-date flex items-center flex-wrap gap-2 text-xs">
+                      <span>{new Date(d.createdAt).toLocaleDateString()}</span>
+                      <span>•</span>
+                      <span className="flex items-center gap-1">
+                        <FaRegComment className="text-xs" /> {d.commentsCount || 0}
+                      </span>
+                      <span>•</span>
+                      <span className="flex items-center gap-1">
+                        <FaHeart className="text-red-400 text-xs" /> {d.likesCount || 0}
+                      </span>
                     </span>
                   </div>
-                  <span className="profile-disc-arrow">→</span>
+                  <FaArrowRight className="profile-disc-arrow text-xs" />
                 </Link>
               ))}
             </div>

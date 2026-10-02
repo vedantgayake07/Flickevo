@@ -467,3 +467,43 @@
   margin: 0;
   white-space: pre-line;
 }
+
+@media (max-width: 650px) {
+  .discussion-detail-page {
+    padding: 20px 16px 80px;
+  }
+
+  .discussion-main-card {
+    padding: 18px 14px;
+    border-radius: 12px;
+  }
+
+  .discussion-main-meta-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .discussion-main-header-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .discussion-media-banner {
+    padding: 10px 12px;
+    gap: 12px;
+  }
+
+  .discussion-media-banner-btn {
+    padding: 4px 10px;
+    font-size: 0.75rem;
+  }
+
+  .comments-section {
+    padding-top: 10px;
+  }
+
+  .comment-form-card {
+    padding: 16px 12px;
+  }
+}

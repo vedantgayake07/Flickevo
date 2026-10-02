@@ -131,8 +131,22 @@
 }
 
 @media (max-width: 640px) {
+  .sr-page {
+    padding: 24px 16px 80px;
+  }
+
   .sr-grid {
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 14px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .sr-grid .poster-overlay {
+    opacity: 1;
+    background: linear-gradient(180deg, transparent 40%, rgba(20,21,26,0.92) 100%);
+    padding: 8px;
+  }
+
+  .sr-grid .poster-title {
+    font-size: 0.8rem;
   }
 }

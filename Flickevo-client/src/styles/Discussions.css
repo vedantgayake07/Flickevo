@@ -433,12 +433,46 @@
 }
 
 @media (max-width: 650px) {
-  .discussion-card {
-    flex-direction: column;
+  .discussions-page {
+    padding: 24px 16px 80px;
   }
 
-  .discussion-card-media-side {
-    display: none;
+  .discussions-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  .start-discussion-btn {
+    justify-content: center;
+  }
+
+  .discussions-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .discussions-tabs {
+    display: flex;
+    width: 100%;
+  }
+
+  .disc-tab {
+    flex: 1;
+    text-align: center;
+    padding: 8px 6px;
+    font-size: 0.75rem;
+  }
+
+  .discussion-card {
+    padding: 14px;
+    gap: 14px;
+  }
+
+  .discussion-card-poster {
+    width: 65px;
+    height: 98px;
   }
 }
 

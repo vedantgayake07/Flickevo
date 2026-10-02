@@ -4,6 +4,22 @@ import { getContentById } from "../services/apiClient";
 import { getDiscussions } from "../services/discussionApi";
 import { useAuth } from "../context/AuthContext";
 import { useWatchlist } from "../context/WatchlistContext";
+import {
+  FaFilm,
+  FaTv,
+  FaStar,
+  FaCalendarAlt,
+  FaClock,
+  FaPlay,
+  FaCheck,
+  FaPlus,
+  FaComments,
+  FaRegComment,
+  FaHeart,
+  FaArrowRight,
+  FaGlobe,
+  FaTimes
+} from "react-icons/fa";
 import "../styles/ContentPage.css";
 
 const ContentPage = () => {
@@ -117,8 +133,16 @@ const ContentPage = () => {
               {movie.status && (
                 <span className="flick-badge-status">{movie.status}</span>
               )}
-              <span className="flick-badge-format">
-                {isShow ? "📺 TV Series" : "🎬 Feature Film"}
+              <span className="flick-badge-format flex items-center gap-1.5">
+                {isShow ? (
+                  <>
+                    <FaTv className="text-xs text-flickCyan" /> TV Series
+                  </>
+                ) : (
+                  <>
+                    <FaFilm className="text-xs text-flickCyan" /> Feature Film
+                  </>
+                )}
               </span>
               {movie.original_language && (
                 <span className="flick-badge-lang">
@@ -139,7 +163,7 @@ const ContentPage = () => {
                   className="flick-score-badge"
                   title={`${movie.vote_count || 0} community votes`}
                 >
-                  <span className="flick-score-star">★</span>
+                  <FaStar className="flick-score-star text-amber-400" />
                   <span className="flick-score-val">
                     {movie.vote_average.toFixed(1)}
                   </span>
@@ -149,19 +173,19 @@ const ContentPage = () => {
 
               {releaseDate && (
                 <span className="flick-meta-item">
-                  📅 {releaseDate.slice(0, 4)}
+                  <FaCalendarAlt className="text-xs text-flickCyan" /> {releaseDate.slice(0, 4)}
                 </span>
               )}
 
               {runtime > 0 && (
                 <span className="flick-meta-item">
-                  ⏱️ {runtime} min{isShow ? "/ep" : ""}
+                  <FaClock className="text-xs text-flickCyan" /> {runtime} min{isShow ? "/ep" : ""}
                 </span>
               )}
 
               {isShow && movie.number_of_seasons && (
                 <span className="flick-meta-item">
-                  📺 {movie.number_of_seasons} Season
+                  <FaTv className="text-xs text-flickCyan" /> {movie.number_of_seasons} Season
                   {movie.number_of_seasons > 1 ? "s" : ""}
                 </span>
               )}
@@ -188,7 +212,7 @@ const ContentPage = () => {
                   className="flick-action-btn flick-btn-trailer"
                   onClick={() => setTrailerOpen(true)}
                 >
-                  <span className="flick-btn-icon">▶</span> Watch Trailer
+                  <FaPlay className="text-xs" /> Watch Trailer
                 </button>
               )}
 
@@ -200,7 +224,15 @@ const ContentPage = () => {
                 onClick={handleWatchlistClick}
                 disabled={wlBusy}
               >
-                {saved ? "✓ In Watchlist" : "+ Add to Watchlist"}
+                {saved ? (
+                  <>
+                    <FaCheck className="text-xs text-emerald-400" /> In Watchlist
+                  </>
+                ) : (
+                  <>
+                    <FaPlus className="text-xs" /> Add to Watchlist
+                  </>
+                )}
               </button>
 
               <Link
@@ -213,7 +245,7 @@ const ContentPage = () => {
                 )}`}
                 className="flick-action-btn flick-btn-discuss"
               >
-                💬 Discuss ({discussions.length})
+                <FaComments className="text-sm" /> Discuss ({discussions.length})
               </Link>
 
               {watchProviders?.length > 0 && (
@@ -312,9 +344,9 @@ const ContentPage = () => {
                     ? `https://image.tmdb.org/t/p/w185${movie.poster_path}`
                     : ""
                 )}`}
-                className="flick-start-disc-btn"
+                className="flick-start-disc-btn flex items-center gap-1.5"
               >
-                + Start Discussion
+                <FaPlus className="text-xs" /> Start Discussion
               </Link>
             </div>
 
@@ -322,7 +354,7 @@ const ContentPage = () => {
               <div className="flick-disc-loading">Loading discussions…</div>
             ) : discussions.length === 0 ? (
               <div className="flick-disc-empty">
-                <span className="flick-disc-empty-icon">💬</span>
+                <FaComments className="text-4xl text-flickCyan/70 mb-3" />
                 <p className="flick-disc-empty-text">
                   No discussions yet for <strong>{title}</strong>. Share your review, ending theories, or favorite moments!
                 </p>
@@ -336,7 +368,7 @@ const ContentPage = () => {
                   )}`}
                   className="flick-action-btn flick-btn-trailer"
                 >
-                  Start First Discussion
+                  <FaPlus className="text-xs mr-1" /> Start First Discussion
                 </Link>
               </div>
             ) : (
@@ -386,9 +418,15 @@ const ContentPage = () => {
                       </p>
 
                       <div className="flick-disc-card-footer">
-                        <span>💬 {disc.commentsCount || 0} comments</span>
-                        <span>❤️ {disc.likesCount || 0} likes</span>
-                        <span className="flick-disc-arrow">Join →</span>
+                        <span className="flex items-center gap-1">
+                          <FaRegComment className="text-xs" /> {disc.commentsCount || 0} comments
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <FaHeart className="text-red-400 text-xs" /> {disc.likesCount || 0} likes
+                        </span>
+                        <span className="flick-disc-arrow flex items-center gap-1">
+                          Join <FaArrowRight className="text-xs" />
+                        </span>
                       </div>
                     </Link>
                   );
@@ -481,9 +519,9 @@ const ContentPage = () => {
                 href={movie.homepage}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flick-website-btn"
+                className="flick-website-btn flex items-center justify-center gap-1.5"
               >
-                Official Website ↗
+                Official Website <FaGlobe className="text-xs" />
               </a>
             )}
           </div>
@@ -502,11 +540,11 @@ const ContentPage = () => {
           >
             <button
               type="button"
-              className="flick-trailer-close"
+              className="flick-trailer-close flex items-center justify-center"
               onClick={() => setTrailerOpen(false)}
               aria-label="Close trailer"
             >
-              ✕
+              <FaTimes className="text-base" />
             </button>
             <div className="flick-trailer-frame">
               <iframe

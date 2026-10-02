@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { getProfile, updateProfileApi } from "../services/userApi";
 import { uploadToImageKit } from "../helpers/imageKitUpload";
+import { FaCamera, FaArrowLeft } from "react-icons/fa";
 import "../styles/EditProfile.css";
 
 const EditProfile = () => {
@@ -99,8 +100,8 @@ const EditProfile = () => {
     <div className="edit-profile-page">
       <div className="edit-profile-card">
         <div className="edit-profile-header">
-          <Link to="/profile" className="edit-profile-back">
-            ← Back to Profile
+          <Link to="/profile" className="edit-profile-back flex items-center gap-1.5">
+            <FaArrowLeft className="text-xs" /> Back to Profile
           </Link>
           <h1 className="edit-profile-title">Edit Profile</h1>
           <p className="edit-profile-subtitle">
@@ -128,8 +129,9 @@ const EditProfile = () => {
             </div>
 
             <div className="edit-avatar-controls">
-              <label className="edit-file-label" htmlFor="avatar-file-input">
-                {uploadingImage ? "Uploading..." : "📷 Choose Avatar File"}
+              <label className="edit-file-label flex items-center justify-center gap-2" htmlFor="avatar-file-input">
+                <FaCamera className="text-sm" />
+                {uploadingImage ? "Uploading..." : "Choose Avatar File"}
               </label>
               <input
                 type="file"

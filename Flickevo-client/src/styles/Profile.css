@@ -281,12 +281,25 @@
 }
 
 @media (max-width: 600px) {
+  .profile-page {
+    padding: 24px 16px 80px;
+  }
+  .profile-card {
+    padding: 20px 16px;
+    border-radius: 12px;
+  }
   .profile-header {
     flex-direction: column;
     text-align: center;
+    gap: 16px;
   }
   .profile-header-info {
     align-items: center;
+  }
+  .profile-stats {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin: 24px 0;
   }
   .profile-actions {
     flex-direction: column;

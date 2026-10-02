@@ -2,6 +2,17 @@ import { useEffect, useState, useMemo } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getDiscussions, toggleLikeDiscussion } from "../services/discussionApi";
 import { useAuth } from "../context/AuthContext";
+import {
+  FaFilm,
+  FaTv,
+  FaHeart,
+  FaRegHeart,
+  FaRegComment,
+  FaPlus,
+  FaTimes,
+  FaArrowRight,
+  FaComments
+} from "react-icons/fa";
 import "../styles/Discussions.css";
 
 const Discussions = () => {
@@ -114,8 +125,8 @@ const Discussions = () => {
             Share reviews, theories, and perspectives on your favorite cinema and series
           </p>
         </div>
-        <Link to="/discussions/create" className="start-discussion-btn">
-          + Start Discussion
+        <Link to="/discussions/create" className="start-discussion-btn flex items-center gap-1.5">
+          <FaPlus className="text-xs" /> Start Discussion
         </Link>
       </div>
 
@@ -134,14 +145,14 @@ const Discussions = () => {
             className={`disc-tab ${activeTab === "movie" ? "disc-tab--active" : ""}`}
             onClick={() => setActiveTab("movie")}
           >
-            🎬 Movies
+            <FaFilm className="inline mr-1.5 text-xs" /> Movies
           </button>
           <button
             type="button"
             className={`disc-tab ${activeTab === "tv" ? "disc-tab--active" : ""}`}
             onClick={() => setActiveTab("tv")}
           >
-            📺 TV Shows
+            <FaTv className="inline mr-1.5 text-xs" /> TV Shows
           </button>
         </div>
 
@@ -157,10 +168,10 @@ const Discussions = () => {
             {searchQuery && (
               <button
                 type="button"
-                className="discussions-search-clear"
+                className="discussions-search-clear flex items-center justify-center"
                 onClick={() => setSearchQuery("")}
               >
-                ✕
+                <FaTimes className="text-xs" />
               </button>
             )}
           </div>
@@ -187,7 +198,7 @@ const Discussions = () => {
 
       {!loading && !error && filteredDiscussions.length === 0 && (
         <div className="discussions-empty">
-          <div className="discussions-empty-icon">💬</div>
+          <FaComments className="text-4xl text-flickCyan/70 mb-3" />
           <h3>
             {searchQuery || activeTab !== "all"
               ? "No Discussions Found"
@@ -198,8 +209,8 @@ const Discussions = () => {
               ? "Try clearing your search or filters to see more discussions."
               : "Be the first in the Flickevo community to start a discussion!"}
           </p>
-          <Link to="/discussions/create" className="start-discussion-btn">
-            Create Discussion
+          <Link to="/discussions/create" className="start-discussion-btn flex items-center gap-1.5">
+            <FaPlus className="text-xs" /> Create Discussion
           </Link>
         </div>
       )}
@@ -259,9 +270,18 @@ const Discussions = () => {
 
                     <Link
                       to={`/content/${item.mediaId}/${item.mediaType}`}
-                      className="discussion-media-tag"
+                      className="discussion-media-tag flex items-center gap-1"
                     >
-                      {item.mediaType === "tv" ? "📺 TV Show" : "🎬 Movie"} • {displayTitle}
+                      {item.mediaType === "tv" ? (
+                        <>
+                          <FaTv className="text-xs text-flickCyan" /> TV Show
+                        </>
+                      ) : (
+                        <>
+                          <FaFilm className="text-xs text-flickCyan" /> Movie
+                        </>
+                      )}{" "}
+                      • {displayTitle}
                     </Link>
                   </div>
 
@@ -279,28 +299,35 @@ const Discussions = () => {
                     <div className="discussion-stats">
                       <button
                         type="button"
-                        className={`discussion-stat-btn ${hasLiked ? "discussion-stat-btn--liked" : ""}`}
+                        className={`discussion-stat-btn flex items-center gap-1 ${
+                          hasLiked ? "discussion-stat-btn--liked" : ""
+                        }`}
                         onClick={(e) => handleToggleLike(e, item._id)}
                         disabled={likingMap[item._id]}
                         title="Like this discussion"
                       >
-                        {hasLiked ? "❤️" : "🤍"} {item.likesCount || 0}
+                        {hasLiked ? (
+                          <FaHeart className="text-red-400 text-xs" />
+                        ) : (
+                          <FaRegHeart className="text-xs" />
+                        )}{" "}
+                        {item.likesCount || 0}
                       </button>
 
                       <Link
                         to={`/discussions/${item._id}`}
-                        className="discussion-stat-pill"
+                        className="discussion-stat-pill flex items-center gap-1"
                         title="Comments"
                       >
-                        💬 {item.commentsCount || 0} Comments
+                        <FaRegComment className="text-xs" /> {item.commentsCount || 0} Comments
                       </Link>
                     </div>
 
                     <Link
                       to={`/discussions/${item._id}`}
-                      className="discussion-read-more"
+                      className="discussion-read-more flex items-center gap-1"
                     >
-                      Join Discussion →
+                      Join Discussion <FaArrowRight className="text-xs" />
                     </Link>
                   </div>
                 </div>

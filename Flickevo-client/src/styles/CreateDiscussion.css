@@ -300,3 +300,24 @@
   border-color: var(--text-secondary);
 }
 
+@media (max-width: 600px) {
+  .create-discussion-page {
+    padding: 24px 16px 80px;
+  }
+
+  .create-discussion-card {
+    padding: 20px 16px;
+    border-radius: 12px;
+  }
+
+  .create-disc-row {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .create-disc-actions {
+    flex-direction: column-reverse;
+    gap: 10px;
+  }
+}
+

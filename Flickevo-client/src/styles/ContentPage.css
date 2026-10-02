@@ -893,7 +893,8 @@
 @media (max-width: 1024px) {
   .flick-detail-body {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 36px;
+    padding: 0 24px;
   }
   .flick-detail-sidebar-col {
     position: static;
@@ -902,7 +903,7 @@
 
 @media (max-width: 768px) {
   .flick-detail-hero {
-    min-height: 440px;
+    min-height: auto;
     border-radius: 0;
   }
 
@@ -910,13 +911,14 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding: 24px 20px;
+    padding: 32px 18px 24px;
     gap: 20px;
   }
 
   .flick-detail-poster-wrap {
-    flex-basis: 160px;
+    flex: 0 0 160px;
     max-width: 160px;
+    margin: 0 auto;
   }
 
   .flick-detail-badges,
@@ -927,11 +929,59 @@
   }
 
   .flick-detail-body {
-    padding: 0 20px;
+    padding: 0 16px;
+    gap: 32px;
   }
 
   .flick-cast-grid {
-    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(105px, 1fr));
     gap: 12px;
+  }
+
+  .flick-disc-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .flick-detail-poster-wrap {
+    flex: 0 0 135px;
+    max-width: 135px;
+  }
+
+  .flick-detail-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .flick-action-btn {
+    width: 100%;
+  }
+
+  .flick-providers-box {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .flick-overview-card {
+    padding: 18px 16px;
+    font-size: 0.95rem;
+  }
+
+  .flick-cast-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  .flick-cast-details {
+    padding: 6px;
+  }
+
+  .flick-cast-name {
+    font-size: 0.78rem;
+  }
+
+  .flick-cast-role {
+    font-size: 9.5px;
   }
 }

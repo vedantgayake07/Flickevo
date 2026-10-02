@@ -216,11 +216,24 @@
 }
 
 @media (max-width: 550px) {
+  .edit-profile-page {
+    padding: 24px 16px 80px;
+  }
+  .edit-profile-card {
+    padding: 20px 16px;
+    border-radius: 12px;
+  }
   .edit-profile-avatar-section {
     flex-direction: column;
     text-align: center;
+    gap: 16px;
+    padding: 16px;
   }
   .edit-avatar-controls {
     align-items: center;
+  }
+  .edit-form-actions {
+    flex-direction: column-reverse;
+    gap: 10px;
   }
 }

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getPersonById } from "../services/apiClient";
+import { FaArrowLeft, FaStar } from "react-icons/fa";
 import "../styles/PersonDetails.css";
 
 const PersonDetails = () => {
@@ -37,8 +38,8 @@ const PersonDetails = () => {
       <div className="person-error">
         <h2>Person Not Found</h2>
         <p>{error || "Unable to display details."}</p>
-        <button className="person-back-btn" onClick={() => navigate(-1)}>
-          ← Go Back
+        <button className="person-back-btn flex items-center gap-1.5 mx-auto" onClick={() => navigate(-1)}>
+          <FaArrowLeft className="text-xs" /> Go Back
         </button>
       </div>
     );
@@ -175,8 +176,8 @@ const PersonDetails = () => {
                   </div>
 
                   <div className="person-credit-details">
-                    <span className="person-credit-rating">
-                      ⭐ {item.vote_average ? item.vote_average.toFixed(1) : "-"}
+                    <span className="person-credit-rating flex items-center gap-1">
+                      <FaStar className="text-amber-400 text-xs" /> {item.vote_average ? item.vote_average.toFixed(1) : "-"}
                     </span>
                     <h4 className="person-credit-title">{title}</h4>
                     {item.character && (

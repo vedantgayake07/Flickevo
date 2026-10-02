@@ -9,6 +9,16 @@ import {
   deleteComment,
   toggleLikeDiscussion,
 } from "../services/discussionApi";
+import {
+  FaArrowLeft,
+  FaArrowRight,
+  FaFilm,
+  FaTv,
+  FaHeart,
+  FaRegHeart,
+  FaTrash,
+  FaRegComment
+} from "react-icons/fa";
 import "../styles/DiscussionDetails.css";
 
 const DiscussionDetails = () => {
@@ -147,8 +157,8 @@ const DiscussionDetails = () => {
       <div className="discussion-detail-page">
         <div className="discussion-detail-error">
           <p>{error || "Discussion not found."}</p>
-          <Link to="/discussions" className="discussion-back-link">
-            ← Back to Discussions
+          <Link to="/discussions" className="discussion-back-link flex items-center gap-1.5 justify-center">
+            <FaArrowLeft className="text-xs" /> Back to Discussions
           </Link>
         </div>
       </div>
@@ -176,8 +186,8 @@ const DiscussionDetails = () => {
 
   return (
     <div className="discussion-detail-page">
-      <Link to="/discussions" className="discussion-back-link">
-        ← Back to All Discussions
+      <Link to="/discussions" className="discussion-back-link flex items-center gap-1.5">
+        <FaArrowLeft className="text-xs" /> Back to All Discussions
       </Link>
 
       <article className="discussion-main-card">
@@ -185,16 +195,24 @@ const DiscussionDetails = () => {
         <div className="discussion-media-banner">
           <img src={posterSrc} alt={displayMediaTitle} className="discussion-media-banner-poster" />
           <div className="discussion-media-banner-info">
-            <span className="discussion-media-banner-type">
-              {discussion.mediaType === "tv" ? "📺 TV Show Topic" : "🎬 Movie Topic"}
+            <span className="discussion-media-banner-type flex items-center gap-1">
+              {discussion.mediaType === "tv" ? (
+                <>
+                  <FaTv className="text-xs text-flickCyan" /> TV Show Topic
+                </>
+              ) : (
+                <>
+                  <FaFilm className="text-xs text-flickCyan" /> Movie Topic
+                </>
+              )}
             </span>
             <h3 className="discussion-media-banner-title">{displayMediaTitle}</h3>
           </div>
           <Link
             to={`/content/${discussion.mediaId}/${discussion.mediaType}`}
-            className="discussion-media-banner-btn"
+            className="discussion-media-banner-btn flex items-center gap-1"
           >
-            View Details →
+            View Details <FaArrowRight className="text-xs" />
           </Link>
         </div>
 
@@ -221,11 +239,18 @@ const DiscussionDetails = () => {
             <div className="discussion-main-header-actions">
               <button
                 type="button"
-                className={`discussion-like-btn ${hasLiked ? "discussion-like-btn--liked" : ""}`}
+                className={`discussion-like-btn flex items-center gap-1.5 ${
+                  hasLiked ? "discussion-like-btn--liked" : ""
+                }`}
                 onClick={handleToggleLike}
                 disabled={liking}
               >
-                {hasLiked ? "❤️ Liked" : "🤍 Like"} ({discussion.likesCount || 0})
+                {hasLiked ? (
+                  <FaHeart className="text-red-400 text-xs" />
+                ) : (
+                  <FaRegHeart className="text-xs" />
+                )}{" "}
+                {hasLiked ? "Liked" : "Like"} ({discussion.likesCount || 0})
               </button>
             </div>
           </div>
@@ -241,11 +266,11 @@ const DiscussionDetails = () => {
           <footer className="discussion-main-footer">
             <button
               type="button"
-              className="delete-discussion-btn"
+              className="delete-discussion-btn flex items-center gap-1.5"
               onClick={handleDeleteDiscussion}
               disabled={deletingDiscussion}
             >
-              {deletingDiscussion ? "Deleting..." : "🗑️ Delete Discussion"}
+              <FaTrash className="text-xs" /> {deletingDiscussion ? "Deleting..." : "Delete Discussion"}
             </button>
           </footer>
         )}
@@ -254,8 +279,8 @@ const DiscussionDetails = () => {
 
       {/* Comments Section */}
       <section className="comments-section">
-        <h2 className="comments-heading">
-          Comments ({comments.length})
+        <h2 className="comments-heading flex items-center gap-2">
+          <FaRegComment className="text-sm text-cyan-400" /> Comments ({comments.length})
         </h2>
 
         {/* New Comment Box */}
@@ -331,11 +356,11 @@ const DiscussionDetails = () => {
                       {isCommentAuthor && (
                         <button
                           type="button"
-                          className="comment-delete-btn"
+                          className="comment-delete-btn flex items-center justify-center"
                           onClick={() => handleDeleteComment(c._id)}
                           title="Delete comment"
                         >
-                          ✕
+                          <FaTrash className="text-xs" />
                         </button>
                       )}
                     </div>

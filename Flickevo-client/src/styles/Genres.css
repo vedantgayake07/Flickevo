@@ -377,6 +377,14 @@
     flex-direction: column;
     align-items: stretch;
   }
+  .genres-tabs {
+    width: 100%;
+  }
+  .genres-tab {
+    flex: 1;
+    text-align: center;
+    padding: 10px 12px;
+  }
   .genres-search-wrap {
     min-width: 100%;
   }

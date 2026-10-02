@@ -188,8 +188,27 @@
 }
 
 @media (max-width: 640px) {
+  .wl-page {
+    padding: 24px 16px 80px;
+  }
+
   .wl-grid {
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 14px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  /* Make remove button always accessible on mobile/touch screens */
+  .wl-remove {
+    opacity: 0.9;
+    width: 28px;
+    height: 28px;
+    background: rgba(20, 21, 26, 0.9);
+  }
+
+  /* Subtle bottom overlay visible on touch screens */
+  .wl-overlay {
+    opacity: 1;
+    background: linear-gradient(180deg, transparent 40%, rgba(20,21,26,0.92) 100%);
+    padding: 10px;
   }
 }

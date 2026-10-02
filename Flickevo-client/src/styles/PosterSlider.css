@@ -165,5 +165,12 @@
 @media (max-width: 640px) {
   .poster-card { width: 130px; }
   .slider-nav { display: none; } /* touch users swipe instead */
-  .section-title { font-size: 1.5rem; }
+  .section-title { font-size: 1.5rem; margin: 32px 0 14px; }
+  .poster-overlay {
+    opacity: 1;
+    background: linear-gradient(180deg, transparent 40%, rgba(20,21,26,0.92) 100%);
+    padding: 8px;
+  }
+  .poster-title { font-size: 0.78rem; }
+  .poster-score { font-size: 10px; margin-bottom: 2px; }
 }

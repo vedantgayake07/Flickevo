@@ -1,4 +1,6 @@
 import { useRef } from "react";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+
 const CastSlider = ({ cast }) => {
   const trackRef = useRef(null);
 
@@ -19,19 +21,19 @@ const CastSlider = ({ cast }) => {
         <div className="movie-hero__cast-controls">
           <button
             type="button"
-            className="movie-hero__cast-arrow"
+            className="movie-hero__cast-arrow flex items-center justify-center"
             onClick={() => scroll("prev")}
             aria-label="Scroll cast left"
           >
-            ‹
+            <FaChevronLeft className="text-xs" />
           </button>
           <button
             type="button"
-            className="movie-hero__cast-arrow"
+            className="movie-hero__cast-arrow flex items-center justify-center"
             onClick={() => scroll("next")}
             aria-label="Scroll cast right"
           >
-            ›
+            <FaChevronRight className="text-xs" />
           </button>
         </div>
       </div>

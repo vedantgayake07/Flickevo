@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useWatchlist } from "../context/WatchlistContext";
 import { getContentById } from "../services/apiClient";
+import { FaFilm, FaStar, FaTrash } from "react-icons/fa";
 import "../styles/Watchlist.css";
 
 const WatchList = () => {
@@ -66,7 +67,7 @@ const WatchList = () => {
   if (items.length === 0) {
     return (
       <div className="wl-placeholder">
-        <div className="wl-placeholder__icon">🎬</div>
+        <div className="wl-placeholder__icon"><FaFilm className="text-4xl text-cyan-400 mx-auto" /></div>
         <h1 className="wl-placeholder__title">Your Watchlist is Empty</h1>
         <p className="wl-placeholder__text">
           Add movies or shows from their detail page to see them here.
@@ -100,7 +101,7 @@ const WatchList = () => {
               />
 
               <div className="wl-overlay">
-                <span className="wl-score">⭐ {data.vote_average?.toFixed(1) ?? "-"}</span>
+                <span className="wl-score flex items-center gap-1.5"><FaStar className="text-amber-400 text-xs" /> {data.vote_average?.toFixed(1) ?? "-"}</span>
                 <p className="wl-title">{title}</p>
                 <span className="wl-year">{releaseDate ? releaseDate.slice(0, 4) : ""}</span>
                 <span className="wl-type">{item.mediaType === "tv" ? "TV Show" : "Movie"}</span>
@@ -108,11 +109,11 @@ const WatchList = () => {
 
               <button
                 type="button"
-                className="wl-remove"
+                className="wl-remove flex items-center justify-center"
                 onClick={(e) => handleRemove(e, item)}
                 aria-label={`Remove ${title} from watchlist`}
               >
-                ✕
+                <FaTrash className="text-xs" />
               </button>
             </li>
           );

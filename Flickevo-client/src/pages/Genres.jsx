@@ -1,6 +1,7 @@
 import { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { getMovieGenres, getTvGenres } from "../services/apiClient";
+import { FaSearch, FaTimes, FaFilm, FaTv, FaArrowRight } from "react-icons/fa";
 import "../styles/Genres.css";
 
 // Curated cinematic visual profiles for each genre (Zero AI clichés, pure cinephile curation)
@@ -236,19 +237,19 @@ const Genres = () => {
               className={`genres-tab ${activeTab === "movie" ? "genres-tab--active" : ""}`}
               onClick={() => setActiveTab("movie")}
             >
-              Feature Films ({movieGenres.length})
+              <FaFilm className="inline mr-1.5 text-xs" /> Feature Films ({movieGenres.length})
             </button>
             <button
               type="button"
               className={`genres-tab ${activeTab === "tv" ? "genres-tab--active" : ""}`}
               onClick={() => setActiveTab("tv")}
             >
-              Television Series ({tvGenres.length})
+              <FaTv className="inline mr-1.5 text-xs" /> Television Series ({tvGenres.length})
             </button>
           </div>
 
           <div className="genres-search-wrap">
-            <span className="genres-search-icon">🔍</span>
+            <FaSearch className="genres-search-icon text-xs text-flickMuted" />
             <input
               type="text"
               className="genres-search-input"
@@ -259,11 +260,11 @@ const Genres = () => {
             {search && (
               <button
                 type="button"
-                className="genres-search-clear"
+                className="genres-search-clear flex items-center justify-center"
                 onClick={() => setSearch("")}
                 aria-label="Clear filter"
               >
-                ✕
+                <FaTimes className="text-xs" />
               </button>
             )}
           </div>
@@ -319,9 +320,9 @@ const Genres = () => {
 
                 {/* Footer Action */}
                 <div className="genre-card__footer">
-                  <span className="genre-card__explore">
+                  <span className="genre-card__explore flex items-center gap-1.5">
                     Browse Archive
-                    <span className="genre-card__arrow">→</span>
+                    <FaArrowRight className="genre-card__arrow text-xs" />
                   </span>
                 </div>
               </div>

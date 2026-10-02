@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useSearchParams, useNavigate } from "react-router-dom";
 import { discoverByGenre } from "../services/apiClient";
+import { FaStar, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import "../styles/GenreResults.css";
 
 const GenreResults = () => {
@@ -71,7 +72,9 @@ const GenreResults = () => {
                   loading="lazy"
                 />
                 <div className="poster-overlay">
-                  <span className="poster-score">★ {item.vote_average?.toFixed(1) ?? "-"}</span>
+                  <span className="poster-score flex items-center gap-1">
+                    <FaStar className="text-amber-400 text-xs" /> {item.vote_average?.toFixed(1) ?? "-"}
+                  </span>
                   <h3 className="poster-title">{item.title || item.name}</h3>
                   <span className="poster-year">
                     {(item.release_date || item.first_air_date)?.slice(0, 4) || ""}
@@ -85,22 +88,22 @@ const GenreResults = () => {
             <div className="gr-pagination">
               <button
                 type="button"
-                className="gr-page-btn"
+                className="gr-page-btn flex items-center gap-1.5"
                 onClick={() => goToPage(page - 1)}
                 disabled={page <= 1}
               >
-                ‹ Prev
+                <FaChevronLeft className="text-xs" /> Prev
               </button>
               <span className="gr-page-indicator">
                 Page {page} of {Math.min(totalPages, 500)}
               </span>
               <button
                 type="button"
-                className="gr-page-btn"
+                className="gr-page-btn flex items-center gap-1.5"
                 onClick={() => goToPage(page + 1)}
                 disabled={page >= totalPages}
               >
-                Next ›
+                Next <FaChevronRight className="text-xs" />
               </button>
             </div>
           )}

@@ -292,12 +292,19 @@
 }
 
 @media (max-width: 580px) {
+  .person-page {
+    padding: 20px 16px 80px;
+  }
+  .person-hero {
+    padding: 20px 16px;
+    border-radius: 12px;
+  }
   .person-poster-wrap {
-    width: 200px;
-    height: 290px;
+    width: 170px;
+    height: 250px;
   }
   .person-credits-grid {
-    grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 12px;
   }
 }

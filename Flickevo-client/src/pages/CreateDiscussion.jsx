@@ -5,6 +5,7 @@ import { useNavigate, useSearchParams, Link } from "react-router-dom";
 import { createDiscussion } from "../services/discussionApi";
 import { searchMovie } from "../services/apiClient";
 import { getMediaType } from "../helpers/mediaType";
+import { FaTv, FaFilm, FaStar, FaArrowLeft } from "react-icons/fa";
 import "../styles/CreateDiscussion.css";
 
 const CreateDiscussion = () => {
@@ -115,8 +116,8 @@ const CreateDiscussion = () => {
   return (
     <div className="create-discussion-page">
       <div className="create-discussion-card">
-        <Link to="/discussions" className="create-disc-back">
-          ← Back to Discussions
+        <Link to="/discussions" className="create-disc-back flex items-center gap-1.5">
+          <FaArrowLeft className="text-xs" /> Back to Discussions
         </Link>
 
         <h1 className="create-disc-title">Start a Discussion</h1>
@@ -141,8 +142,16 @@ const CreateDiscussion = () => {
                   className="create-disc-selected-poster"
                 />
                 <div className="create-disc-selected-info">
-                  <span className="create-disc-selected-badge">
-                    {mediaType === "tv" ? "📺 TV Show" : "🎬 Movie"}
+                  <span className="create-disc-selected-badge flex items-center gap-1">
+                    {mediaType === "tv" ? (
+                      <>
+                        <FaTv className="text-xs text-flickCyan" /> TV Show
+                      </>
+                    ) : (
+                      <>
+                        <FaFilm className="text-xs text-flickCyan" /> Movie
+                      </>
+                    )}
                   </span>
                   <h4 className="create-disc-selected-title">
                     {mediaTitle || `TMDB ID #${mediaId}`}
@@ -202,7 +211,9 @@ const CreateDiscussion = () => {
                               </span>
                               {year && <span>• {year}</span>}
                               {item.vote_average && (
-                                <span>• ⭐ {item.vote_average.toFixed(1)}</span>
+                                <span className="flex items-center gap-1">
+                                  • <FaStar className="text-amber-400 text-xs inline" /> {item.vote_average.toFixed(1)}
+                                </span>
                               )}
                             </div>
                           </div>

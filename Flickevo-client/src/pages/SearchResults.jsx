@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { searchMovie } from "../services/apiClient";
 import { getMediaType } from "../helpers/mediaType";
+import { FaStar, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import "../styles/SearchResults.css";
 
 const SearchResults = () => {
@@ -115,8 +116,8 @@ const SearchResults = () => {
                   loading="lazy"
                 />
                 <div className="poster-overlay">
-                  <span className="poster-score">
-                    ★ {item.vote_average?.toFixed(1) ?? "-"}
+                  <span className="poster-score flex items-center gap-1">
+                    <FaStar className="text-amber-400 text-xs" /> {item.vote_average?.toFixed(1) ?? "-"}
                   </span>
                   <h3 className="poster-title">{item.title || item.name}</h3>
                   <span className="poster-year">
@@ -134,11 +135,11 @@ const SearchResults = () => {
             <div className="sr-pagination">
               <button
                 type="button"
-                className="sr-page-btn"
+                className="sr-page-btn flex items-center gap-1.5"
                 onClick={() => goToPage(page - 1)}
                 disabled={page <= 1}
               >
-                ‹ Prev
+                <FaChevronLeft className="text-xs" /> Prev
               </button>
 
               <span className="sr-page-indicator">
@@ -147,11 +148,11 @@ const SearchResults = () => {
 
               <button
                 type="button"
-                className="sr-page-btn"
+                className="sr-page-btn flex items-center gap-1.5"
                 onClick={() => goToPage(page + 1)}
                 disabled={page >= totalPages}
               >
-                Next ›
+                Next <FaChevronRight className="text-xs" />
               </button>
             </div>
           )}

@@ -4,6 +4,7 @@ import { getDiscussions } from '../services/discussionApi';
 import { useEffect, useState } from 'react';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 import { getMediaType } from '../helpers/mediaType';
+import { FaFilm, FaComments, FaStar, FaRegComment, FaHeart, FaPlus, FaArrowRight } from 'react-icons/fa';
 import '../styles/Home.css';
 
 const Home = () => {
@@ -65,10 +66,10 @@ const Home = () => {
           </p>
           <div className="hero-actions">
             <NavLink to="/movies" className="btn btn-primary">
-              <span>🎬</span> Browse Movies
+              <FaFilm className="text-base" /> Browse Movies
             </NavLink>
             <NavLink to="/discussions" className="btn btn-secondary">
-              <span>💬</span> Join Discussions
+              <FaComments className="text-base" /> Join Discussions
             </NavLink>
           </div>
         </div>
@@ -106,8 +107,8 @@ const Home = () => {
                     loading="lazy"
                   />
                   <div className="movie-card-overlay">
-                    <div className="movie-rating">
-                      ★ {movie.vote_average?.toFixed(1)}
+                    <div className="movie-rating flex items-center gap-1">
+                      <FaStar className="text-amber-400 text-xs" /> {movie.vote_average?.toFixed(1)}
                     </div>
                     <h3 className="movie-title">{displayTitle}</h3>
                     <span className="movie-year">{displayYear}</span>
@@ -128,8 +129,8 @@ const Home = () => {
               Hear theories, reviews, and insights from other viewers
             </p>
           </div>
-          <Link to="/discussions" className="home-view-all-disc">
-            Explore All Discussions →
+          <Link to="/discussions" className="home-view-all-disc flex items-center gap-1.5">
+            Explore All Discussions <FaArrowRight className="text-xs" />
           </Link>
         </div>
 
@@ -137,7 +138,7 @@ const Home = () => {
           <div className="home-discussions-empty">
             <p>No community discussions yet. Be the first to share your thoughts!</p>
             <Link to="/discussions/create" className="btn btn-primary">
-              + Start a Discussion
+              <FaPlus className="text-xs" /> Start a Discussion
             </Link>
           </div>
         ) : (
@@ -177,8 +178,12 @@ const Home = () => {
                         <span>{authorName}</span>
                       </div>
                       <div className="home-disc-stats">
-                        <span>💬 {disc.commentsCount || 0}</span>
-                        <span>❤️ {disc.likesCount || 0}</span>
+                        <span className="flex items-center gap-1">
+                          <FaRegComment className="text-xs" /> {disc.commentsCount || 0}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <FaHeart className="text-red-400 text-xs" /> {disc.likesCount || 0}
+                        </span>
                       </div>
                     </div>
                   </div>
