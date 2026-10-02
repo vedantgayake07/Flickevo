@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useSearchParams, useNavigate } from "react-router-dom";
 import { discoverByGenre } from "../services/apiClient";
-import "./GenreResults.css";
+import "../styles/GenreResults.css";
 
 const GenreResults = () => {
   const { type, id } = useParams();

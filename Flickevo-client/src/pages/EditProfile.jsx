@@ -3,7 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { getProfile, updateProfileApi } from "../services/userApi";
 import { uploadToImageKit } from "../helpers/imageKitUpload";
-import "./EditProfile.css";
+import "../styles/EditProfile.css";
 
 const EditProfile = () => {
   const { user, updateUser } = useAuth();

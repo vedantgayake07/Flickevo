@@ -7,8 +7,9 @@ import {
   getComments,
   createComment,
   deleteComment,
+  toggleLikeDiscussion,
 } from "../services/discussionApi";
-import "./DiscussionDetails.css";
+import "../styles/DiscussionDetails.css";
 
 const DiscussionDetails = () => {
   const { id } = useParams();
@@ -21,6 +22,7 @@ const DiscussionDetails = () => {
   const [loading, setLoading] = useState(true);
   const [submittingComment, setSubmittingComment] = useState(false);
   const [deletingDiscussion, setDeletingDiscussion] = useState(false);
+  const [liking, setLiking] = useState(false);
   const [error, setError] = useState("");
   const [commentError, setCommentError] = useState("");
 
@@ -46,6 +48,36 @@ const DiscussionDetails = () => {
     }
     loadData();
   }, [id]);
+
+  const handleToggleLike = async () => {
+    if (!user) {
+      navigate("/login");
+      return;
+    }
+
+    if (liking) return;
+
+    try {
+      setLiking(true);
+      const res = await toggleLikeDiscussion(id);
+      setDiscussion((prev) => {
+        if (!prev) return prev;
+        const updatedLikes = res.hasLiked
+          ? [...(prev.likes || []), currentUserId]
+          : (prev.likes || []).filter((uid) => uid.toString() !== currentUserId.toString());
+
+        return {
+          ...prev,
+          likes: updatedLikes,
+          likesCount: res.likesCount,
+        };
+      });
+    } catch (err) {
+      console.error("Failed to like discussion", err);
+    } finally {
+      setLiking(false);
+    }
+  };
 
   const handleDeleteDiscussion = async () => {
     if (!window.confirm("Are you sure you want to delete this discussion?")) {
@@ -134,6 +166,14 @@ const DiscussionDetails = () => {
       })
     : "";
 
+  const hasLiked =
+    currentUserId &&
+    Array.isArray(discussion.likes) &&
+    discussion.likes.some((uid) => uid.toString() === currentUserId.toString());
+
+  const displayMediaTitle = discussion.mediaTitle || `${discussion.mediaType === "tv" ? "TV Show" : "Movie"} #${discussion.mediaId}`;
+  const posterSrc = discussion.mediaPoster || "/placeholder-movie.svg";
+
   return (
     <div className="discussion-detail-page">
       <Link to="/discussions" className="discussion-back-link">
@@ -141,6 +181,23 @@ const DiscussionDetails = () => {
       </Link>
 
       <article className="discussion-main-card">
+        {/* Linked Movie / Show Banner */}
+        <div className="discussion-media-banner">
+          <img src={posterSrc} alt={displayMediaTitle} className="discussion-media-banner-poster" />
+          <div className="discussion-media-banner-info">
+            <span className="discussion-media-banner-type">
+              {discussion.mediaType === "tv" ? "📺 TV Show Topic" : "🎬 Movie Topic"}
+            </span>
+            <h3 className="discussion-media-banner-title">{displayMediaTitle}</h3>
+          </div>
+          <Link
+            to={`/content/${discussion.mediaId}/${discussion.mediaType}`}
+            className="discussion-media-banner-btn"
+          >
+            View Details →
+          </Link>
+        </div>
+
         <header className="discussion-main-header">
           <div className="discussion-main-meta-top">
             <div className="discussion-main-author">
@@ -161,12 +218,16 @@ const DiscussionDetails = () => {
               </div>
             </div>
 
-            <Link
-              to={`/content/${discussion.mediaId}/${discussion.mediaType}`}
-              className="discussion-media-pill"
-            >
-              🎬 View {discussion.mediaType === "tv" ? "TV Show" : "Movie"} Details
-            </Link>
+            <div className="discussion-main-header-actions">
+              <button
+                type="button"
+                className={`discussion-like-btn ${hasLiked ? "discussion-like-btn--liked" : ""}`}
+                onClick={handleToggleLike}
+                disabled={liking}
+              >
+                {hasLiked ? "❤️ Liked" : "🤍 Like"} ({discussion.likesCount || 0})
+              </button>
+            </div>
           </div>
 
           <h1 className="discussion-main-title">{discussion.title}</h1>
@@ -189,6 +250,7 @@ const DiscussionDetails = () => {
           </footer>
         )}
       </article>
+
 
       {/* Comments Section */}
       <section className="comments-section">

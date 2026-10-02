@@ -1,6 +1,6 @@
 // components/PosterSlider.jsx
 import { useRef } from 'react';
-import './PosterSlider.css';
+import '../styles/PosterSlider.css';
 
 export const PosterSlider = ({ title, movies, handleSuggestion }) => {
   const trackRef = useRef(null);

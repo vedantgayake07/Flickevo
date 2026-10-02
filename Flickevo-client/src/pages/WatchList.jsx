@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useWatchlist } from "../context/WatchlistContext";
 import { getContentById } from "../services/apiClient";
-import "./Watchlist.css";
+import "../styles/Watchlist.css";
 
 const WatchList = () => {
   const { items, loaded, toggleWatchlist } = useWatchlist();

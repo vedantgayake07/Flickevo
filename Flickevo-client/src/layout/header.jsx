@@ -1,21 +1,19 @@
-/* eslint-disable react-hooks/immutability */
 /* eslint-disable react-hooks/set-state-in-effect */
 import { useAuth } from '../context/AuthContext';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react'
-import { searchMovie } from '../services/apiClient'
-import { getMediaType } from '../helpers/mediaType'
-import { useLocation } from 'react-router-dom';
-import './Header.css';
-
+import { NavLink, useNavigate, useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { searchMovie } from '../services/apiClient';
+import { getMediaType } from '../helpers/mediaType';
+import '../styles/Header.css';
 
 const Header = () => {
-
   const [searchbar, setsearchbar] = useState(false);
+  const [search, setsearch] = useState("");
+  const [searchoptions, setsearchoptions] = useState([]);
 
   const { user, logout } = useAuth();
-
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     setsearchoptions([]);
@@ -35,14 +33,10 @@ const Header = () => {
     }
   };
 
-  const [search, setsearch] = useState("");
-
-  const navigate = useNavigate();
-  const [searchoptions, setsearchoptions] = useState([]);
-
   const handleOnChange = (e) => {
-    setsearch(e.target.value)
-  }
+    setsearch(e.target.value);
+  };
+
 
   useEffect(() => {
     if (!search.trim()) {

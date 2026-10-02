@@ -1,7 +1,11 @@
-import { useState } from "react";
+/* eslint-disable react-hooks/set-state-in-effect */
+import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams, Link } from "react-router-dom";
+
 import { createDiscussion } from "../services/discussionApi";
-import "./CreateDiscussion.css";
+import { searchMovie } from "../services/apiClient";
+import { getMediaType } from "../helpers/mediaType";
+import "../styles/CreateDiscussion.css";
 
 const CreateDiscussion = () => {
   const [searchParams] = useSearchParams();
@@ -10,14 +14,69 @@ const CreateDiscussion = () => {
   const initialMediaId = searchParams.get("mediaId") || "";
   const initialMediaType = searchParams.get("mediaType") || "movie";
   const initialMediaTitle = searchParams.get("title") || "";
+  const initialMediaPoster = searchParams.get("poster") || "";
 
   const [mediaId, setMediaId] = useState(initialMediaId);
   const [mediaType, setMediaType] = useState(initialMediaType);
   const [mediaTitle, setMediaTitle] = useState(initialMediaTitle);
+  const [mediaPoster, setMediaPoster] = useState(initialMediaPoster);
+
+  // Search state for autocomplete
+  const [movieQuery, setMovieQuery] = useState("");
+  const [movieSuggestions, setMovieSuggestions] = useState([]);
+  const [searchingMovies, setSearchingMovies] = useState(false);
+
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
+
+  // Live search for movies/shows when typing in search box
+  useEffect(() => {
+    if (!movieQuery.trim() || movieQuery.trim().length < 2) {
+      setMovieSuggestions([]);
+      return;
+    }
+
+    const timer = setTimeout(async () => {
+      try {
+        setSearchingMovies(true);
+        const res = await searchMovie(movieQuery.trim());
+        const results = (res.data?.results || []).filter(
+          (item) => item.media_type !== "person"
+        );
+        setMovieSuggestions(results.slice(0, 6));
+      } catch (err) {
+        console.error("Failed to search titles", err);
+      } finally {
+        setSearchingMovies(false);
+      }
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [movieQuery]);
+
+  const handleSelectMedia = (item) => {
+    const determinedType = getMediaType(item);
+    const itemTitle = item.title || item.name || "Untitled";
+    const posterPath = item.poster_path
+      ? `https://image.tmdb.org/t/p/w185${item.poster_path}`
+      : "";
+
+    setMediaId(String(item.id));
+    setMediaType(determinedType);
+    setMediaTitle(itemTitle);
+    setMediaPoster(posterPath);
+    setMovieQuery("");
+    setMovieSuggestions([]);
+    setError("");
+  };
+
+  const handleClearSelectedMedia = () => {
+    setMediaId("");
+    setMediaTitle("");
+    setMediaPoster("");
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,7 +88,7 @@ const CreateDiscussion = () => {
     }
 
     if (!mediaId || isNaN(Number(mediaId))) {
-      setError("Please specify a valid numeric TMDB Media ID.");
+      setError("Please select a movie or TV show to discuss.");
       return;
     }
 
@@ -38,6 +97,8 @@ const CreateDiscussion = () => {
       const newDisc = await createDiscussion({
         mediaId: Number(mediaId),
         mediaType,
+        mediaTitle: mediaTitle || "Untitled Title",
+        mediaPoster,
         title: title.trim(),
         content: content.trim(),
       });
@@ -66,49 +127,103 @@ const CreateDiscussion = () => {
         {error && <div className="create-disc-error">{error}</div>}
 
         <form onSubmit={handleSubmit} className="create-disc-form">
-          <div className="create-disc-row">
-            <div className="create-disc-group">
-              <label className="create-disc-label" htmlFor="media-type-select">
-                Content Type
-              </label>
-              <select
-                id="media-type-select"
-                className="create-disc-select"
-                value={mediaType}
-                onChange={(e) => setMediaType(e.target.value)}
-                disabled={submitting}
-              >
-                <option value="movie">Movie</option>
-                <option value="tv">TV Show</option>
-              </select>
-            </div>
+          {/* Movie / Show Selection Section */}
+          <div className="create-disc-group">
+            <label className="create-disc-label">
+              Select Movie or TV Show to Discuss
+            </label>
 
-            <div className="create-disc-group flex-1">
-              <label className="create-disc-label" htmlFor="media-id-input">
-                TMDB Content ID {mediaTitle && `(${mediaTitle})`}
-              </label>
-              <input
-                id="media-id-input"
-                type="number"
-                className="create-disc-input"
-                placeholder="e.g. 550 for Fight Club"
-                value={mediaId}
-                onChange={(e) => setMediaId(e.target.value)}
-                required
-                disabled={submitting}
-              />
-            </div>
+            {mediaId ? (
+              <div className="create-disc-selected-media">
+                <img
+                  src={mediaPoster || "/placeholder-movie.svg"}
+                  alt={mediaTitle || "Poster"}
+                  className="create-disc-selected-poster"
+                />
+                <div className="create-disc-selected-info">
+                  <span className="create-disc-selected-badge">
+                    {mediaType === "tv" ? "📺 TV Show" : "🎬 Movie"}
+                  </span>
+                  <h4 className="create-disc-selected-title">
+                    {mediaTitle || `TMDB ID #${mediaId}`}
+                  </h4>
+                  <span className="create-disc-selected-id">ID: {mediaId}</span>
+                </div>
+                <button
+                  type="button"
+                  className="create-disc-change-btn"
+                  onClick={handleClearSelectedMedia}
+                  disabled={submitting}
+                >
+                  Change
+                </button>
+              </div>
+            ) : (
+              <div className="create-disc-search-box">
+                <input
+                  type="text"
+                  className="create-disc-input"
+                  placeholder="Search for a movie or TV show (e.g. Inception, Breaking Bad)..."
+                  value={movieQuery}
+                  onChange={(e) => setMovieQuery(e.target.value)}
+                  disabled={submitting}
+                />
+                {searchingMovies && (
+                  <span className="create-disc-searching-tag">Searching…</span>
+                )}
+
+                {movieSuggestions.length > 0 && (
+                  <div className="create-disc-suggestions">
+                    {movieSuggestions.map((item) => {
+                      const itemTitle = item.title || item.name;
+                      const itemType = getMediaType(item);
+                      const year = (item.release_date || item.first_air_date)?.slice(0, 4);
+
+                      return (
+                        <div
+                          key={item.id}
+                          className="create-disc-suggestion-item"
+                          onClick={() => handleSelectMedia(item)}
+                        >
+                          <img
+                            src={
+                              item.poster_path
+                                ? `https://image.tmdb.org/t/p/w92${item.poster_path}`
+                                : "/placeholder-movie.svg"
+                            }
+                            alt={itemTitle}
+                            className="create-disc-suggestion-poster"
+                          />
+                          <div className="create-disc-suggestion-info">
+                            <span className="create-disc-suggestion-name">{itemTitle}</span>
+                            <div className="create-disc-suggestion-meta">
+                              <span className="create-disc-suggestion-type">
+                                {itemType === "tv" ? "TV Show" : "Movie"}
+                              </span>
+                              {year && <span>• {year}</span>}
+                              {item.vote_average && (
+                                <span>• ⭐ {item.vote_average.toFixed(1)}</span>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            )}
           </div>
 
           <div className="create-disc-group">
             <label className="create-disc-label" htmlFor="disc-title-input">
-              Discussion Title
+              Discussion Topic / Title
             </label>
             <input
               id="disc-title-input"
               type="text"
               className="create-disc-input"
-              placeholder="e.g., What did you think about the ending?"
+              placeholder="e.g., What did you think about the final twist?"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               required
@@ -118,12 +233,12 @@ const CreateDiscussion = () => {
 
           <div className="create-disc-group">
             <label className="create-disc-label" htmlFor="disc-content-input">
-              Discussion Thoughts / Analysis
+              Your Review / Analysis / Thoughts
             </label>
             <textarea
               id="disc-content-input"
               className="create-disc-textarea"
-              placeholder="Write your review, questions, or perspectives here..."
+              placeholder="Share your perspectives, ask questions, or review what you loved..."
               value={content}
               onChange={(e) => setContent(e.target.value)}
               rows="6"
@@ -136,7 +251,7 @@ const CreateDiscussion = () => {
             <button
               type="submit"
               className="create-disc-submit-btn"
-              disabled={submitting}
+              disabled={submitting || !mediaId}
             >
               {submitting ? "Publishing..." : "Publish Discussion"}
             </button>
@@ -156,3 +271,4 @@ const CreateDiscussion = () => {
 };
 
 export default CreateDiscussion;
+

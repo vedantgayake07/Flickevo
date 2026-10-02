@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { searchMovie } from "../services/apiClient";
 import { getMediaType } from "../helpers/mediaType";
-import "./SearchResults.css";
+import "../styles/SearchResults.css";
 
 const SearchResults = () => {
   const [searchParams, setSearchParams] = useSearchParams();

@@ -1,7 +1,7 @@
 import { backendApi } from "./backendClient";
 
-export const getDiscussions = async () => {
-  const { data } = await backendApi.get("/discussions");
+export const getDiscussions = async (params = {}) => {
+  const { data } = await backendApi.get("/discussions", { params });
   return data.discussions;
 };
 
@@ -10,10 +10,12 @@ export const getDiscussion = async (id) => {
   return data.discussion;
 };
 
-export const createDiscussion = async ({ mediaId, mediaType, title, content }) => {
+export const createDiscussion = async ({ mediaId, mediaType, mediaTitle, mediaPoster, title, content }) => {
   const { data } = await backendApi.post("/discussions", {
     mediaId,
     mediaType,
+    mediaTitle,
+    mediaPoster,
     title,
     content,
   });
@@ -22,6 +24,11 @@ export const createDiscussion = async ({ mediaId, mediaType, title, content }) =
 
 export const deleteDiscussion = async (id) => {
   const { data } = await backendApi.delete(`/discussions/${id}`);
+  return data;
+};
+
+export const toggleLikeDiscussion = async (id) => {
+  const { data } = await backendApi.post(`/discussions/${id}/like`);
   return data;
 };
 
@@ -41,3 +48,4 @@ export const deleteComment = async (commentId) => {
   const { data } = await backendApi.delete(`/comments/${commentId}`);
   return data;
 };
+

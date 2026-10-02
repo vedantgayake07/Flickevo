@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getPersonById } from "../services/apiClient";
-import "./PersonDetails.css";
+import "../styles/PersonDetails.css";
 
 const PersonDetails = () => {
   const { id } = useParams();

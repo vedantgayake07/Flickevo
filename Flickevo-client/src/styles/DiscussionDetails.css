@@ -45,6 +45,73 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
 }
 
+/* Discussion Media Banner */
+.discussion-media-banner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 18px;
+  margin-bottom: 26px;
+  transition: border-color 0.2s ease;
+}
+
+.discussion-media-banner:hover {
+  border-color: rgba(158, 240, 255, 0.3);
+}
+
+.discussion-media-banner-poster {
+  width: 44px;
+  height: 66px;
+  object-fit: cover;
+  border-radius: 6px;
+  background: var(--surface);
+  flex-shrink: 0;
+}
+
+.discussion-media-banner-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.discussion-media-banner-type {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--accent-glow);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.discussion-media-banner-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  color: var(--text-primary);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.discussion-media-banner-btn {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--accent-glow);
+  text-decoration: none;
+  background: var(--accent-glow-soft);
+  border: 1px solid rgba(158, 240, 255, 0.25);
+  padding: 6px 14px;
+  border-radius: 8px;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.discussion-media-banner-btn:hover {
+  background: rgba(158, 240, 255, 0.25);
+}
+
 .discussion-main-meta-top {
   display: flex;
   justify-content: space-between;
@@ -53,6 +120,40 @@
   gap: 16px;
   margin-bottom: 20px;
 }
+
+.discussion-main-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.discussion-like-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.discussion-like-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: scale(1.03);
+}
+
+.discussion-like-btn--liked {
+  background: rgba(229, 9, 20, 0.18);
+  border-color: rgba(229, 9, 20, 0.45);
+  color: #ff6b6b;
+}
+
 
 .discussion-main-author {
   display: flex;

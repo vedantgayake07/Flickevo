@@ -1,0 +1,387 @@
+/* ==========================================================================
+   Genres.css — Cinematheque Archive & Film Movement Showcase
+   ========================================================================== */
+
+.genres-page {
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: 40px 32px 120px;
+}
+
+/* ---------- Editorial Hero ---------- */
+.genres-hero {
+  position: relative;
+  background:
+    radial-gradient(circle at 15% 0%, rgba(100, 222, 245, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 85% 0%, rgba(245, 158, 11, 0.05) 0%, transparent 40%),
+    var(--surface, #14151a);
+  border: 1px solid var(--border, rgba(242, 238, 230, 0.08));
+  border-radius: 20px;
+  padding: 44px 40px 36px;
+  margin-bottom: 48px;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+}
+
+.genres-hero::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, var(--accent-glow, #64def5) 50%, transparent 100%);
+  opacity: 0.8;
+}
+
+.genres-hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--accent-glow, #64def5);
+  background: rgba(100, 222, 245, 0.1);
+  border: 1px solid rgba(100, 222, 245, 0.25);
+  padding: 5px 14px;
+  border-radius: 999px;
+  margin-bottom: 16px;
+}
+
+.genres-hero__pulse {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-glow, #64def5);
+  box-shadow: 0 0 8px var(--accent-glow, #64def5);
+}
+
+.genres-hero__title {
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: clamp(2.6rem, 5vw, 4rem);
+  font-weight: 400;
+  color: var(--text-primary, #f2eee6);
+  margin: 0 0 12px;
+  letter-spacing: 0.03em;
+  line-height: 1.05;
+}
+
+.genres-hero__sub {
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: 1.05rem;
+  color: var(--text-secondary, #9c9a96);
+  max-width: 720px;
+  line-height: 1.6;
+  margin: 0 0 32px;
+}
+
+/* ---------- Toolbar: Segmented Tabs & Search ---------- */
+.genres-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 18px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.genres-tabs {
+  display: flex;
+  gap: 6px;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 5px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.genres-tab {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary, #9c9a96);
+  padding: 10px 22px;
+  border-radius: 8px;
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-weight: 600;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.genres-tab:hover {
+  color: #fff;
+}
+
+.genres-tab--active {
+  background: var(--surface-2, #1f222d);
+  color: var(--accent-glow, #64def5);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+}
+
+.genres-search-wrap {
+  position: relative;
+  min-width: 280px;
+}
+
+.genres-search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.85rem;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.genres-search-input {
+  width: 100%;
+  padding: 11px 36px 11px 38px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  color: var(--text-primary, #f2eee6);
+  font-family: var(--font-body, sans-serif);
+  font-size: 0.9rem;
+  outline: none;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+.genres-search-input:focus {
+  border-color: var(--accent-glow, #64def5);
+  background: rgba(0, 0, 0, 0.55);
+  box-shadow: 0 0 16px rgba(100, 222, 245, 0.2);
+}
+
+.genres-search-clear {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 4px;
+}
+
+/* ==========================================================================
+   Cinematic Genre Cards Grid
+   ========================================================================== */
+.genres-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+  gap: 24px;
+}
+
+.genre-card {
+  position: relative;
+  min-height: 230px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 24px;
+  cursor: pointer;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease,
+              box-shadow 0.35s ease;
+  background: #0d0e14;
+}
+
+/* Atmospheric Backdrop Image */
+.genre-card__bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.55) saturate(1.05);
+  transform: scale(1.01);
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), filter 0.45s ease;
+}
+
+/* Vignette & Gradient Shading */
+.genre-card__gradient {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(10, 11, 15, 0.35) 0%, rgba(10, 11, 15, 0.75) 50%, rgba(8, 9, 13, 0.98) 100%),
+    linear-gradient(90deg, rgba(8, 9, 13, 0.7) 0%, transparent 60%);
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+/* Hover States */
+.genre-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--genre-accent, #64def5);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.75), 0 0 24px rgba(100, 222, 245, 0.15);
+}
+
+.genre-card:hover .genre-card__bg {
+  transform: scale(1.08);
+  filter: brightness(0.7) saturate(1.2);
+}
+
+/* Card Top Bar */
+.genre-card__top {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.genre-card__code {
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 4px 10px;
+  border-radius: 6px;
+  backdrop-filter: blur(8px);
+}
+
+.genre-card__format {
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--genre-accent, #64def5);
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 3px 8px;
+  border-radius: 999px;
+  backdrop-filter: blur(8px);
+}
+
+/* Card Body */
+.genre-card__body {
+  position: relative;
+  z-index: 2;
+  margin-top: 36px;
+  flex: 1;
+}
+
+.genre-card__title {
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: 2.1rem;
+  font-weight: 400;
+  color: #fff;
+  margin: 0 0 6px;
+  letter-spacing: 0.03em;
+  line-height: 1.1;
+  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.8);
+}
+
+.genre-card__subgenres {
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  color: rgba(242, 238, 230, 0.75);
+  letter-spacing: 0.04em;
+  line-height: 1.45;
+  margin: 0;
+  transition: color 0.2s ease;
+}
+
+.genre-card:hover .genre-card__subgenres {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+/* Card Footer Action */
+.genre-card__footer {
+  position: relative;
+  z-index: 2;
+  margin-top: 20px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.genre-card__explore {
+  font-family: var(--font-mono, monospace);
+  font-size: 11.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--genre-accent, #64def5);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: gap 0.2s ease;
+}
+
+.genre-card__arrow {
+  transition: transform 0.2s ease;
+}
+
+.genre-card:hover .genre-card__explore {
+  gap: 10px;
+}
+
+.genre-card:hover .genre-card__arrow {
+  transform: translateX(4px);
+}
+
+/* ---------- Loading / Empty States ---------- */
+.genres-loading,
+.genres-empty {
+  min-height: 45vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: var(--font-mono, monospace);
+  color: var(--text-secondary, #9c9a96);
+  font-size: 0.95rem;
+}
+
+.genres-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid rgba(100, 222, 245, 0.15);
+  border-top-color: var(--accent-glow, #64def5);
+  border-radius: 50%;
+  animation: genresSpin 0.8s linear infinite;
+  margin-bottom: 16px;
+}
+
+@keyframes genresSpin {
+  to { transform: rotate(360deg); }
+}
+
+.genres-empty p {
+  margin: 0 0 20px;
+  font-size: 1rem;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 768px) {
+  .genres-page {
+    padding: 24px 16px 100px;
+  }
+  .genres-hero {
+    padding: 32px 20px;
+  }
+  .genres-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .genres-search-wrap {
+    min-width: 100%;
+  }
+  .genres-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}

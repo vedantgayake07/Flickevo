@@ -1,6 +1,8 @@
 import axios from "axios";
 
-const BASE_URL = import.meta.env.VITE_BACKEND_URL ;
+const rawUrl = import.meta.env.VITE_BACKEND_URL || "https://flickevo.onrender.com/api";
+const cleanUrl = rawUrl.replace(/\/+$/, "");
+const BASE_URL = cleanUrl.endsWith("/api") ? cleanUrl : `${cleanUrl}/api`;
 
 export const backendApi = axios.create({
   baseURL: BASE_URL,

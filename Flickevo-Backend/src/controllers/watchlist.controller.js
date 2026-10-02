@@ -50,8 +50,8 @@ async function addToWatchList(req , res) {
 
     if(!mediaId || !mediaType)
     {
-        return res.status(404).json({
-            message : "mediaid and mediaType missing"
+        return res.status(400).json({
+            message : "mediaId and mediaType are required"
         })
     }
 

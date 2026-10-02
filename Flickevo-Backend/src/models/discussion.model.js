@@ -18,6 +18,18 @@ const discussionSchema = new mongoose.Schema({
         enum: ["movie", "tv"]
     },
 
+    mediaTitle: {
+        type: String,
+        trim: true,
+        default: ""
+    },
+
+    mediaPoster: {
+        type: String,
+        trim: true,
+        default: ""
+    },
+
     title: {
         type: String,
         required: [true, "discussion title is required"],
@@ -28,7 +40,12 @@ const discussionSchema = new mongoose.Schema({
         type: String,
         required: [true, "discussion content is required"],
         trim: true
-    }
+    },
+
+    likes: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user"
+    }]
 }, {
     timestamps: true
 })
@@ -38,4 +55,4 @@ const discussionModel = mongoose.model(
     discussionSchema
 )
 
-module.exports = discussionModel
+module.exports = discussionModel

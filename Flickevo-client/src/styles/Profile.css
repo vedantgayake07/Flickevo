@@ -174,15 +174,110 @@
   transform: translateY(-1px);
 }
 
-.profile-btn--danger {
-  background: transparent;
-  color: #ff6b6b;
-  border: 1px solid rgba(255, 107, 107, 0.3);
-}
-
 .profile-btn--danger:hover {
   background: rgba(255, 107, 107, 0.12);
   border-color: #ff6b6b;
+}
+
+.profile-btn--secondary {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+}
+
+.profile-btn--secondary:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: var(--accent-glow);
+}
+
+.profile-loading-state {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  padding: 60px 0;
+  text-align: center;
+}
+
+/* Profile Discussions */
+.profile-discussions-section {
+  margin-top: 40px;
+  border-top: 1px solid var(--border);
+  padding-top: 28px;
+}
+
+.profile-section-heading {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  margin: 0 0 20px;
+}
+
+.profile-discussions-empty {
+  background: var(--surface-2);
+  border: 1px dashed var(--border);
+  border-radius: 12px;
+  padding: 28px 20px;
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+}
+
+.profile-discussions-empty p {
+  margin: 0 0 16px;
+}
+
+.profile-discussions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.profile-disc-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 18px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.profile-disc-item:hover {
+  border-color: rgba(158, 240, 255, 0.4);
+  transform: translateX(4px);
+}
+
+.profile-disc-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.profile-disc-badge {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--accent-glow);
+}
+
+.profile-disc-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.profile-disc-date {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.profile-disc-arrow {
+  color: var(--accent-glow);
+  font-size: 1.2rem;
+  margin-left: 16px;
 }
 
 @media (max-width: 600px) {
@@ -197,3 +292,4 @@
     flex-direction: column;
   }
 }
+

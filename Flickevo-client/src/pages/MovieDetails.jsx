@@ -4,7 +4,7 @@ import { getToprated, getPopular, getUpcoming } from "../services/apiClient"
 import { PosterSlider } from '../components/PosterSlider';
 import { getMediaType } from '../helpers/mediaType'
 import GenreBar from '../components/GenreBar';
-import './MoviesDetails.css';
+import '../styles/MoviesDetails.css';
 
 const MovieDetails = () => {
     const [toprated, setToprated] = useState([]);

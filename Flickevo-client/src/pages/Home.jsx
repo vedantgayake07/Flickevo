@@ -1,35 +1,38 @@
 // Home.jsx
 import { getTrending } from '../services/apiClient';
+import { getDiscussions } from '../services/discussionApi';
 import { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import { useNavigate} from 'react-router-dom';
-import { getMediaType } from '../helpers/mediaType'
-import './Home.css';
+import { NavLink, Link, useNavigate } from 'react-router-dom';
+import { getMediaType } from '../helpers/mediaType';
+import '../styles/Home.css';
 
 const Home = () => {
   const [popularMovies, setPopularMovies] = useState([]);
+  const [recentDiscussions, setRecentDiscussions] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
 
   const handleOnClick = (movie) => {
-        const type = getMediaType(movie); // returns 'movie' or 'tv'
-        navigate(`/content/${movie.id}/${type}`);
-    };
+    const type = getMediaType(movie); // returns 'movie' or 'tv'
+    navigate(`/content/${movie.id}/${type}`);
+  };
 
   useEffect(() => {
     async function getData() {
       try {
-        const response = await getTrending();
-        setPopularMovies(response.results);
+        const [trendingRes, discRes] = await Promise.all([
+          getTrending(),
+          getDiscussions().catch(() => []),
+        ]);
+        setPopularMovies(trendingRes?.results || []);
+        setRecentDiscussions((discRes || []).slice(0, 4));
       } finally {
         setLoading(false);
       }
     }
     getData();
   }, []);
-
-
 
   // Use a handful of posters to build the hero mosaic backdrop
   const heroPosters = popularMovies.slice(0, 8);
@@ -57,11 +60,16 @@ const Home = () => {
             <br />before you press play.
           </h1>
           <p className="hero-sub">
-            Build your watchlist, get reminders for what you plan to watch,
-            and ask real people whether a movie is actually worth your time.
+            Build your watchlist, join heated discussions, explore what is trending,
+            and ask fellow cinephiles whether a movie or show is worth your time.
           </p>
           <div className="hero-actions">
-            <NavLink to="/movies" className="btn btn-primary" >Start your watchlist</NavLink>
+            <NavLink to="/movies" className="btn btn-primary">
+              <span>🎬</span> Browse Movies
+            </NavLink>
+            <NavLink to="/discussions" className="btn btn-secondary">
+              <span>💬</span> Join Discussions
+            </NavLink>
           </div>
         </div>
 
@@ -81,29 +89,107 @@ const Home = () => {
             ))}
 
           {!loading &&
-            popularMovies.map((movie) => (
-              <div key={movie.id} className="movie-card" onClick={()=>{handleOnClick(movie)}}>
-                <img
-                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                  alt={movie.title}
-                  className="movie-poster"
-                  loading="lazy"
-                />
-                <div className="movie-card-overlay">
-                  <div className="movie-rating">
-                    ★ {movie.vote_average?.toFixed(1)}
+            popularMovies.map((movie) => {
+              const displayTitle = movie.title || movie.name;
+              const displayYear = (movie.release_date || movie.first_air_date)?.slice(0, 4);
+
+              return (
+                <div key={movie.id} className="movie-card" onClick={() => handleOnClick(movie)}>
+                  <img
+                    src={
+                      movie.poster_path
+                        ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+                        : "/placeholder-movie.svg"
+                    }
+                    alt={displayTitle}
+                    className="movie-poster"
+                    loading="lazy"
+                  />
+                  <div className="movie-card-overlay">
+                    <div className="movie-rating">
+                      ★ {movie.vote_average?.toFixed(1)}
+                    </div>
+                    <h3 className="movie-title">{displayTitle}</h3>
+                    <span className="movie-year">{displayYear}</span>
                   </div>
-                  <h3 className="movie-title">{movie.title}</h3>
-                  <span className="movie-year">
-                    {movie.release_date?.slice(0, 4)}
-                  </span>
                 </div>
-              </div>
-            ))}
+              );
+            })}
         </div>
+      </section>
+
+      {/* COMMUNITY DISCUSSIONS SHOWCASE */}
+      <section className="home-discussions-section">
+        <div className="home-discussions-header">
+          <div>
+            <span className="home-section-tag">Community Buzz</span>
+            <h2 className="home-section-title">Trending Discussions</h2>
+            <p className="home-section-sub">
+              Hear theories, reviews, and insights from other viewers
+            </p>
+          </div>
+          <Link to="/discussions" className="home-view-all-disc">
+            Explore All Discussions →
+          </Link>
+        </div>
+
+        {recentDiscussions.length === 0 ? (
+          <div className="home-discussions-empty">
+            <p>No community discussions yet. Be the first to share your thoughts!</p>
+            <Link to="/discussions/create" className="btn btn-primary">
+              + Start a Discussion
+            </Link>
+          </div>
+        ) : (
+          <div className="home-discussions-grid">
+            {recentDiscussions.map((disc) => {
+              const authorName = disc.author?.username || "Anonymous";
+              const authorPic = disc.author?.profilePicture;
+              const title = disc.mediaTitle || `${disc.mediaType === "tv" ? "TV Show" : "Movie"}`;
+              const poster = disc.mediaPoster || "/placeholder-movie.svg";
+
+              return (
+                <Link
+                  key={disc._id}
+                  to={`/discussions/${disc._id}`}
+                  className="home-disc-card"
+                >
+                  <img src={poster} alt={title} className="home-disc-poster" />
+                  <div className="home-disc-content">
+                    <span className="home-disc-badge">
+                      {disc.mediaType === "tv" ? "TV Show" : "Movie"} • {title}
+                    </span>
+                    <h3 className="home-disc-title">{disc.title}</h3>
+                    <p className="home-disc-snippet">
+                      {disc.content.length > 100
+                        ? disc.content.slice(0, 100) + "..."
+                        : disc.content}
+                    </p>
+                    <div className="home-disc-footer">
+                      <div className="home-disc-author">
+                        {authorPic ? (
+                          <img src={authorPic} alt={authorName} className="home-disc-avatar" />
+                        ) : (
+                          <div className="home-disc-avatar-fallback">
+                            {authorName.slice(0, 2).toUpperCase()}
+                          </div>
+                        )}
+                        <span>{authorName}</span>
+                      </div>
+                      <div className="home-disc-stats">
+                        <span>💬 {disc.commentsCount || 0}</span>
+                        <span>❤️ {disc.likesCount || 0}</span>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        )}
       </section>
     </div>
   );
 };
 
-export default Home;
+export default Home;

@@ -6,7 +6,8 @@ const {
     createDiscussion,
     getDiscussions,
     getDiscussion,
-    deleteDiscussion
+    deleteDiscussion,
+    toggleLikeDiscussion
 } = require("../controllers/discussion.controller")
 
 const {
@@ -40,6 +41,13 @@ router.delete(
     authMiddleware,
     deleteDiscussion
 )
+
+router.post(
+    "/:id/like",
+    authMiddleware,
+    toggleLikeDiscussion
+)
+
 
 
 // comments belonging to a discussion
