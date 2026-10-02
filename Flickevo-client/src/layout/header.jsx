@@ -14,10 +14,10 @@ import {
   FaComments,
   FaBookmark,
   FaStar,
-  FaUser,
   FaSignOutAlt,
   FaSignInAlt,
-  FaHome
+  FaHome,
+  FaChevronRight
 } from 'react-icons/fa';
 import '../styles/Header.css';
 
@@ -211,7 +211,7 @@ const Header = () => {
           </button>
 
           {/* User Profile / Sign In (Desktop) */}
-          <div className="hidden sm:flex items-center gap-3">
+          <div className="header-user-desktop">
             {user ? (
               <div className="header-user">
                 <NavLink to="/profile" className="header-profile-link" title="View Profile">
@@ -238,113 +238,166 @@ const Header = () => {
           {/* Mobile Menu Hamburger Button */}
           <button
             type="button"
-            className="mobile-menu-btn md:hidden flex items-center justify-center p-2 rounded-lg text-flickText hover:text-flickCyan hover:bg-white/5 transition"
-            aria-label="Toggle mobile menu"
+            className="mobile-menu-btn"
+            aria-label="Toggle navigation menu"
             onClick={() => setMobileMenuOpen((prev) => !prev)}
           >
-            {mobileMenuOpen ? <FaTimes className="text-xl" /> : <FaBars className="text-xl" />}
+            {mobileMenuOpen ? <FaTimes /> : <FaBars />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Slide-Down Navigation Drawer */}
+      {/* Mobile Backdrop & Floating Dropdown Menu */}
       {mobileMenuOpen && (
-        <div className="mobile-drawer md:hidden">
-          <div className="mobile-drawer__links">
-            <NavLink
-              to="/"
-              end
-              className={({ isActive }) =>
-                `mobile-drawer__link ${isActive ? 'mobile-drawer__link--active' : ''}`
-              }
-            >
-              <FaHome className="mobile-drawer__icon text-flickCyan" />
-              <span>Home</span>
-            </NavLink>
+        <>
+          <div
+            className="mobile-dropdown-backdrop"
+            onClick={() => setMobileMenuOpen(false)}
+            aria-hidden="true"
+          />
+          <div className="mobile-dropdown-menu">
+            <div className="mobile-dropdown-header">
+              <span className="mobile-dropdown-label">Navigation</span>
+              <span className="mobile-dropdown-dot" />
+            </div>
 
-            <NavLink
-              to="/movies"
-              className={({ isActive }) =>
-                `mobile-drawer__link ${isActive ? 'mobile-drawer__link--active' : ''}`
-              }
-            >
-              <FaFilm className="mobile-drawer__icon text-flickCyan" />
-              <span>Movies</span>
-            </NavLink>
+            <div className="mobile-dropdown-links">
+              <NavLink
+                to="/"
+                end
+                className={({ isActive }) =>
+                  `mobile-dropdown-item ${isActive ? 'mobile-dropdown-item--active' : ''}`
+                }
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <div className="mobile-dropdown-icon-box">
+                  <FaHome />
+                </div>
+                <span className="mobile-dropdown-title">Home</span>
+                <FaChevronRight className="mobile-dropdown-arrow" />
+              </NavLink>
 
-            <NavLink
-              to="/shows"
-              className={({ isActive }) =>
-                `mobile-drawer__link ${isActive ? 'mobile-drawer__link--active' : ''}`
-              }
-            >
-              <FaTv className="mobile-drawer__icon text-flickCyan" />
-              <span>TV Shows</span>
-            </NavLink>
+              <NavLink
+                to="/movies"
+                className={({ isActive }) =>
+                  `mobile-dropdown-item ${isActive ? 'mobile-dropdown-item--active' : ''}`
+                }
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <div className="mobile-dropdown-icon-box">
+                  <FaFilm />
+                </div>
+                <span className="mobile-dropdown-title">Movies</span>
+                <FaChevronRight className="mobile-dropdown-arrow" />
+              </NavLink>
 
-            <NavLink
-              to="/genres"
-              className={({ isActive }) =>
-                `mobile-drawer__link ${isActive ? 'mobile-drawer__link--active' : ''}`
-              }
-            >
-              <FaCompass className="mobile-drawer__icon text-flickCyan" />
-              <span>Genres</span>
-            </NavLink>
+              <NavLink
+                to="/shows"
+                className={({ isActive }) =>
+                  `mobile-dropdown-item ${isActive ? 'mobile-dropdown-item--active' : ''}`
+                }
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <div className="mobile-dropdown-icon-box">
+                  <FaTv />
+                </div>
+                <span className="mobile-dropdown-title">TV Shows</span>
+                <FaChevronRight className="mobile-dropdown-arrow" />
+              </NavLink>
 
-            <NavLink
-              to="/discussions"
-              className={({ isActive }) =>
-                `mobile-drawer__link ${isActive ? 'mobile-drawer__link--active' : ''}`
-              }
-            >
-              <FaComments className="mobile-drawer__icon text-flickCyan" />
-              <span>Discussions</span>
-            </NavLink>
+              <NavLink
+                to="/genres"
+                className={({ isActive }) =>
+                  `mobile-dropdown-item ${isActive ? 'mobile-dropdown-item--active' : ''}`
+                }
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <div className="mobile-dropdown-icon-box">
+                  <FaCompass />
+                </div>
+                <span className="mobile-dropdown-title">Genres</span>
+                <FaChevronRight className="mobile-dropdown-arrow" />
+              </NavLink>
 
-            <NavLink
-              to="/watchlist"
-              className={({ isActive }) =>
-                `mobile-drawer__link ${isActive ? 'mobile-drawer__link--active' : ''}`
-              }
-            >
-              <FaBookmark className="mobile-drawer__icon text-flickCyan" />
-              <span>Watchlist</span>
-            </NavLink>
-          </div>
+              <NavLink
+                to="/discussions"
+                className={({ isActive }) =>
+                  `mobile-dropdown-item ${isActive ? 'mobile-dropdown-item--active' : ''}`
+                }
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <div className="mobile-dropdown-icon-box">
+                  <FaComments />
+                </div>
+                <span className="mobile-dropdown-title">Discussions</span>
+                <FaChevronRight className="mobile-dropdown-arrow" />
+              </NavLink>
 
-          <div className="mobile-drawer__auth">
-            {user ? (
-              <div className="flex flex-col gap-3">
-                <NavLink
-                  to="/profile"
-                  className="mobile-drawer__link"
-                >
-                  <FaUser className="mobile-drawer__icon text-flickCyan" />
-                  <span>Profile ({user.username})</span>
-                </NavLink>
+              <NavLink
+                to="/watchlist"
+                className={({ isActive }) =>
+                  `mobile-dropdown-item ${isActive ? 'mobile-dropdown-item--active' : ''}`
+                }
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <div className="mobile-dropdown-icon-box">
+                  <FaBookmark />
+                </div>
+                <span className="mobile-dropdown-title">Watchlist</span>
+                <FaChevronRight className="mobile-dropdown-arrow" />
+              </NavLink>
+            </div>
+
+            <div className="mobile-dropdown-divider" />
+
+            <div className="mobile-dropdown-auth">
+              {user ? (
+                <div className="mobile-dropdown-user-group">
+                  <NavLink
+                    to="/profile"
+                    className="mobile-dropdown-profile-row"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {user.profilePicture ? (
+                      <img src={user.profilePicture} alt={user.username} className="mobile-dropdown-avatar" />
+                    ) : (
+                      <div className="mobile-dropdown-avatar-fallback">
+                        {user.username?.slice(0, 2).toUpperCase()}
+                      </div>
+                    )}
+                    <div className="mobile-dropdown-user-details">
+                      <span className="mobile-dropdown-username">{user.username}</span>
+                      <span className="mobile-dropdown-subtext">View account profile</span>
+                    </div>
+                    <FaChevronRight className="mobile-dropdown-arrow" />
+                  </NavLink>
+
+                  <button
+                    type="button"
+                    className="mobile-dropdown-signout-btn"
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      handleLogout();
+                    }}
+                  >
+                    <FaSignOutAlt /> Sign Out
+                  </button>
+                </div>
+              ) : (
                 <button
                   type="button"
-                  className="mobile-drawer__btn-signout"
-                  onClick={handleLogout}
+                  className="mobile-dropdown-signin-btn"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    navigate('/login');
+                  }}
                 >
-                  <FaSignOutAlt /> Sign Out
+                  <FaSignInAlt /> Sign In
                 </button>
-              </div>
-            ) : (
-              <button
-                type="button"
-                className="mobile-drawer__btn-signin"
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  navigate('/login');
-                }}
-              >
-                <FaSignInAlt /> Sign In
-              </button>
-            )}
+              )}
+            </div>
           </div>
-        </div>
+        </>
       )}
     </header>
   );
