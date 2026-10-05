@@ -12,7 +12,7 @@
 .genres-hero {
   position: relative;
   background:
-    radial-gradient(circle at 15% 0%, rgba(100, 222, 245, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 15% 0%, rgba(243, 178, 54, 0.08) 0%, transparent 50%),
     radial-gradient(circle at 85% 0%, rgba(245, 158, 11, 0.05) 0%, transparent 40%),
     var(--surface, #14151a);
   border: 1px solid var(--border, rgba(242, 238, 230, 0.08));
@@ -30,7 +30,7 @@
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg, transparent 0%, var(--accent-glow, #64def5) 50%, transparent 100%);
+  background: linear-gradient(90deg, transparent 0%, var(--accent-glow, #f3b236) 50%, transparent 100%);
   opacity: 0.8;
 }
 
@@ -43,9 +43,9 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.14em;
-  color: var(--accent-glow, #64def5);
-  background: rgba(100, 222, 245, 0.1);
-  border: 1px solid rgba(100, 222, 245, 0.25);
+  color: var(--accent-glow, #f3b236);
+  background: rgba(243, 178, 54, 0.1);
+  border: 1px solid rgba(243, 178, 54, 0.25);
   padding: 5px 14px;
   border-radius: 999px;
   margin-bottom: 16px;
@@ -55,8 +55,8 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--accent-glow, #64def5);
-  box-shadow: 0 0 8px var(--accent-glow, #64def5);
+  background: var(--accent-glow, #f3b236);
+  box-shadow: 0 0 8px var(--accent-glow, #f3b236);
 }
 
 .genres-hero__title {
@@ -117,7 +117,7 @@
 
 .genres-tab--active {
   background: var(--surface-2, #1f222d);
-  color: var(--accent-glow, #64def5);
+  color: var(--accent-glow, #f3b236);
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
 }
 
@@ -151,9 +151,9 @@
 }
 
 .genres-search-input:focus {
-  border-color: var(--accent-glow, #64def5);
+  border-color: var(--accent-glow, #f3b236);
   background: rgba(0, 0, 0, 0.55);
-  box-shadow: 0 0 16px rgba(100, 222, 245, 0.2);
+  box-shadow: 0 0 16px rgba(243, 178, 54, 0.2);
 }
 
 .genres-search-clear {
@@ -221,8 +221,8 @@
 /* Hover States */
 .genre-card:hover {
   transform: translateY(-6px);
-  border-color: var(--genre-accent, #64def5);
-  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.75), 0 0 24px rgba(100, 222, 245, 0.15);
+  border-color: var(--genre-accent, #f3b236);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.75), 0 0 24px rgba(243, 178, 54, 0.15);
 }
 
 .genre-card:hover .genre-card__bg {
@@ -257,7 +257,7 @@
   font-size: 10px;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--genre-accent, #64def5);
+  color: var(--genre-accent, #f3b236);
   background: rgba(0, 0, 0, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.12);
   padding: 3px 8px;
@@ -313,7 +313,7 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--genre-accent, #64def5);
+  color: var(--genre-accent, #f3b236);
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -349,8 +349,8 @@
 .genres-spinner {
   width: 32px;
   height: 32px;
-  border: 3px solid rgba(100, 222, 245, 0.15);
-  border-top-color: var(--accent-glow, #64def5);
+  border: 3px solid rgba(243, 178, 54, 0.15);
+  border-top-color: var(--accent-glow, #f3b236);
   border-radius: 50%;
   animation: genresSpin 0.8s linear infinite;
   margin-bottom: 16px;

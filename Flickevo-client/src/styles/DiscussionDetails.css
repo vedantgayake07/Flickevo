@@ -59,7 +59,7 @@
 }
 
 .discussion-media-banner:hover {
-  border-color: rgba(158, 240, 255, 0.3);
+  border-color: rgba(243, 178, 54, 0.3);
 }
 
 .discussion-media-banner-poster {
@@ -101,7 +101,7 @@
   color: var(--accent-glow);
   text-decoration: none;
   background: var(--accent-glow-soft);
-  border: 1px solid rgba(158, 240, 255, 0.25);
+  border: 1px solid rgba(243, 178, 54, 0.25);
   padding: 6px 14px;
   border-radius: 8px;
   white-space: nowrap;
@@ -109,7 +109,7 @@
 }
 
 .discussion-media-banner-btn:hover {
-  background: rgba(158, 240, 255, 0.25);
+  background: rgba(243, 178, 54, 0.25);
 }
 
 .discussion-main-meta-top {
@@ -204,7 +204,7 @@
   font-size: 0.8rem;
   color: var(--accent-glow);
   background: var(--accent-glow-soft);
-  border: 1px solid rgba(158, 240, 255, 0.25);
+  border: 1px solid rgba(243, 178, 54, 0.25);
   padding: 6px 14px;
   border-radius: 20px;
   text-decoration: none;
@@ -212,7 +212,7 @@
 }
 
 .discussion-media-pill:hover {
-  background: rgba(158, 240, 255, 0.25);
+  background: rgba(243, 178, 54, 0.25);
 }
 
 .discussion-main-title {

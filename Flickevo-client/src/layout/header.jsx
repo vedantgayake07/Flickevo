@@ -135,64 +135,67 @@ const Header = () => {
         {/* Header Right Actions */}
         <div className="header-actions">
           {/* Search Bar */}
-          <div id="searchbarbar">
-            <input
-              type="text"
-              placeholder="Search movies & shows..."
-              className={searchbar ? "show" : "hide"}
-              value={search}
-              onChange={handleOnChange}
-              onKeyDown={handleKeyDown}
-            />
+          {searchbar && (
+            <div className="header-search-wrap">
+              <input
+                type="text"
+                placeholder="Search movies & shows..."
+                className="header-search-input"
+                value={search}
+                onChange={handleOnChange}
+                onKeyDown={handleKeyDown}
+                autoFocus
+              />
 
-            {searchbar && searchoptions.length > 0 && (
-              <div className="search-suggestions">
-                {searchoptions.map((movie) => (
-                  <div
-                    key={movie.id}
-                    className="suggestion"
-                    onClick={() => handleSuggestion(movie)}
-                  >
-                    <img
-                      src={
-                        movie.poster_path
-                          ? `https://image.tmdb.org/t/p/w92${movie.poster_path}`
-                          : "/no-poster.png"
-                      }
-                      alt={movie.title || movie.name}
-                      className="suggestion-poster"
-                    />
+              {searchoptions.length > 0 && (
+                <div className="search-suggestions">
+                  {searchoptions.map((movie) => (
+                    <div
+                      key={movie.id}
+                      className="suggestion"
+                      onClick={() => handleSuggestion(movie)}
+                    >
+                      <img
+                        src={
+                          movie.poster_path
+                            ? `https://image.tmdb.org/t/p/w92${movie.poster_path}`
+                            : "/no-poster.png"
+                        }
+                        alt={movie.title || movie.name}
+                        className="suggestion-poster"
+                      />
 
-                    <div className="suggestion-info">
-                      <h4>{movie.title || movie.name}</h4>
-                      <div className="suggestion-meta">
-                        <span>
-                          {movie.release_date?.slice(0, 4) ||
-                            movie.first_air_date?.slice(0, 4)}
-                        </span>
-                        <span className="flex items-center gap-1">
-                          <FaStar className="text-amber-400 text-xs" />
-                          {movie.vote_average?.toFixed(1)}
-                        </span>
+                      <div className="suggestion-info">
+                        <h4>{movie.title || movie.name}</h4>
+                        <div className="suggestion-meta">
+                          <span>
+                            {movie.release_date?.slice(0, 4) ||
+                              movie.first_air_date?.slice(0, 4)}
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <FaStar className="text-amber-400 text-xs" />
+                            {movie.vote_average?.toFixed(1)}
+                          </span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
 
-                <div
-                  className="suggestion suggestion-viewall"
-                  onClick={() => {
-                    navigate(`/search?q=${encodeURIComponent(search.trim())}`);
-                    setSearch("");
-                    setSearchoptions([]);
-                    setSearchbar(false);
-                  }}
-                >
-                  See all results for "{search}"
+                  <div
+                    className="suggestion suggestion-viewall"
+                    onClick={() => {
+                      navigate(`/search?q=${encodeURIComponent(search.trim())}`);
+                      setSearch("");
+                      setSearchoptions([]);
+                      setSearchbar(false);
+                    }}
+                  >
+                    See all results for "{search}"
+                  </div>
                 </div>
-              </div>
-            )}
-          </div>
+              )}
+            </div>
+          )}
 
           {/* Search Toggle Button */}
           <button

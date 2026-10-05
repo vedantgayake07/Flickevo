@@ -63,7 +63,7 @@
   letter-spacing: 0.1em;
   color: var(--accent-glow);
   background: var(--accent-glow-soft);
-  border: 1px solid rgba(158, 240, 255, 0.3);
+  border: 1px solid rgba(243, 178, 54, 0.3);
   padding: 3px 10px;
   border-radius: 20px;
   width: fit-content;
@@ -104,7 +104,7 @@
 }
 
 .profile-stat-box:hover {
-  border-color: rgba(158, 240, 255, 0.4);
+  border-color: rgba(243, 178, 54, 0.4);
   transform: translateY(-2px);
 }
 
@@ -245,7 +245,7 @@
 }
 
 .profile-disc-item:hover {
-  border-color: rgba(158, 240, 255, 0.4);
+  border-color: rgba(243, 178, 54, 0.4);
   transform: translateX(4px);
 }
 

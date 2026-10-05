@@ -280,7 +280,7 @@ const DiscussionDetails = () => {
       {/* Comments Section */}
       <section className="comments-section">
         <h2 className="comments-heading flex items-center gap-2">
-          <FaRegComment className="text-sm text-cyan-400" /> Comments ({comments.length})
+          <FaRegComment className="text-sm text-amber-400" /> Comments ({comments.length})
         </h2>
 
         {/* New Comment Box */}

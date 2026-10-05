@@ -174,7 +174,7 @@ const DEFAULT_PROFILE = {
   code: "00 / CIN",
   bg: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=800&q=80",
   subgenres: "Feature Film • Curated Cinema",
-  accent: "#64def5",
+  accent: "#f3b236",
 };
 
 const Genres = () => {

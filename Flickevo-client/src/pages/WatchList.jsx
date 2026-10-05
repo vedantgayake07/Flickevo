@@ -67,7 +67,7 @@ const WatchList = () => {
   if (items.length === 0) {
     return (
       <div className="wl-placeholder">
-        <div className="wl-placeholder__icon"><FaFilm className="text-4xl text-cyan-400 mx-auto" /></div>
+        <div className="wl-placeholder__icon"><FaFilm className="text-4xl text-amber-400 mx-auto" /></div>
         <h1 className="wl-placeholder__title">Your Watchlist is Empty</h1>
         <p className="wl-placeholder__text">
           Add movies or shows from their detail page to see them here.

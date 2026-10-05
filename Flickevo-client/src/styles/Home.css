@@ -58,12 +58,12 @@ body {
 .eyebrow {
   display: inline-block;
   font-family: var(--font-mono, monospace);
-  font-size: 12px;
-  letter-spacing: 0.12em;
+  font-size: 11px;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--accent-glow, #9ef0ff);
-  border: 1px solid rgba(158, 240, 255, 0.35);
-  background: var(--accent-glow-soft, rgba(158, 240, 255, 0.15));
+  color: var(--accent-glow);
+  border: 1px solid rgba(243, 178, 54, 0.35);
+  background: var(--accent-glow-soft);
   padding: 6px 14px;
   border-radius: 999px;
   margin-bottom: 24px;
@@ -75,15 +75,15 @@ body {
   font-size: clamp(2.6rem, 6vw, 4.6rem);
   line-height: 1.05;
   margin: 0 0 20px;
-  color: var(--text-primary, #F2EEE6);
+  color: var(--text-primary);
 }
 
-.hero-title .accent { color: var(--accent-glow, #9ef0ff); }
+.hero-title .accent { color: var(--accent-glow); }
 
 .hero-sub {
   font-size: 1.05rem;
   line-height: 1.6;
-  color: var(--text-secondary, #9C9A96);
+  color: var(--text-secondary);
   max-width: 540px;
   margin: 0 auto 36px;
 }
@@ -116,19 +116,19 @@ body {
 }
 
 .btn-primary {
-  background: var(--accent-glow, #9ef0ff);
-  color: #081a20;
-  box-shadow: 0 4px 16px rgba(158, 240, 255, 0.25);
+  background: var(--accent-glow);
+  color: #0d0e12;
+  box-shadow: 0 4px 16px rgba(243, 178, 54, 0.22);
 }
 
 .btn-primary:hover {
-  background: #bbf5ff;
-  box-shadow: 0 8px 24px rgba(158, 240, 255, 0.4);
+  background: #f7bf4f;
+  box-shadow: 0 8px 24px rgba(243, 178, 54, 0.35);
 }
 
 .btn-secondary {
   background: rgba(255, 255, 255, 0.08);
-  color: var(--text-primary, #F2EEE6);
+  color: var(--text-primary);
   border: 1px solid rgba(255, 255, 255, 0.18);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
@@ -138,11 +138,11 @@ body {
 }
 
 .btn-secondary:hover {
-  background: rgba(100, 222, 245, 0.12);
-  border-color: var(--accent-glow, #9ef0ff);
+  background: rgba(243, 178, 54, 0.1);
+  border-color: var(--accent-glow);
   color: #fff;
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 16px rgba(158, 240, 255, 0.25);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4), 0 0 16px rgba(243, 178, 54, 0.2);
 }
 
 
@@ -232,7 +232,7 @@ body {
 .movie-rating {
   font-family: var(--font-mono, monospace);
   font-size: 12px;
-  color: var(--accent-glow, #9ef0ff);
+  color: var(--accent-glow, #f3b236);
   margin-bottom: 6px;
 }
 
@@ -343,7 +343,7 @@ body {
 }
 
 .home-disc-card:hover {
-  border-color: rgba(158, 240, 255, 0.35);
+  border-color: rgba(243, 178, 54, 0.35);
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
 }

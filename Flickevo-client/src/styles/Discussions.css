@@ -230,7 +230,7 @@
 }
 
 .discussion-card:hover {
-  border-color: rgba(158, 240, 255, 0.35);
+  border-color: rgba(243, 178, 54, 0.35);
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
 }
@@ -321,7 +321,7 @@
   font-size: 0.75rem;
   color: var(--accent-glow);
   background: var(--accent-glow-soft);
-  border: 1px solid rgba(158, 240, 255, 0.25);
+  border: 1px solid rgba(243, 178, 54, 0.25);
   padding: 4px 10px;
   border-radius: 12px;
   text-decoration: none;
@@ -333,7 +333,7 @@
 }
 
 .discussion-media-tag:hover {
-  background: rgba(158, 240, 255, 0.25);
+  background: rgba(243, 178, 54, 0.25);
 }
 
 .discussion-title-link {
