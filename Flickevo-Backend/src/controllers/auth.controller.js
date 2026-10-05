@@ -42,30 +42,42 @@ const setRefreshTokenCookie = (res, refreshToken) => {
  */
 async function userRegisterController(req, res) {
 
-    const { email, username, password } = req.body
+    const { username, password } = req.body
 
-    if (!email || !username || !password) {
+    if (!username || !password) {
         return res.status(400).json({
-            message: "email, username and password are required"
+            message: "Username and password are required"
         })
     }
 
+    const trimmedUsername = username.trim()
+
+    if (trimmedUsername.length < 3) {
+        return res.status(400).json({
+            message: "Username must be at least 3 characters long"
+        })
+    }
+
+    if (password.length < 8) {
+        return res.status(400).json({
+            message: "Password must be at least 8 characters long"
+        })
+    }
+
+    // Check if username already taken (case-insensitive check)
+    const escapedUsername = trimmedUsername.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
     const isExist = await userModel.findOne({
-        $or: [
-            { email },
-            { username }
-        ]
+        username: { $regex: new RegExp(`^${escapedUsername}$`, "i") }
     })
 
     if (isExist) {
         return res.status(409).json({
-            message: "Email or username already exists"
+            message: "Username already taken"
         })
     }
 
     const user = await userModel.create({
-        email,
-        username,
+        username: trimmedUsername,
         password
     })
 
@@ -99,10 +111,12 @@ async function userRegisterController(req, res) {
         message: "User registered successfully",
         user: {
             id: user._id,
-            email: user.email,
-            username: user.username
+            _id: user._id,
+            username: user.username,
+            profilePicture: user.profilePicture || ""
         },
-        accessToken
+        accessToken,
+        refreshToken
     })
 }
 
@@ -113,21 +127,26 @@ async function userRegisterController(req, res) {
  */
 async function userLoginController(req, res) {
 
-    const { email, password } = req.body
+    const { username, identifier, password } = req.body
 
-    if (!email || !password) {
+    const loginId = (username || identifier || "").trim()
+
+    if (!loginId || !password) {
         return res.status(400).json({
-            message: "Email and password are required"
+            message: "Username and password are required"
         })
     }
 
+    const escapedLoginId = loginId.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
     const user = await userModel
-        .findOne({ email })
+        .findOne({
+            username: { $regex: new RegExp(`^${escapedLoginId}$`, "i") }
+        })
         .select("+password")
 
     if (!user) {
         return res.status(401).json({
-            message: "Email or password is invalid"
+            message: "Invalid username or password"
         })
     }
 
@@ -135,7 +154,7 @@ async function userLoginController(req, res) {
 
     if (!isValidPassword) {
         return res.status(401).json({
-            message: "Email or password is invalid"
+            message: "Invalid username or password"
         })
     }
 
@@ -169,10 +188,12 @@ async function userLoginController(req, res) {
         message: "User logged in successfully",
         user: {
             id: user._id,
-            email: user.email,
-            username: user.username
+            _id: user._id,
+            username: user.username,
+            profilePicture: user.profilePicture || ""
         },
-        accessToken
+        accessToken,
+        refreshToken
     })
 }
 
@@ -183,7 +204,7 @@ async function userLoginController(req, res) {
  */
 async function refreshToken(req, res) {
 
-    const token = req.cookies.refreshToken
+    const token = req.cookies?.refreshToken || req.body?.refreshToken || req.headers["x-refresh-token"]
 
     if (!token) {
         return res.status(401).json({
@@ -242,7 +263,8 @@ async function refreshToken(req, res) {
 
         return res.status(200).json({
             message: "Access token generated",
-            accessToken
+            accessToken,
+            refreshToken: newRefreshToken
         })
 
     } catch (error) {
@@ -260,36 +282,26 @@ async function refreshToken(req, res) {
  */
 async function userLogoutController(req, res) {
 
-    const token = req.cookies.refreshToken
+    const token = req.cookies?.refreshToken || req.body?.refreshToken || req.headers["x-refresh-token"]
 
-    if (!token) {
-        return res.status(400).json({
-            message: "Refresh token not found"
+    if (token) {
+        // Hash refresh token
+        const refreshTokenHash = crypto
+            .createHash("sha256")
+            .update(token)
+            .digest("hex")
+
+        // Find current session and revoke
+        const session = await sessionModel.findOne({
+            refreshTokenHash,
+            revoked: false
         })
+
+        if (session) {
+            session.revoked = true
+            await session.save()
+        }
     }
-
-    // Hash refresh token
-    const refreshTokenHash = crypto
-        .createHash("sha256")
-        .update(token)
-        .digest("hex")
-
-    // Find current session
-    const session = await sessionModel.findOne({
-        refreshTokenHash,
-        revoked: false
-    })
-
-    if (!session) {
-        return res.status(400).json({
-            message: "Invalid refresh token"
-        })
-    }
-
-    // Revoke session
-    session.revoked = true
-
-    await session.save()
 
     // Remove refresh token from cookie
     const isProduction = process.env.NODE_ENV === "production"

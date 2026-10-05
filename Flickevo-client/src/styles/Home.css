@@ -260,26 +260,6 @@ body {
   100% { background-position: -200% 0; }
 }
 
-@media (max-width: 640px) {
-  .hero { min-height: 85vh; }
-  .hero-mosaic { grid-template-columns: repeat(2, 1fr); }
-  .hero-title { font-size: 2.3rem; }
-  .hero-sub { font-size: 0.95rem; margin-bottom: 24px; }
-  .hero-actions {
-    flex-direction: column;
-    width: 100%;
-    max-width: 280px;
-    margin: 0 auto;
-  }
-  .btn { width: 100%; }
-  .movie-card { flex-basis: 130px; }
-  .home-discussions-section { padding: 0 16px 80px; }
-  .home-discussions-grid {
-    grid-template-columns: 1fr;
-    gap: 14px;
-  }
-}
-
 /* ---------- Community Discussions on Home ---------- */
 .home-discussions-section {
   width: 100%;
@@ -358,6 +338,8 @@ body {
   padding: 16px;
   text-decoration: none;
   transition: all 0.2s ease;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .home-disc-card:hover {
@@ -380,6 +362,7 @@ body {
   display: flex;
   flex-direction: column;
   min-width: 0;
+  overflow: hidden;
 }
 
 .home-disc-badge {
@@ -410,6 +393,10 @@ body {
   line-height: 1.45;
   margin: 0 0 12px;
   flex: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .home-disc-footer {
@@ -427,6 +414,7 @@ body {
   display: flex;
   align-items: center;
   gap: 6px;
+  min-width: 0;
 }
 
 .home-disc-avatar {
@@ -434,6 +422,7 @@ body {
   height: 20px;
   border-radius: 50%;
   object-fit: cover;
+  flex-shrink: 0;
 }
 
 .home-disc-avatar-fallback {
@@ -446,9 +435,73 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 
 .home-disc-stats {
   display: flex;
   gap: 10px;
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   Home Responsive Media Queries (properly cascading after base styles)
+   ========================================================================== */
+@media (max-width: 768px) {
+  .hero { min-height: 75vh; }
+  .hero-mosaic { grid-template-columns: repeat(2, 1fr); }
+  .hero-content { padding: 0 16px; }
+  .hero-title { font-size: clamp(2rem, 7vw, 2.8rem); }
+  .hero-sub { font-size: 0.92rem; margin-bottom: 24px; }
+  
+  .popular-section {
+    padding: 40px 16px 60px;
+  }
+  
+  .home-discussions-section {
+    padding: 0 16px 60px;
+  }
+
+  .home-discussions-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-actions {
+    flex-direction: column;
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
+  }
+  .btn { width: 100%; padding: 11px 20px; }
+
+  .movie-shelf {
+    gap: 10px;
+    justify-content: center;
+  }
+  .movie-card {
+    flex: 0 0 calc(50% - 5px);
+    max-width: calc(50% - 5px);
+  }
+
+  .home-disc-card {
+    padding: 12px;
+    gap: 12px;
+  }
+  .home-disc-poster {
+    width: 58px;
+    height: 86px;
+  }
+  .home-disc-title {
+    font-size: 1.05rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .movie-card {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
 }

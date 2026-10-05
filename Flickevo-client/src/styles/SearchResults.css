@@ -136,7 +136,7 @@
   }
 
   .sr-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 12px;
   }
 
@@ -148,5 +148,11 @@
 
   .sr-grid .poster-title {
     font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .sr-grid {
+    gap: 8px;
   }
 }

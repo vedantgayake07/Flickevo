@@ -6,7 +6,6 @@ import "../styles/Auth.css";
 
 const Register = () => {
   const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -18,7 +17,7 @@ const Register = () => {
     setError("");
     setLoading(true);
     try {
-      await register({ username, email, password });
+      await register({ username, password });
       navigate("/");
     } catch (err) {
       setError(err.response?.data?.message || "Registration failed");
@@ -40,17 +39,9 @@ const Register = () => {
             className="auth-input"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </label>
-
-        <label className="auth-label">
-          Email
-          <input
-            type="email"
-            className="auth-input"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Choose a username"
+            autoComplete="username"
+            minLength={3}
             required
           />
         </label>
@@ -62,6 +53,8 @@ const Register = () => {
             className="auth-input"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            placeholder="At least 8 characters"
+            autoComplete="new-password"
             minLength={8}
             required
           />

@@ -4,7 +4,7 @@ import { useAuth } from "../context/AuthContext";
 import "../styles/Auth.css";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -18,7 +18,7 @@ const Login = () => {
     setError("");
     setLoading(true);
     try {
-      await login({ email, password });
+      await login({ username, password });
       navigate(from, { replace: true });
     } catch (err) {
       setError(err.response?.data?.message || "Login failed");
@@ -27,8 +27,6 @@ const Login = () => {
     }
   };
 
-  // ...rest of the JSX stays exactly the same
-
   return (
     <div className="auth-page">
       <form className="auth-card" onSubmit={handleSubmit}>
@@ -36,12 +34,14 @@ const Login = () => {
         {error && <p className="auth-error">{error}</p>}
 
         <label className="auth-label">
-          Email
+          Username
           <input
-            type="email"
+            type="text"
             className="auth-input"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            placeholder="Enter username"
+            autoComplete="username"
             required
           />
         </label>
@@ -53,6 +53,8 @@ const Login = () => {
             className="auth-input"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            placeholder="••••••••"
+            autoComplete="current-password"
             required
           />
         </label>

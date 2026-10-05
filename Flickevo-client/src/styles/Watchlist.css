@@ -193,7 +193,7 @@
   }
 
   .wl-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 12px;
   }
 
@@ -210,5 +210,11 @@
     opacity: 1;
     background: linear-gradient(180deg, transparent 40%, rgba(20,21,26,0.92) 100%);
     padding: 10px;
+  }
+}
+
+@media (max-width: 380px) {
+  .wl-grid {
+    gap: 8px;
   }
 }

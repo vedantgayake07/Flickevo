@@ -20,8 +20,12 @@ async function getProfile(req, res) {
             })
         }
 
+        const userObj = user.toObject()
+        userObj.id = user._id
+        userObj._id = user._id
+
         res.status(200).json({
-            user
+            user: userObj
         })
 
     } catch(error) {
@@ -41,7 +45,6 @@ async function updateProfile(req, res) {
 
         const {
             username,
-            email,
             profilePicture
         } = req.body
 
@@ -56,23 +59,42 @@ async function updateProfile(req, res) {
         }
 
         if(username) {
-            user.username = username
-        }
+            const trimmedUsername = username.trim()
+            if (trimmedUsername.length < 3) {
+                return res.status(400).json({
+                    message: "Username must be at least 3 characters long"
+                })
+            }
 
-        if(email) {
-            user.email = email
+            const escapedUsername = trimmedUsername.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+            const existingUser = await userModel.findOne({
+                _id: { $ne: userId },
+                username: { $regex: new RegExp(`^${escapedUsername}$`, "i") }
+            })
+
+            if (existingUser) {
+                return res.status(409).json({
+                    message: "Username already taken"
+                })
+            }
+
+            user.username = trimmedUsername
         }
 
         if(profilePicture !== undefined) {
-            user.profilePicture =
-                profilePicture
+            user.profilePicture = profilePicture
         }
 
         await user.save()
 
+        const userObj = user.toObject()
+        userObj.id = user._id
+        userObj._id = user._id
+        delete userObj.password
+
         res.status(200).json({
             message: "profile updated",
-            user
+            user: userObj
         })
 
     } catch(error) {
@@ -80,8 +102,7 @@ async function updateProfile(req, res) {
         if(error.code === 11000) {
 
             return res.status(409).json({
-                message:
-                    "username or email already exists"
+                message: "Username already taken"
             })
         }
 

@@ -24,6 +24,7 @@ export const uploadToImageKit = async (file) => {
   formData.append("signature", auth.signature);
   formData.append("expire", auth.expire);
   formData.append("token", auth.token);
+  formData.append("folder", "/avatars");
 
   // 3. Upload directly to ImageKit
   const response = await axios.post(

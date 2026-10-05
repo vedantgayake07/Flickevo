@@ -331,14 +331,17 @@
   color: #14151a;
 }
 
-/* Responsive Media Queries */
 @media (max-width: 780px) {
+  .details-page {
+    padding: 24px 16px 80px;
+  }
   .movie-hero {
     grid-template-columns: 1fr;
-    padding: 20px;
+    padding: 20px 16px;
+    gap: 20px;
   }
   .movie-hero__poster {
-    max-width: 220px;
+    max-width: 180px;
     margin: 0 auto;
   }
   .movie-hero__title { 
@@ -348,11 +351,15 @@
   .movie-hero__tagline { 
     text-align: center; 
   }
+  .movie-hero__meta {
+    justify-content: center;
+  }
   .movie-hero__stats { 
-    grid-template-columns: repeat(3, 1fr); 
+    grid-template-columns: repeat(2, minmax(0, 1fr)); 
+    gap: 12px;
   }
   .movie-hero__cast {
-    padding: 20px;
+    padding: 20px 16px;
   }
   .movie-hero__cast-track {
     gap: 12px;
@@ -362,12 +369,22 @@
 @media (max-width: 640px) {
   .section-title { 
     font-size: 1.5rem; 
+    margin: 36px 0 18px;
+  }
+  .movie-hero__stats {
+    grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 480px) {
+  .details-page {
+    padding: 16px 12px 60px;
+  }
+  .movie-hero {
+    padding: 16px 12px;
+  }
   .movie-hero__stats {
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: 10px;
   }
 }

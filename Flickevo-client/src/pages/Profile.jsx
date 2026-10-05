@@ -85,7 +85,6 @@ const Profile = () => {
           <div className="profile-header-info">
             <span className="profile-badge">Community Member</span>
             <h1 className="profile-username">{username}</h1>
-            <p className="profile-email">{email}</p>
           </div>
         </div>
 

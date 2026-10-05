@@ -1,18 +1,18 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { getProfile, updateProfileApi } from "../services/userApi";
 import { uploadToImageKit } from "../helpers/imageKitUpload";
-import { FaCamera, FaArrowLeft } from "react-icons/fa";
+import { FaCamera, FaArrowLeft, FaTrash, FaSpinner } from "react-icons/fa";
 import "../styles/EditProfile.css";
 
 const EditProfile = () => {
   const { user, updateUser } = useAuth();
   const navigate = useNavigate();
+  const fileInputRef = useRef(null);
 
   const [username, setUsername] = useState(user?.username || "");
   const [profilePicture, setProfilePicture] = useState(user?.profilePicture || "");
-  const [selectedFile, setSelectedFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(user?.profilePicture || "");
   const [uploadingImage, setUploadingImage] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -33,14 +33,49 @@ const EditProfile = () => {
     loadUser();
   }, []);
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setSelectedFile(file);
-      const localPreview = URL.createObjectURL(file);
-      setPreviewUrl(localPreview);
-      setError("");
+  const handleFileChange = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+      setError("Please select a valid image file (JPG, PNG, WEBP).");
+      return;
     }
+
+    if (file.size > 5 * 1024 * 1024) {
+      setError("Image size exceeds 5MB. Please choose a smaller image.");
+      return;
+    }
+
+    // Show instant local preview while uploading
+    const localPreview = URL.createObjectURL(file);
+    setPreviewUrl(localPreview);
+    setError("");
+    setSuccess("");
+    setUploadingImage(true);
+
+    try {
+      // Upload directly to ImageKit using backend signature
+      const uploadedUrl = await uploadToImageKit(file);
+      setProfilePicture(uploadedUrl);
+      setPreviewUrl(uploadedUrl);
+      setSuccess("Avatar uploaded successfully! Click 'Save Changes' to update your profile.");
+    } catch (uploadErr) {
+      console.error("Avatar upload failed:", uploadErr);
+      setError("Failed to upload avatar image. Please try again with a JPG, PNG, or WEBP file.");
+    } finally {
+      setUploadingImage(false);
+    }
+  };
+
+  const handleRemoveAvatar = () => {
+    setProfilePicture("");
+    setPreviewUrl("");
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+    setError("");
+    setSuccess("Avatar removed. Click 'Save Changes' to apply.");
   };
 
   const handleSubmit = async (e) => {
@@ -55,29 +90,11 @@ const EditProfile = () => {
 
     try {
       setSaving(true);
-      let finalImageUrl = profilePicture;
-
-      // If a new file was chosen, upload to ImageKit first
-      if (selectedFile) {
-        setUploadingImage(true);
-        try {
-          finalImageUrl = await uploadToImageKit(selectedFile);
-          setProfilePicture(finalImageUrl);
-        } catch (uploadErr) {
-          console.error("ImageKit upload failed:", uploadErr);
-          setError("Failed to upload image to ImageKit. Please check your connection or use an image URL.");
-          setSaving(false);
-          setUploadingImage(false);
-          return;
-        } finally {
-          setUploadingImage(false);
-        }
-      }
 
       // Save updated profile to backend
       const updatedUser = await updateProfileApi({
         username: username.trim(),
-        profilePicture: finalImageUrl,
+        profilePicture: profilePicture || "",
       });
 
       if (updateUser) {
@@ -114,7 +131,11 @@ const EditProfile = () => {
 
         <form onSubmit={handleSubmit} className="edit-profile-form">
           <div className="edit-profile-avatar-section">
-            <div className="edit-avatar-preview-wrap">
+            <div
+              className="edit-avatar-preview-wrap cursor-pointer relative"
+              onClick={() => fileInputRef.current?.click()}
+              title="Click to choose a photo"
+            >
               {previewUrl ? (
                 <img
                   src={previewUrl}
@@ -126,14 +147,32 @@ const EditProfile = () => {
                   {username ? username.slice(0, 2).toUpperCase() : "U"}
                 </div>
               )}
+              {uploadingImage && (
+                <div className="edit-avatar-loading-overlay">
+                  <FaSpinner className="edit-avatar-spinner" />
+                </div>
+              )}
             </div>
 
             <div className="edit-avatar-controls">
-              <label className="edit-file-label flex items-center justify-center gap-2" htmlFor="avatar-file-input">
-                <FaCamera className="text-sm" />
-                {uploadingImage ? "Uploading..." : "Choose Avatar File"}
-              </label>
+              <div className="edit-avatar-btn-row">
+                <label className="edit-file-label flex items-center justify-center gap-2" htmlFor="avatar-file-input">
+                  <FaCamera className="text-sm" />
+                  {uploadingImage ? "Uploading..." : "Upload New Avatar"}
+                </label>
+                {(previewUrl || profilePicture) && (
+                  <button
+                    type="button"
+                    className="edit-remove-avatar-btn flex items-center gap-1.5"
+                    onClick={handleRemoveAvatar}
+                    disabled={saving || uploadingImage}
+                  >
+                    <FaTrash className="text-xs" /> Remove
+                  </button>
+                )}
+              </div>
               <input
+                ref={fileInputRef}
                 type="file"
                 id="avatar-file-input"
                 accept="image/*"
@@ -142,7 +181,7 @@ const EditProfile = () => {
                 disabled={saving || uploadingImage}
               />
               <span className="edit-avatar-note">
-                Uploads securely to ImageKit. Supported: JPG, PNG, WEBP.
+                Supported formats: JPG, PNG, WEBP (Max 5MB).
               </span>
             </div>
           </div>
@@ -159,24 +198,6 @@ const EditProfile = () => {
               onChange={(e) => setUsername(e.target.value)}
               placeholder="Enter new username"
               required
-              disabled={saving}
-            />
-          </div>
-
-          <div className="edit-form-group">
-            <label className="edit-label" htmlFor="edit-avatar-url">
-              Avatar Image URL (Optional Direct URL)
-            </label>
-            <input
-              id="edit-avatar-url"
-              type="url"
-              className="edit-input"
-              value={profilePicture}
-              onChange={(e) => {
-                setProfilePicture(e.target.value);
-                setPreviewUrl(e.target.value);
-              }}
-              placeholder="https://ik.imagekit.io/... or any image URL"
               disabled={saving}
             />
           </div>

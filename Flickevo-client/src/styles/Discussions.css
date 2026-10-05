@@ -445,6 +445,7 @@
 
   .start-discussion-btn {
     justify-content: center;
+    width: 100%;
   }
 
   .discussions-toolbar {
@@ -465,14 +466,48 @@
     font-size: 0.75rem;
   }
 
+  .discussions-tools-right {
+    width: 100%;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .discussions-search-wrap {
+    width: 100%;
+    min-width: unset;
+  }
+
+  .discussions-sort-select {
+    width: 100%;
+  }
+
   .discussion-card {
     padding: 14px;
-    gap: 14px;
+    gap: 12px;
   }
 
   .discussion-card-poster {
-    width: 65px;
-    height: 98px;
+    width: 60px;
+    height: 90px;
+  }
+
+  .discussion-card-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .discussion-media-tag {
+    max-width: 100%;
+  }
+
+  .discussion-item-title {
+    font-size: 1.25rem;
+  }
+
+  .discussion-card-footer {
+    flex-wrap: wrap;
+    gap: 10px;
   }
 }
 

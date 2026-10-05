@@ -310,14 +310,36 @@
     border-radius: 12px;
   }
 
+  .create-disc-title {
+    font-size: 1.8rem;
+  }
+
   .create-disc-row {
     flex-direction: column;
     gap: 0;
   }
 
+  .create-disc-selected-media {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .create-disc-change-btn {
+    width: 100%;
+    text-align: center;
+    padding: 8px 12px;
+  }
+
   .create-disc-actions {
     flex-direction: column-reverse;
     gap: 10px;
+  }
+
+  .create-disc-submit-btn,
+  .create-disc-cancel-btn {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
   }
 }
 

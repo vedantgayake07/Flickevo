@@ -478,6 +478,10 @@
     border-radius: 12px;
   }
 
+  .discussion-main-title {
+    font-size: 1.5rem;
+  }
+
   .discussion-main-meta-top {
     flex-direction: column;
     align-items: flex-start;
@@ -491,12 +495,15 @@
 
   .discussion-media-banner {
     padding: 10px 12px;
-    gap: 12px;
+    gap: 10px;
+    flex-wrap: wrap;
   }
 
   .discussion-media-banner-btn {
-    padding: 4px 10px;
-    font-size: 0.75rem;
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    padding: 6px 10px;
   }
 
   .comments-section {
@@ -505,5 +512,16 @@
 
   .comment-form-card {
     padding: 16px 12px;
+  }
+
+  .comment-item {
+    padding: 12px 10px;
+    gap: 10px;
+  }
+
+  .comment-avatar,
+  .comment-avatar-fallback {
+    width: 32px;
+    height: 32px;
   }
 }
