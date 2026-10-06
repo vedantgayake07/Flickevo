@@ -4,7 +4,8 @@
    ========================================================================== */
 
 .flick-detail-page {
-  max-width: 1400px;
+  width: 100%;
+  max-width: 1440px;
   margin: 0 auto;
   padding-bottom: 120px;
   color: var(--text-primary, #f2eee6);

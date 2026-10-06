@@ -3,7 +3,8 @@
    ========================================================================== */
 
 .genres-page {
-  max-width: 1380px;
+  width: 100%;
+  max-width: 1440px;
   margin: 0 auto;
   padding: 40px 32px 120px;
 }

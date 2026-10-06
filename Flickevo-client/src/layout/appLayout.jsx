@@ -8,7 +8,9 @@ const AppLayout = () => {
     <>
       <ScrollToTop />
       <Header />
-      <Outlet />
+      <main className="app-main">
+        <Outlet />
+      </main>
       <Footer />
     </>
   );

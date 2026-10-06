@@ -1,7 +1,8 @@
 .person-page {
-  max-width: 1280px;
+  width: 100%;
+  max-width: 1440px;
   margin: 0 auto;
-  padding: 40px 24px 100px;
+  padding: 40px 32px 100px;
 }
 
 .person-loading,
