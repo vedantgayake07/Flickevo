@@ -123,8 +123,6 @@ const Profile = () => {
             <FaSignOutAlt className="text-xs" /> Sign Out
           </button>
         </div>
-
-        {/* User's Created Discussions */}
         <div className="profile-discussions-section">
           <h2 className="profile-section-heading">My Discussions</h2>
 

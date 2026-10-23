@@ -6,7 +6,7 @@ import { getMediaType } from '../helpers/mediaType'
 import GenreBar from '../components/GenreBar';
 import '../styles/MoviesDetails.css';
 
-const MovieDetails = () => {
+const Movies = () => {
     const [toprated, setToprated] = useState([]);
     const [popular, setPopular] = useState([]);
     const [upcoming, setUpcoming] = useState([]);
@@ -15,7 +15,7 @@ const MovieDetails = () => {
     const navigate = useNavigate();
 
     const handleSuggestion = (movie) => {
-        const type = getMediaType(movie); // returns 'movie' or 'tv'
+        const type = getMediaType(movie);
         navigate(`/content/${movie.id}/${type}`);
     };
 
@@ -53,4 +53,4 @@ const MovieDetails = () => {
     )
 }
 
-export default MovieDetails;
+export default Movies;

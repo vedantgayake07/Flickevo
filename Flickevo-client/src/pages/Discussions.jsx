@@ -22,10 +22,9 @@ const Discussions = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  // Filters & Search
-  const [activeTab, setActiveTab] = useState("all"); // 'all' | 'movie' | 'tv'
+  const [activeTab, setActiveTab] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
-  const [sortBy, setSortBy] = useState("newest"); // 'newest' | 'comments' | 'likes'
+  const [sortBy, setSortBy] = useState("newest");
   const [likingMap, setLikingMap] = useState({});
 
   useEffect(() => {
@@ -86,12 +85,10 @@ const Discussions = () => {
   const filteredDiscussions = useMemo(() => {
     let list = [...discussions];
 
-    // Filter by media type
     if (activeTab !== "all") {
       list = list.filter((item) => item.mediaType === activeTab);
     }
 
-    // Filter by search query
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
       list = list.filter(
@@ -102,7 +99,6 @@ const Discussions = () => {
       );
     }
 
-    // Sort
     if (sortBy === "comments") {
       list.sort((a, b) => (b.commentsCount || 0) - (a.commentsCount || 0));
     } else if (sortBy === "likes") {

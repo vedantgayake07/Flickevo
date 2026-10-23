@@ -22,7 +22,6 @@ const CreateDiscussion = () => {
   const [mediaTitle, setMediaTitle] = useState(initialMediaTitle);
   const [mediaPoster, setMediaPoster] = useState(initialMediaPoster);
 
-  // Search state for autocomplete
   const [movieQuery, setMovieQuery] = useState("");
   const [movieSuggestions, setMovieSuggestions] = useState([]);
   const [searchingMovies, setSearchingMovies] = useState(false);
@@ -32,7 +31,6 @@ const CreateDiscussion = () => {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
 
-  // Live search for movies/shows when typing in search box
   useEffect(() => {
     if (!movieQuery.trim() || movieQuery.trim().length < 2) {
       setMovieSuggestions([]);
@@ -128,7 +126,6 @@ const CreateDiscussion = () => {
         {error && <div className="create-disc-error">{error}</div>}
 
         <form onSubmit={handleSubmit} className="create-disc-form">
-          {/* Movie / Show Selection Section */}
           <div className="create-disc-group">
             <label className="create-disc-label">
               Select Movie or TV Show to Discuss

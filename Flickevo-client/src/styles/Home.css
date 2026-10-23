@@ -1,4 +1,3 @@
-/* Home.css */
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap');
 
 * { box-sizing: border-box; }
@@ -12,7 +11,6 @@ body {
 
 .page { background: var(--bg, #14151A); }
 
-/* ---------- HERO ---------- */
 .hero {
   position: relative;
   width: 100%;
@@ -147,20 +145,6 @@ body {
 
 
 
-.sprocket-strip {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 18px;
-  z-index: 2;
-  background-color: var(--bg, #14151A);
-  background-image: repeating-radial-gradient(
-    circle at 16px 9px,
-    var(--surface-2, #22242E) 0 4px,
-    transparent 4.5px 32px
-  );
-}
-
-/* ---------- POPULAR SHELF (flex, not grid) ---------- */
 .popular-section {
   width: 100%;
   max-width: 1400px;
@@ -260,7 +244,6 @@ body {
   100% { background-position: -200% 0; }
 }
 
-/* ---------- Community Discussions on Home ---------- */
 .home-discussions-section {
   width: 100%;
   max-width: 1400px;
@@ -444,9 +427,6 @@ body {
   flex-shrink: 0;
 }
 
-/* ==========================================================================
-   Home Responsive Media Queries (properly cascading after base styles)
-   ========================================================================== */
 @media (max-width: 768px) {
   .hero { min-height: 75vh; }
   .hero-mosaic { grid-template-columns: repeat(2, 1fr); }

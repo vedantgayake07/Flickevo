@@ -1,18 +1,7 @@
-/* Footer.css */
 .site-footer {
   background: var(--surface);
   border-top: 1px solid var(--border);
   margin-top: 80px;
-}
-
-.footer-sprocket {
-  height: 14px;
-  background-color: var(--surface);
-  background-image: repeating-radial-gradient(
-    circle at 16px 7px,
-    var(--surface-2) 0 3px,
-    transparent 3.5px 32px
-  );
 }
 
 .footer-inner {
@@ -93,12 +82,6 @@
 
 .heart-icon {
   color: var(--accent-red, #C1443C);
-  animation: heartbeat 1.6s ease-in-out infinite;
-}
-
-@keyframes heartbeat {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.15); }
 }
 
 @media (max-width: 640px) {

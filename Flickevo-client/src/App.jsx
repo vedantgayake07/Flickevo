@@ -1,9 +1,9 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom"
+import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom"
 import ProtectedRoute from "./components/ProtectedRoute"
 import AppLayout from "./layout/appLayout"
 import Home from "./pages/Home"
-import MoviesDetails from "./pages/MovieDetails"
-import ShowDetails from "./pages/ShowDetails"
+import Movies from "./pages/MovieDetails"
+import Shows from "./pages/ShowDetails"
 import WatchList from "./pages/WatchList";
 import ContentPage from "./pages/ContentPage"
 import SearchResults from "./pages/SearchResults"
@@ -11,7 +11,6 @@ import Login from "./pages/Login"
 import Register from "./pages/Register"
 import { AuthProvider } from "./context/AuthContext"
 import GenreResults from "./pages/GenreResults"
-import Genres from "./pages/Genres"
 import PersonDetails from "./pages/PersonDetails"
 import Profile from "./pages/Profile"
 import EditProfile from "./pages/EditProfile"
@@ -26,10 +25,10 @@ const Router = createBrowserRouter([
     element: <AppLayout />,
     children: [
       { path: '/', element: <Home /> },
-      { path: '/movies', element: <MoviesDetails /> },
-      { path: '/shows', element: <ShowDetails /> },
+      { path: '/movies', element: <Movies /> },
+      { path: '/shows', element: <Shows /> },
       { path: '/content/:id/:type', element: <ContentPage /> },
-      { path: '/genres', element: <Genres /> },
+      { path: '/genres', element: <Navigate to="/movies" replace /> },
       { path: '/genre/:type/:id', element: <GenreResults /> },
       { path: '/person/:id', element: <PersonDetails /> },
       {

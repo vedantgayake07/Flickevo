@@ -5,7 +5,7 @@ import { PosterSlider } from '../components/PosterSlider';
 import GenreBar from '../components/GenreBar';
 import { getMediaType } from '../helpers/mediaType'
 
-const ShowDetails = () => {
+const Shows = () => {
     const [toprated, setToprated] = useState([]);
     const [popular, setPopular] = useState([]);
     const [upcoming, setUpcoming] = useState([]);
@@ -28,7 +28,7 @@ const ShowDetails = () => {
     }, []);
 
     const handleSuggestion = (movie) => {
-        const type = getMediaType(movie); // returns 'movie' or 'tv'
+        const type = getMediaType(movie);
         navigate(`/content/${movie.id}/${type}`);
     };
 
@@ -47,4 +47,4 @@ const ShowDetails = () => {
     )
 }
 
-export default ShowDetails;
+export default Shows;

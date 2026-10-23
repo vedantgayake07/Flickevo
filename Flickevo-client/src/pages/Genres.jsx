@@ -4,7 +4,6 @@ import { getMovieGenres, getTvGenres } from "../services/apiClient";
 import { FaSearch, FaTimes, FaFilm, FaTv, FaArrowRight } from "react-icons/fa";
 import "../styles/Genres.css";
 
-// Curated cinematic visual profiles for each genre (Zero AI clichés, pure cinephile curation)
 const GENRE_PROFILES = {
   Action: {
     code: "01 / ACT",
@@ -178,7 +177,7 @@ const DEFAULT_PROFILE = {
 };
 
 const Genres = () => {
-  const [activeTab, setActiveTab] = useState("movie"); // 'movie' or 'tv'
+  const [activeTab, setActiveTab] = useState("movie");
   const [movieGenres, setMovieGenres] = useState([]);
   const [tvGenres, setTvGenres] = useState([]);
   const [search, setSearch] = useState("");
@@ -217,7 +216,6 @@ const Genres = () => {
 
   return (
     <div className="genres-page">
-      {/* Editorial Header Hero */}
       <div className="genres-hero">
         <div className="genres-hero__eyebrow">
           <span className="genres-hero__pulse" />
@@ -229,7 +227,6 @@ const Genres = () => {
           Select a category to uncover acclaimed titles and hidden gems.
         </p>
 
-        {/* Toolbar: Category Switcher & Filter */}
         <div className="genres-toolbar">
           <div className="genres-tabs">
             <button

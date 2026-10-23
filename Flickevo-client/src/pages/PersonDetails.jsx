@@ -10,7 +10,7 @@ const PersonDetails = () => {
   const [person, setPerson] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [activeCreditTab, setActiveCreditTab] = useState("all"); // 'all', 'movie', 'tv'
+  const [activeCreditTab, setActiveCreditTab] = useState("all");
 
   useEffect(() => {
     async function loadPerson() {
@@ -45,9 +45,7 @@ const PersonDetails = () => {
     );
   }
 
-  // Combined credits
   const castCredits = person.combined_credits?.cast || [];
-  // Sort by popularity descending and deduplicate
   const sortedCredits = [...castCredits]
     .filter((c) => c.poster_path)
     .sort((a, b) => (b.popularity || 0) - (a.popularity || 0));

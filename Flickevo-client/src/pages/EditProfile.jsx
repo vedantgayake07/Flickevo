@@ -47,7 +47,6 @@ const EditProfile = () => {
       return;
     }
 
-    // Show instant local preview while uploading
     const localPreview = URL.createObjectURL(file);
     setPreviewUrl(localPreview);
     setError("");
@@ -55,7 +54,6 @@ const EditProfile = () => {
     setUploadingImage(true);
 
     try {
-      // Upload directly to ImageKit using backend signature
       const uploadedUrl = await uploadToImageKit(file);
       setProfilePicture(uploadedUrl);
       setPreviewUrl(uploadedUrl);
@@ -91,7 +89,6 @@ const EditProfile = () => {
     try {
       setSaving(true);
 
-      // Save updated profile to backend
       const updatedUser = await updateProfileApi({
         username: username.trim(),
         profilePicture: profilePicture || "",

@@ -86,12 +86,10 @@ const Header = () => {
   return (
     <header className="site-header">
       <div className="header-inner">
-        {/* Logo */}
         <NavLink to="/" className="logo">
           Flick<span className="accent">evo</span>
         </NavLink>
 
-        {/* Desktop Navigation Links */}
         <nav className="nav-links">
           <NavLink
             to="/"
@@ -113,12 +111,6 @@ const Header = () => {
             Shows
           </NavLink>
           <NavLink
-            to="/genres"
-            className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
-          >
-            Genres
-          </NavLink>
-          <NavLink
             to="/discussions"
             className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
           >
@@ -132,9 +124,7 @@ const Header = () => {
           </NavLink>
         </nav>
 
-        {/* Header Right Actions */}
         <div className="header-actions">
-          {/* Search Bar */}
           {searchbar && (
             <div className="header-search-wrap">
               <input
@@ -197,7 +187,6 @@ const Header = () => {
             </div>
           )}
 
-          {/* Search Toggle Button */}
           <button
             className="icon-btn"
             aria-label="Toggle searchbar"
@@ -213,7 +202,6 @@ const Header = () => {
             {searchbar ? <FaTimes className="text-base" /> : <FaSearch className="text-base" />}
           </button>
 
-          {/* User Profile / Sign In (Desktop) */}
           <div className="header-user-desktop">
             {user ? (
               <div className="header-user">
@@ -238,7 +226,6 @@ const Header = () => {
             )}
           </div>
 
-          {/* Mobile Menu Hamburger Button */}
           <button
             type="button"
             className="mobile-menu-btn"
@@ -250,7 +237,6 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Mobile Backdrop & Floating Dropdown Menu */}
       {mobileMenuOpen && (
         <>
           <div
@@ -305,20 +291,6 @@ const Header = () => {
                   <FaTv />
                 </div>
                 <span className="mobile-dropdown-title">TV Shows</span>
-                <FaChevronRight className="mobile-dropdown-arrow" />
-              </NavLink>
-
-              <NavLink
-                to="/genres"
-                className={({ isActive }) =>
-                  `mobile-dropdown-item ${isActive ? 'mobile-dropdown-item--active' : ''}`
-                }
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <div className="mobile-dropdown-icon-box">
-                  <FaCompass />
-                </div>
-                <span className="mobile-dropdown-title">Genres</span>
                 <FaChevronRight className="mobile-dropdown-arrow" />
               </NavLink>
 

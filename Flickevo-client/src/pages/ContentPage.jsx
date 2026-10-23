@@ -98,9 +98,6 @@ const ContentPage = () => {
 
   return (
     <div className="flick-detail-page">
-      {/* ====================================================================
-          Hero Backdrop Section
-          ==================================================================== */}
       <div className="flick-detail-hero">
         {movie.backdrop_path ? (
           <img
@@ -114,7 +111,6 @@ const ContentPage = () => {
         <div className="flick-detail-hero__gradient" />
 
         <div className="flick-detail-hero__content">
-          {/* Floating Poster */}
           <div className="flick-detail-poster-wrap">
             <img
               className="flick-detail-poster"
@@ -127,7 +123,6 @@ const ContentPage = () => {
             />
           </div>
 
-          {/* Title & Key Metadata */}
           <div className="flick-detail-main-info">
             <div className="flick-detail-badges">
               {movie.status && (
@@ -156,7 +151,6 @@ const ContentPage = () => {
               <p className="flick-detail-tagline">"{movie.tagline}"</p>
             )}
 
-            {/* Score & Timing Chips */}
             <div className="flick-detail-meta-row">
               {movie.vote_average != null && (
                 <div
@@ -191,7 +185,6 @@ const ContentPage = () => {
               )}
             </div>
 
-            {/* Genre Pills */}
             <div className="flick-detail-genres">
               {movie.genres?.map((g) => (
                 <Link
@@ -204,7 +197,6 @@ const ContentPage = () => {
               ))}
             </div>
 
-            {/* Primary Action Buttons & Streaming Logos */}
             <div className="flick-detail-actions">
               {trailer && (
                 <button
@@ -269,13 +261,8 @@ const ContentPage = () => {
         </div>
       </div>
 
-      {/* ====================================================================
-          Main Body: 2-Column Cinematic Layout (Story + Cast + Discussions | Facts)
-          ==================================================================== */}
       <div className="flick-detail-body">
-        {/* Main Column */}
         <div className="flick-detail-primary-col">
-          {/* Storyline Overview */}
           {movie.overview && (
             <section className="flick-section">
               <h2 className="flick-section-title">Storyline</h2>
@@ -283,7 +270,6 @@ const ContentPage = () => {
             </section>
           )}
 
-          {/* Top Billed Cast */}
           {cast.length > 0 && (
             <section className="flick-section">
               <div className="flick-section-header-row">
@@ -327,7 +313,6 @@ const ContentPage = () => {
             </section>
           )}
 
-          {/* Community Discussions Feed */}
           <section className="flick-section flick-disc-section">
             <div className="flick-disc-header">
               <div>
@@ -436,7 +421,6 @@ const ContentPage = () => {
           </section>
         </div>
 
-        {/* Sidebar Column: Sticky Production Facts & Tech Specs */}
         <aside className="flick-detail-sidebar-col">
           <div className="flick-facts-card">
             <h3 className="flick-facts-title">Film Details & Specs</h3>
@@ -487,14 +471,6 @@ const ContentPage = () => {
               </div>
             )}
 
-            {movie.popularity != null && (
-              <div className="flick-fact-row">
-                <span className="flick-fact-label">Popularity Score</span>
-                <span className="flick-fact-val">
-                  {movie.popularity.toFixed(0)}
-                </span>
-              </div>
-            )}
 
             {movie.vote_count != null && (
               <div className="flick-fact-row">
@@ -528,7 +504,6 @@ const ContentPage = () => {
         </aside>
       </div>
 
-      {/* Trailer Modal */}
       {trailerOpen && trailer && (
         <div
           className="flick-trailer-overlay"

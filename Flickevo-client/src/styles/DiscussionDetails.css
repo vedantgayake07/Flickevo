@@ -45,7 +45,6 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
 }
 
-/* Discussion Media Banner */
 .discussion-media-banner {
   display: flex;
   align-items: center;
@@ -262,7 +261,6 @@
   cursor: not-allowed;
 }
 
-/* Comments Section */
 .comments-section {
   background: var(--surface);
   border: 1px solid var(--border);

@@ -152,7 +152,6 @@
   border-color: rgba(242, 238, 230, 0.25);
 }
 
-/* Media selection & search dropdown */
 .create-disc-search-box {
   position: relative;
   width: 100%;
@@ -236,7 +235,6 @@
   text-transform: uppercase;
 }
 
-/* Selected Media Preview Card */
 .create-disc-selected-media {
   display: flex;
   align-items: center;

@@ -1,4 +1,3 @@
-// components/PosterSlider.jsx
 import { useRef } from 'react';
 import { FaStar, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import '../styles/PosterSlider.css';

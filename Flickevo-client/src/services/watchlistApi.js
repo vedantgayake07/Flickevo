@@ -2,7 +2,7 @@ import { backendApi } from "./backendClient";
 
 export const fetchWatchlist = async () => {
   const { data } = await backendApi.get("/watchlist");
-  return data.watchlist; // [{ _id, mediaId, mediaType, createdAt }]
+  return data.watchlist;
 };
 
 export const addToWatchlistApi = async (mediaId, mediaType) => {

@@ -1,4 +1,3 @@
-// Home.jsx
 import { getTrending } from '../services/apiClient';
 import { getDiscussions } from '../services/discussionApi';
 import { useEffect, useState } from 'react';
@@ -15,7 +14,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   const handleOnClick = (movie) => {
-    const type = getMediaType(movie); // returns 'movie' or 'tv'
+    const type = getMediaType(movie);
     navigate(`/content/${movie.id}/${type}`);
   };
 
@@ -35,12 +34,10 @@ const Home = () => {
     getData();
   }, []);
 
-  // Use a handful of posters to build the hero mosaic backdrop
   const heroPosters = popularMovies.slice(0, 8);
 
   return (
     <div className="page">
-      {/* HERO */}
       <section className="hero">
         <div className="hero-mosaic">
           {heroPosters.map((movie) => (
@@ -73,11 +70,8 @@ const Home = () => {
             </NavLink>
           </div>
         </div>
-
-        <div className="sprocket-strip" aria-hidden="true" />
       </section>
 
-      {/* POPULAR GRID */}
       <section className="popular-section">
         <div className="section-header">
           <h2>Popular this week</h2>
@@ -119,7 +113,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* COMMUNITY DISCUSSIONS SHOWCASE */}
       <section className="home-discussions-section">
         <div className="home-discussions-header">
           <div>

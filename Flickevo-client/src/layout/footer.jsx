@@ -1,11 +1,9 @@
-// Footer.jsx
 import { NavLink } from 'react-router-dom';
 import '../styles/Footer.css';
 
 const Footer = () => {
   return (
     <footer className="site-footer">
-      <div className="footer-sprocket" aria-hidden="true" />
       <div className="footer-inner">
         <div className="footer-brand">
           <span className="logo">Flick<span className="accent">evo</span></span>
@@ -32,7 +30,6 @@ const Footer = () => {
             <NavLink to="/">Home</NavLink>
             <NavLink to="/movies">Movies</NavLink>
             <NavLink to="/shows">TV Shows</NavLink>
-            <NavLink to="/genres">Genres</NavLink>
             <NavLink to="/watchlist">Watchlist</NavLink>
           </div>
           <div className="footer-col">

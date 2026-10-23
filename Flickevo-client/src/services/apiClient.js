@@ -14,9 +14,6 @@ const fetchApi = async (endpoint) => {
   }
 };
 
-
-// ================= MOVIES =================
-
 export const getTrending = async () => {
   const response = await fetchApi("/trending");
   return response.data;
@@ -36,9 +33,6 @@ export const getUpcoming = async () => {
   const response = await fetchApi("/movies?type=upcoming");
   return response.data;
 };
-
-
-// ================= TV SHOWS =================
 
 export const getCurrentShows = async () => {
   const response = await fetchApi("/tv?type=current");
@@ -60,27 +54,18 @@ export const getPopularShows = async () => {
   return response.data;
 };
 
-
-// ================= SEARCH =================
-
 export const searchMovie = async (query, page = 1) => {
   return await fetchApi(`/search?query=${encodeURIComponent(query)}&page=${page}`);
 };
-
-
-// ================= DETAILS =================
 
 export const getContentById = async (id, type) => {
   const response = await fetchApi(`/${type}/${id}`);
   return response.data;
 };
 
-
-// ================= GENRES =================
-
 export const getMovieGenres = async () => {
   const response = await fetchApi("/genres/movie");
-  return response.data; // { genres: [{ id, name }, ...] }
+  return response.data;
 };
 
 export const getTvGenres = async () => {
@@ -92,9 +77,6 @@ export const discoverByGenre = async (type, genreId, page = 1) => {
   const response = await fetchApi(`/discover/${type}?genreId=${genreId}&page=${page}`);
   return response.data;
 };
-
-
-// ================= PERSON =================
 
 export const getPersonById = async (id) => {
   const response = await fetchApi(`/person/${id}`);

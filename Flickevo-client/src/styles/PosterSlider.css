@@ -1,4 +1,3 @@
-/* PosterSlider.css */
 .slider-section {
   margin-bottom: 12px;
 }
@@ -109,7 +108,6 @@
   color: var(--text-secondary);
 }
 
-/* Nav arrows */
 .slider-nav {
   position: absolute;
   top: 50%;
@@ -142,7 +140,6 @@
 .slider-nav-left { left: 4px; }
 .slider-nav-right { right: 4px; }
 
-/* Edge fade so it's clear there's more content to scroll */
 .slider-fade {
   position: absolute;
   top: 0;
@@ -164,7 +161,7 @@
 
 @media (max-width: 768px) {
   .poster-card { width: 135px; }
-  .slider-nav { display: none; } /* touch users swipe smoothly instead */
+  .slider-nav { display: none; }
   .slider-fade { display: none; }
   .section-title { font-size: 1.5rem; margin: 32px 0 14px; }
   .poster-overlay {

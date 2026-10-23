@@ -8,9 +8,9 @@ import "../styles/Watchlist.css";
 
 const WatchList = () => {
   const { items, loaded, toggleWatchlist } = useWatchlist();
-  const [details, setDetails] = useState({}); // { [_id]: fullMovieOrShowObject }
+  const [details, setDetails] = useState({});
   const [detailsLoading, setDetailsLoading] = useState(true);
-  const [activeFilter, setActiveFilter] = useState("all"); // 'all' | 'movie' | 'tv'
+  const [activeFilter, setActiveFilter] = useState("all");
   const navigate = useNavigate();
 
   useEffect(() => {
