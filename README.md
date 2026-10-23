@@ -54,9 +54,8 @@ Instead of generic, high-saturation layouts, Flickevo adopts a warm 35mm film ae
 * Filter Tabs: Instant client-side switching between All, Movies, and TV Shows with live title counts.
 * One-Click Removal: Effortlessly manage and prune your saved catalog.
 
-### Curated Genre Archive
-* Film Movement Showcase: Browse genres through curated editorial profiles (such as Film Noir, Cyberpunk, French New Wave, Psychological Thriller).
-* Dynamic Genre Results: Instant filtering of movies and shows with full pagination.
+### Dynamic Genre Discovery
+* Dynamic Genre Results: Real-time filtering of movies and television series using official TMDB category endpoints with server-side pagination.
 
 ### Cast and Crew Filmographies
 * Person Details: Actor and director profiles with biographies, birthplaces, and department badges.
@@ -160,7 +159,7 @@ Flickevo/
 │   │   ├── helpers/               # Client-side utility functions
 │   │   ├── layout/                # Global Header, Footer, Layout shells
 │   │   ├── pages/                 # Route pages (Home, Movies, Shows, WatchList,
-│   │   │                          #  Genres, ContentPage, Discussions, Profile, etc.)
+│   │   │                          #  ContentPage, Discussions, Profile, etc.)
 │   │   ├── services/              # API clients (TMDB client, backend client)
 │   │   ├── styles/                # Component and page stylesheets
 │   │   ├── App.jsx                # Route definitions and application wrapper
